@@ -427,8 +427,16 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-
                 plugins: [
+                  // TODO babel按需家在antd，没啥用新版默认就是按需引入
+                  // [
+                  //   require.resolve('babel-plugin-import'),
+                  //   {
+                  //     libraryName: 'antd',
+                  //     libraryDirectory: 'es',
+                  //     style: 'css',
+                  //   },
+                  // ],
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
                     require.resolve('react-refresh/babel'),
