@@ -6,17 +6,16 @@ import reportWebVitals from './reportWebVitals'
 import zhCN from 'antd/locale/zh_CN'
 import { ConfigProvider } from 'antd'
 import AllRoutes from './routes'
-import { BrowserRouter } from 'react-router-dom'
-import PageLayout from './components/PageLayout'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <BrowserRouter>
+  <Provider store={store}>
     <ConfigProvider locale={zhCN}>
-      <PageLayout>
-        <AllRoutes />
-      </PageLayout>
+      <AllRoutes />
     </ConfigProvider>
-  </BrowserRouter>
+  </Provider>
 )
+
 reportWebVitals()

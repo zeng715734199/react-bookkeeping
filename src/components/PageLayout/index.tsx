@@ -1,23 +1,34 @@
 import React from 'react'
-import { Button } from 'antd'
-import config from '@/routes/config'
-import { useNavigate } from 'react-router-dom'
+import { Flex, Layout } from 'antd'
+import { Content } from 'antd/es/layout/layout'
+import FooterBar from '@/components/FooterBar'
+import NavBar from '@/components/NavBar'
+
 function PageLayout(props: { children: React.ReactNode }) {
-  const navigate = useNavigate()
+  const layoutStyle = {
+    overflow: 'hidden',
+    width: '100%',
+  }
+  const contentStyle: React.CSSProperties = {
+    padding: '8px',
+    width: '100%',
+    overflow: 'hidden',
+  }
+
   return (
-    <div>
-      {config.menus.map((item) => {
-        return (
-          <div key={item.path}>
-            <br />
-            <Button onClick={() => navigate(item.path)} type="primary">
-              {item.path}
-            </Button>
-          </div>
-        )
-      })}
-      {props.children}
-    </div>
+    <Flex
+      gap="middle"
+      wrap="wrap"
+      style={{
+        height: '100%',
+      }}
+    >
+      <Layout style={layoutStyle}>
+        <NavBar />
+        <Content style={contentStyle}>{props.children}</Content>
+        <FooterBar />
+      </Layout>
+    </Flex>
   )
 }
 

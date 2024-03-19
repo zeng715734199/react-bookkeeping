@@ -52,7 +52,9 @@ const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
 
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === 'true'
-const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true'
+// const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true'
+//TODO 禁用eslint
+const disableESLintPlugin = true
 
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
@@ -327,6 +329,7 @@ module.exports = function (webpackEnv) {
         ...(modules.webpackAliases || {}),
         //TODO 设置别名
         '@': path.join(__dirname, '..', 'src'),
+        '@api': path.join(__dirname, '..', 'src/api'),
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).

@@ -78,10 +78,11 @@ module.exports = function (proxy, allowedHost) {
         pathname: sockPath,
         port: sockPort,
       },
-      overlay: {
-        errors: true,
-        warnings: false,
-      },
+      // overlay: {
+      //   errors: true,
+      //   warnings: false,
+      // },
+      overlay: false, //TODO 关闭开发环境报错遮罩提示
     },
     devMiddleware: {
       // It is important to tell WebpackDevServer to use the same "publicPath" path as

@@ -1,20 +1,22 @@
-import React, { memo } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import RoutesConfig, { RoutesRaw } from './config'
-import Login from '@/pages/login'
+import React, { useEffect } from 'react'
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
+import RouterApp from './config'
+import { historyUtils } from '@/utils'
+import store from '@/store'
+import { queryUserInfo } from '@api/Login'
+import { setUserInfo } from '@/store/actions'
 
-export default memo(function (props: object) {
-  const { menus } = RoutesConfig
+function allRoutes() {
+  useEffect(() => {
+    // queryUserInfo().then(({ data }) => {
+    //   store.dispatch(setUserInfo(data))
+    // })
+  }, [])
   return (
-    <Routes>
-      <Route index element={<Login />} />
-      {menus.map((item: RoutesRaw) => (
-        <Route
-          key={item.path}
-          path={item.path}
-          element={<item.component {...props} />}
-        />
-      ))}
-    </Routes>
+    <HistoryRouter history={historyUtils}>
+      <RouterApp />
+    </HistoryRouter>
   )
-})
+}
+
+export default allRoutes
