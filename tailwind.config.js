@@ -6,7 +6,15 @@ module.exports = {
     './src/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    colors: {
+      primary: '#30ab6d',
+      baseBg: '#eaeaea',
+      navBg: '#ffffff',
+    },
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    preflight: false,
+  },
 }

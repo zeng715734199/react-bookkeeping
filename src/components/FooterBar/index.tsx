@@ -4,15 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { tabBar } from '@/routes/config'
 import './style.less'
 function FooterBar() {
-  const footerStyle: React.CSSProperties = {
-    width: '100%',
-    backgroundColor: '#eaedf4',
-    padding: '8px 16px',
-  }
   const navigate = useNavigate()
 
   return (
-    <Footer style={footerStyle} className="footer">
+    <Footer className="footer bg-navBg">
       {tabBar.map((tab) => (
         <div
           className="footer-item-wrap"
@@ -20,7 +15,7 @@ function FooterBar() {
           onClick={() => navigate(tab.path)}
         >
           <div className="footer-icon-wrap">
-            <tab.icon style={{ fontSize: '20px' }} />
+            <tab.icon className="text-[20px]" />
           </div>
           {tab.title}
         </div>

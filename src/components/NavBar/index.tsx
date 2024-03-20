@@ -1,22 +1,14 @@
 import { Header } from 'antd/es/layout/layout'
-import React, { createContext, useState } from 'react'
-import NavTab from '@/components/NavBar/navTab'
-import { SegmentedLabeledOption } from 'rc-segmented'
-export const NavContext = createContext([] as SegmentedLabeledOption<string>[])
-const headerStyle: React.CSSProperties = {
-  textAlign: 'center',
-  color: '#fff',
-  paddingInline: 48,
-  lineHeight: '64px',
-  // backgroundColor: '#4096ff',
-  backgroundColor: '#79aaf0',
-  width: '100%',
-}
-function NavBar() {
+import React, { JSX } from 'react'
+
+function NavBar(props: { children?: JSX.Element }) {
   return (
-    <Header style={headerStyle}>
-      <NavTab />
-    </Header>
+    <div className="w-full flex flex-col fixed top-0 h-[15%]">
+      <Header className="text-center bg-primary text-[#fff] h-full">
+        <span className="text-xl font-bold">记账本</span>
+      </Header>
+      {props.children}
+    </div>
   )
 }
 

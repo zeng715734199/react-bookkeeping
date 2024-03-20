@@ -12,7 +12,18 @@ import store from './store'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <Provider store={store}>
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider
+      theme={{
+        components: {
+          Button: {
+            colorPrimary: '#43b47a',
+            colorPrimaryActive: '#20a265',
+            algorithm: true, // 启用算法
+          },
+        },
+      }}
+      locale={zhCN}
+    >
       <AllRoutes />
     </ConfigProvider>
   </Provider>
