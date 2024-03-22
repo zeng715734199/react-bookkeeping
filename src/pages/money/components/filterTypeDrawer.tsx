@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
 import { AppstoreOutlined } from '@ant-design/icons'
-import Icons from '@/pages/money/widgets/icons'
 type Tags = {
   label: string
   key: string
@@ -51,8 +50,15 @@ const expenditures: Tags[] = [
 const App: React.FC = () => {
   const [open, setOpen] = useState(false)
   const [checkedList, setCheckedList] = useState<string[]>(['*'])
-  const showDrawer = () => setOpen(true)
-  const onClose = () => setOpen(false)
+  const showDrawer = () => {
+    setOpen(true)
+    setCheckedList(['*'])
+  }
+
+  const onClose = () => {
+    setOpen(false)
+    setCheckedList([])
+  }
 
   const changeCheckedList = (key: string, checked: boolean) => {
     if (checked) {
@@ -64,11 +70,14 @@ const App: React.FC = () => {
   const getTagList = (tagList: Tags[]) => {
     return tagList.map((item) => (
       <Tag.CheckableTag
+        className="w-[100px] h-[50px] m-1 rounded-xl border-[#d4d4d4]"
         key={item.key}
         checked={checkedList.includes(item.key)}
         onChange={(checked) => changeCheckedList(item.key, checked)}
       >
-        {item.label}
+        <span className="flex items-center justify-center text-sm w-full h-full font-bold">
+          {item.label}
+        </span>
       </Tag.CheckableTag>
     ))
   }
@@ -103,11 +112,11 @@ const App: React.FC = () => {
       >
         <section>{getTagList(allTypes)}</section>
         <section>
-          <div>收入</div>
+          <div className="text-[#a7a9ad] my-3 font-bold text-[15px]">收入</div>
           {getTagList(incomes)}
         </section>
         <section>
-          <div>支出</div>
+          <div className="text-[#a7a9ad] my-3 font-bold text-[15px]">支出</div>
           {getTagList(expenditures)}
         </section>
       </Drawer>
