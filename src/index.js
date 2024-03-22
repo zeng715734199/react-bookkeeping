@@ -14,13 +14,18 @@ root.render(
   <Provider store={store}>
     <ConfigProvider
       theme={{
-        components: {
-          Button: {
-            colorPrimary: '#43b47a',
-            colorPrimaryActive: '#20a265',
-            algorithm: true, // 启用算法
-          },
+        token: {
+          colorPrimary: '#43b47a',
+          colorPrimaryActive: '#20a265',
+          algorithm: true, // 启用算法
         },
+        // components: {
+        //   Button: {
+        //     colorPrimary: '#43b47a',
+        //     colorPrimaryActive: '#20a265',
+        //     algorithm: true, // 启用算法
+        //   },
+        // },
       }}
       locale={zhCN}
     >
