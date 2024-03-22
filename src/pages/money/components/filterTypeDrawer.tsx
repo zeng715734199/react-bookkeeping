@@ -12,6 +12,7 @@ const allTypes: Tags[] = [
     key: '*',
   },
 ]
+
 const incomes: Tags[] = [
   { label: '工资', key: 'salary' },
   {
@@ -70,7 +71,7 @@ const App: React.FC = () => {
   const getTagList = (tagList: Tags[]) => {
     return tagList.map((item) => (
       <Tag.CheckableTag
-        className="w-[100px] h-[50px] m-1 rounded-xl border-[#d4d4d4]"
+        className="w-[80px] h-[40px] m-1 border-[#d4d4d4]"
         key={item.key}
         checked={checkedList.includes(item.key)}
         onChange={(checked) => changeCheckedList(item.key, checked)}
@@ -102,12 +103,9 @@ const App: React.FC = () => {
         onClose={onClose}
         open={open}
         extra={
-          <Space>
-            <Button onClick={onClose}>关闭</Button>
-            <Button type="primary" onClick={onClose}>
-              确定
-            </Button>
-          </Space>
+          <Button type="primary" onClick={onClose}>
+            确定
+          </Button>
         }
       >
         <section>{getTagList(allTypes)}</section>

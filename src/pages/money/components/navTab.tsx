@@ -5,6 +5,7 @@ import { setCurrentTab } from '@/store/actions'
 import FilterTypeDrawer from '@/pages/money/components/filterTypeDrawer'
 import { CaretDownOutlined } from '@ant-design/icons'
 import { Space, Divider } from 'antd'
+import MonthFilterDrawer from '@/pages/money/components/monthFilterDrawer'
 
 function NavTab() {
   const { uiController } = store.getState() as { uiController: UI_STATE }
@@ -20,15 +21,12 @@ function NavTab() {
         <FilterTypeDrawer />
       </div>
       <Space
-        className="text-[#fff] text-[12px] flex justify-center my-3"
+        className="text-[#fff] text-[13px] flex justify-center my-3"
         split={<Divider type="vertical" />}
         align={'center'}
-        size={[8, 5]}
+        size={[3, 3]}
       >
-        <span>
-          2024年3月
-          <CaretDownOutlined />
-        </span>
+        <MonthFilterDrawer></MonthFilterDrawer>
         <span>总支出：￥300.00</span>
         <span>总收入：￥300.0</span>
       </Space>
