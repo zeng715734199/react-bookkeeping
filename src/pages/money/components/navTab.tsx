@@ -3,7 +3,6 @@ import store from '@/store'
 import { UI_STATE } from '@/store/reducers/users'
 import { setCurrentTab } from '@/store/actions'
 import FilterTypeDrawer from '@/pages/money/components/filterTypeDrawer'
-import { CaretDownOutlined } from '@ant-design/icons'
 import { Space, Divider } from 'antd'
 import MonthFilterDrawer from '@/pages/money/components/monthFilterDrawer'
 
@@ -22,7 +21,7 @@ function NavTab() {
       </div>
       <Space
         className="text-[#fff] text-[13px] flex justify-center my-3"
-        split={<Divider type="vertical" />}
+        split={<Divider type="vertical" className="mx-1" />}
         align={'center'}
         size={[3, 3]}
       >

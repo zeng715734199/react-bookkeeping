@@ -10,9 +10,18 @@ import Labels from '@/pages/labels/index'
 import NotFound from '@/notFound'
 import Login from '@/pages/login'
 import type { RouteObject } from 'react-router-dom'
-import { useRoutes, Navigate } from 'react-router-dom'
+import type { AntdIconProps } from '@ant-design/icons/es/components/AntdIcon'
+import { useRoutes } from 'react-router-dom'
 import PageLayout from '@/components/PageLayout'
+import RecordDetails from '@/pages/money/detail'
 
+export type TabItem = {
+  path: string
+  icon: React.ForwardRefExoticComponent<
+    Omit<AntdIconProps, 'ref'> & React.RefAttributes<HTMLSpanElement>
+  >
+  title: string
+}
 // 底部菜单栏
 export const tabBar = [
   {
@@ -31,43 +40,45 @@ export const tabBar = [
     title: '标签',
   },
 ]
-const routerList = [
+const routerList: RouteObject[] = [
   // 菜单相关路由
   {
     path: '/',
-    element: <Navigate to="/login" />,
+    element: <PageLayout />,
+    children: [
+      {
+        path: '', // 空路径作为父路由
+        element: <Money />,
+        children: [
+          {
+            path: '/money',
+            element: <Money />,
+          },
+        ],
+      },
+      {
+        path: '/statistics',
+        element: <Statistics />,
+      },
+      {
+        path: '/labels',
+        element: <Labels />,
+      },
+    ],
   },
   {
-    path: '/login',
+    path: 'login',
     element: <Login />,
   },
   {
-    path: '/money',
-    element: <Money />,
+    path: '/detail/:id',
+    element: <RecordDetails />,
   },
-  {
-    path: '/statistics',
-    element: <Statistics />,
-  },
-  {
-    path: '/labels',
-    element: <Labels />,
-  },
+
   {
     path: '*',
     element: <NotFound />,
   },
-] as RouteObject[]
+]
 
-export default function () {
-  return useRoutes(
-    routerList.map((item) =>
-      ['/login', '*'].includes(item.path as string)
-        ? item
-        : {
-            ...item,
-            element: <PageLayout>{item.element}</PageLayout>,
-          }
-    )
-  )
-}
+export default () => useRoutes(routerList)

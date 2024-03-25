@@ -1,6 +1,6 @@
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer, Space, Tag } from 'antd'
+import { Button, Divider, Drawer, Space, Tag } from 'antd'
 
 export default function MonthFilterDrawer() {
   const [timeFrame, setTimeFrame] = useState<string>('')
@@ -49,10 +49,15 @@ export default function MonthFilterDrawer() {
 
   return (
     <>
-      <div onClick={showDrawer}>
+      <Space
+        onClick={showDrawer}
+        split={<Divider type="vertical" className="bg-baseBg mx-1.5" />}
+        size={0}
+        align={'center'}
+      >
         <span>{timeFrame}</span>
         {open ? <CaretUpOutlined /> : <CaretDownOutlined />}
-      </div>
+      </Space>
       <Drawer
         placement="bottom"
         onClose={onClose}

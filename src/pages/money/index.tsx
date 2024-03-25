@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import NavTab from '@/pages/money/components/navTab'
 import RecordItems from '@/pages/money/components/recordItems'
+import { FloatButton } from 'antd'
+import { EditOutlined } from '@ant-design/icons'
 
 function Money() {
   return (
@@ -9,6 +11,12 @@ function Money() {
         <NavTab />
       </div>
       <div className="mt-[80px]">
+        <FloatButton
+          icon={<EditOutlined />}
+          type="default"
+          style={{ right: 94 }}
+        />
+
         <RecordItems />
         <RecordItems />
         <RecordItems />

@@ -2,9 +2,12 @@ import React from 'react'
 import { Card, Divider, Space } from 'antd'
 import Tag from '@/pages/money/widgets/tag'
 import Icons from '@/pages/money/widgets/icons'
+import { useNavigate } from 'react-router-dom'
 const RecordItems: React.FC = () => {
+  const navigate = useNavigate()
+  const goDetail = () => navigate(`/detail/${5555}`)
   return (
-    <div className="p-3">
+    <div className="p-3" onClick={goDetail}>
       <Space
         className="text-[#86898f] text-[13px] font-bold flex justify-center "
         split={<Divider type="vertical" />}
@@ -31,7 +34,7 @@ const RecordItems: React.FC = () => {
           </section>
         }
         bordered={true}
-        className="mt-2 card-records"
+        className="mt-2"
       >
         <div className="flex justify-between items-center">
           <Icons name="shopping"></Icons>
