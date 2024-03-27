@@ -65,7 +65,7 @@ const useTypeScript = fs.existsSync(paths.appTsConfig)
 
 // Check if Tailwind config exists
 const useTailwind = fs.existsSync(
-  path.join(paths.appPath, 'tailwind.config.js')
+  path.join(paths.appPath, 'tailwind.config.ts')
 )
 
 // Get the path to the uncompiled service worker (if it exists).

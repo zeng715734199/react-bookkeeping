@@ -2,13 +2,23 @@ import { Button, Input, message, Space } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import { InputRef } from 'rc-input/lib/interface'
 
-export default function Notes({ onSave }: { onSave: (note: string) => void }) {
+export default function Notes({
+  value,
+  onSave,
+}: {
+  value: string
+  onSave: (note: string) => void
+}) {
   const noteInputRef = useRef<InputRef>(null)
   const [localNote, setLocalNote] = useState('')
   const [showNote, setShowNote] = useState(true)
   useEffect(() => {
     noteInputRef.current?.focus?.()
   }, [showNote])
+  //回显赋值
+  useEffect(() => {
+    setLocalNote(value)
+  }, [value])
   const saveNote = () => {
     if (localNote.length >= 30) {
       message.error('备注内容不得超过30字~')

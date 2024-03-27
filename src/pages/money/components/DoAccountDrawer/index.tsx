@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Drawer, FloatButton, Segmented } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Drawer, FloatButton } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import Big from 'big.js'
 import NumberPad from '@/pages/money/components/DoAccountDrawer/components/numberPad'
@@ -13,16 +13,16 @@ import TopTab from '@/pages/money/components/DoAccountDrawer/components/topTab'
 const Index: React.FC = () => {
   const drawerHeight = new Big(window.innerHeight).times(0.9).toNumber()
   const [open, setOpen] = useState(false)
-  const [tab, setTab] = useState('income')
   const [record, setRecord] = useState({
+    tab: 'income',
     money: '0',
     note: '',
-    tag: IconTabMap[tab]['0'].key,
+    tag: IconTabMap['income']['0'].key,
   })
 
   const setNavTab = (value: string) => {
     setRecord((state) => ({ ...state, tag: IconTabMap[value]['0'].key }))
-    setTab(value)
+    setRecord((state) => ({ ...state, tab: value }))
   }
   const showDrawer = () => setOpen(true)
   const onClose = () => setOpen(false)
@@ -44,7 +44,7 @@ const Index: React.FC = () => {
         <div className="p-1">
           {/*顶部tab*/}
           <section>
-            <TopTab onChange={setNavTab} />
+            <TopTab value={record.tab} onChange={setNavTab} />
           </section>
           {/*金额展示*/}
           <section>
@@ -53,14 +53,15 @@ const Index: React.FC = () => {
           {/*选择标签*/}
           <section className="flex flex-nowrap">
             <TagList
-              tab={tab}
+              tab={record.tab}
               tag={record.tag}
               onChange={(tag) => setRecord((state) => ({ ...state, tag }))}
             />
           </section>
           {/*备注*/}
-          <section className="my-3 py-3">
+          <section className="my-2 py-3">
             <Notes
+              value={record.note}
               onSave={(note) => setRecord((state) => ({ ...state, note }))}
             />
           </section>

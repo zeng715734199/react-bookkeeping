@@ -59,7 +59,7 @@ export default function TagList({
       {IconTabMap[tab].map((item) => {
         return (
           <div
-            className="flex flex-col justify-center items-center mt-10 mx-1"
+            className="flex flex-col justify-center items-center mt-5 mx-1"
             key={item.key}
             onClick={() => onChange(item.key)}
           >

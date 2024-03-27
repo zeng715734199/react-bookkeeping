@@ -1,5 +1,5 @@
 import React, { CSSProperties, MouseEvent, useEffect, useState } from 'react'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 
 function NumPadButton({
   children,
@@ -42,9 +42,19 @@ export default function NumberPad({
 
   const setNum = (num: string) => {
     setMoney((state) => {
-      if (num === '.') return /\./.test(state) ? state : state + num
-      if (num === '0' && /\./.test(state)) return state + num
-      return parseFloat(state + num).toString()
+      const hasPoint = /\./.test(state)
+      let money = parseFloat(state + num).toString()
+      if (num === '.') return hasPoint ? state : state + num
+      if (num === '0' && hasPoint) money = state + num
+      if (money.includes('.') && money.split('.')[1]?.length > 2) {
+        message.warning('小数点最多两位嗷！👎')
+        return state
+      }
+      if (+money > 10000000) {
+        message.warning('记这么多，你有这么多钱吗？👎')
+        return state
+      }
+      return money
     })
   }
   const deleteNum = () => {
@@ -57,7 +67,13 @@ export default function NumberPad({
     const map = {
       AC: () => setMoney('0'),
       DEL: () => deleteNum(),
-      OK: () => onOk(),
+      OK: () => {
+        if (parseFloat(money) === 0) {
+          message.warning('吃饱了撑的是吧，0元记了干嘛？')
+          return
+        }
+        onOk()
+      },
     } as Record<string, () => void>
     map[value] ? map[value]?.() : setNum(value)
   }

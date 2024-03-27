@@ -7,15 +7,18 @@ const tabList = [
 ]
 
 export default function TopTab({
+  value = 'income',
   onChange,
 }: {
+  value: string
   onChange: (value: string) => void
 }) {
   return (
     <div className="w-full flex justify-center">
       <Segmented
+        value={value}
         defaultValue="income"
-        className="mb-10 bg-[#8fd0b2]"
+        className="mb-5 bg-[#8fd0b2]"
         onChange={(value) => onChange(value)}
         options={tabList}
       />

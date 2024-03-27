@@ -7,7 +7,7 @@ export default function MoneyPanel({ money }: { money: string }) {
       <Title level={1} className="max-w-[35px] !m-0">
         ￥
       </Title>
-      <span className="w-full text-right text-2xl">{money}</span>
+      <span className="w-full text-right text-3xl">{money}</span>
     </div>
   )
 }
