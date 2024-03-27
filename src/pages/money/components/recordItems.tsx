@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Divider, Space } from 'antd'
-import Tag from '@/pages/money/widgets/tag'
-import Icons from '@/pages/money/widgets/icons'
+import Tag from '@/pages/money/widget/tag'
+import Icons from '@/pages/money/widget/icons'
 import { useNavigate } from 'react-router-dom'
 const RecordItems: React.FC = () => {
   const navigate = useNavigate()

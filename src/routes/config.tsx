@@ -13,7 +13,7 @@ import type { RouteObject } from 'react-router-dom'
 import type { AntdIconProps } from '@ant-design/icons/es/components/AntdIcon'
 import { useRoutes } from 'react-router-dom'
 import PageLayout from '@/components/PageLayout'
-import RecordDetails from '@/pages/money/detail'
+import RecordDetails from 'src/pages/detail'
 
 export type TabItem = {
   path: string

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import { Breadcrumb, Button, Card, Divider, Space } from 'antd'
 import { DeleteOutlined, FormOutlined, LeftOutlined } from '@ant-design/icons'
-import Icons from '@/pages/money/widgets/icons'
+import Icons from '@/pages/money/widget/icons'
 import Title from 'antd/es/typography/Title'
 
 export default function RecordDetails() {
@@ -42,8 +42,7 @@ export default function RecordDetails() {
             </tbody>
           </table>
           <Space
-            className="flex justify-center pt-4 mt-4"
-            style={{ borderTop: '1px solid #eee' }}
+            className="flex justify-center pt-4 mt-4 border-solid border-0 border-t border-[#eee]"
             split={<Divider type="vertical" />}
             align={'center'}
             size={50}

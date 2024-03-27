@@ -1,13 +1,17 @@
+import { CSSProperties } from 'react'
+
 export default function Icons({
   name,
   size = 30,
   background = '#30ab6d',
+  color = '#fff',
   ...attrs
 }: {
   name: string
   size?: number
   background?: string
-}) {
+  color?: string
+} & CSSProperties) {
   const width = `${size}px`
   const height = `${size}px`
   return (
@@ -20,13 +24,14 @@ export default function Icons({
       }}
     >
       <svg
-        className="icon text-[#fff]"
+        className="icon"
         aria-hidden="true"
         style={{
           width,
           height,
+          color,
+          ...attrs,
         }}
-        {...attrs}
       >
         <use xlinkHref={`#icon-${name}`}></use>
       </svg>
