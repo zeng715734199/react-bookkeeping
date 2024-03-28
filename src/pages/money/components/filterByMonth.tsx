@@ -2,26 +2,32 @@ import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { Button, Divider, Drawer, Space, Tag } from 'antd'
 
-export default function FilterByMonth() {
-  const [timeFrame, setTimeFrame] = useState<string>('')
-  const [yearList, setYearList] = useState<
-    { year: number; months: number[] }[]
-  >([])
+type MonthObj = { year: number; months: number[] }
+const getSpliceVal = (year: number, month: number) =>
+  year + `${month < 10 ? '0' + month : month}`
+
+export default function FilterByMonth({
+  value,
+  onOk,
+  children,
+}: {
+  value: string
+  onOk: (value: string) => void
+  children: React.ReactNode
+}) {
   const [open, setOpen] = useState<boolean>(false)
+  const [yearList, setYearList] = useState<MonthObj[]>([])
   const [checkedYearMonth, setCheckedYearMonth] = useState<string[]>([])
   const showDrawer = () => setOpen(true)
   const onClose = () => {
-    setCheckedYearMonth([timeFrame])
+    setCheckedYearMonth([value])
     setOpen(false)
   }
   const changeCheckedList = (month: string, checked: boolean) => {
-    if (checked) {
-      setCheckedYearMonth([])
-      setCheckedYearMonth([month])
-    }
+    if (checked) setCheckedYearMonth([month])
   }
   const confirmTime = () => {
-    setTimeFrame(checkedYearMonth['0'])
+    onOk(checkedYearMonth['0'])
     setOpen(false)
   }
 
@@ -29,14 +35,14 @@ export default function FilterByMonth() {
     const d = new Date()
     const currentYear = d.getFullYear()
     const currentMonth = d.getMonth() + 1
-    const currentTime = `${currentYear}年${currentMonth < 10 ? '0' + currentMonth : currentMonth}月`
+    const currentTime = getSpliceVal(currentYear, currentMonth)
     const getMonthByYear = (year: number) => {
       if (year > currentYear) return []
       const monthNum = year === currentYear ? currentMonth : 12
       return Array.from({ length: monthNum }, (_, index) => index + 1).reverse()
     }
     const getFewYearList = (num: number) => {
-      const arr = [] as { year: number; months: number[] }[]
+      const arr = [] as MonthObj[]
       for (let i = 0; i < num; i++) {
         const year = currentYear - i
         arr.push({ year, months: getMonthByYear(year) })
@@ -46,20 +52,12 @@ export default function FilterByMonth() {
     //获取最近两年数据
     setYearList(getFewYearList(2))
     setCheckedYearMonth([currentTime])
-    setTimeFrame(currentTime)
+    onOk(currentTime)
   }, [])
 
   return (
     <>
-      <Space
-        onClick={showDrawer}
-        split={<Divider type="vertical" className="bg-baseBg mx-1.5" />}
-        size={0}
-        align={'center'}
-      >
-        <span>{timeFrame}</span>
-        {open ? <CaretUpOutlined /> : <CaretDownOutlined />}
-      </Space>
+      <div onClick={showDrawer}>{children}</div>
       <Drawer
         placement="bottom"
         onClose={onClose}
@@ -78,13 +76,13 @@ export default function FilterByMonth() {
             >
               <div className="my-3 text-center">{item.year}</div>
               {item.months.map((month) => {
-                const uniKey = `${item.year}年${month < 10 ? '0' + month : month}月`
+                const value = getSpliceVal(item.year, month)
                 return (
                   <Tag.CheckableTag
                     className="w-[60px] h-[30px] m-1 border-[#d4d4d4]"
                     key={month}
-                    checked={checkedYearMonth.includes(uniKey)}
-                    onChange={(checked) => changeCheckedList(uniKey, checked)}
+                    checked={checkedYearMonth.includes(value)}
+                    onChange={(checked) => changeCheckedList(value, checked)}
                   >
                     <span className="flex items-center justify-center text-sm w-full h-full font-bold">
                       {month}月

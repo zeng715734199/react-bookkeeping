@@ -3,8 +3,9 @@ import store from '@/store'
 import { UI_STATE } from '@/store/reducers/users'
 import { setCurrentTab } from '@/store/actions'
 import FilterByTag from '@/pages/money/components/filterByTag'
-import { Space, Divider } from 'antd'
+import { Space, Divider, Button } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
+import { CaretDownOutlined } from '@ant-design/icons'
 
 function NavTab() {
   const { uiController } = store.getState() as { uiController: UI_STATE }
@@ -13,6 +14,7 @@ function NavTab() {
     setCurrent(value)
     store.dispatch(setCurrentTab(value))
   }
+  const [timeFrame, setTimeFrame] = useState<string>('')
 
   return (
     <section className="w-full bg-primary flex flex-col max-h-[80px]">
@@ -25,7 +27,22 @@ function NavTab() {
         align={'center'}
         size={[3, 3]}
       >
-        <FilterByMonth></FilterByMonth>
+        <FilterByMonth value={timeFrame} onOk={(value) => setTimeFrame(value)}>
+          <Button
+            size="small"
+            type="default"
+            className="!py-0 !px-1 !m-0 !text-[12px]"
+          >
+            <Space
+              split={<Divider type="vertical" className="bg-baseBg mx-1.5" />}
+              size={0}
+              align={'center'}
+            >
+              <span>{`${timeFrame.slice(0, 4)}年${timeFrame.slice(4)}月`}</span>
+              <CaretDownOutlined />
+            </Space>
+          </Button>
+        </FilterByMonth>
         <span>总支出：￥300.00</span>
         <span>总收入：￥300.0</span>
       </Space>
