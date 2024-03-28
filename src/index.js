@@ -19,14 +19,6 @@ root.render(
           algorithm: true, // 启用算法
         },
         // colorPrimaryActive: '#20a265',
-
-        // components: {
-        //   Button: {
-        //     colorPrimary: '#43b47a',
-        //     colorPrimaryActive: '#20a265',
-        //     algorithm: true, // 启用算法
-        //   },
-        // },
       }}
       locale={zhCN}
     >

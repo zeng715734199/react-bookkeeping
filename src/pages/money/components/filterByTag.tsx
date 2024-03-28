@@ -8,7 +8,7 @@ type Tags = {
 
 const allTypes: Tags[] = [
   {
-    label: '所有类型',
+    label: '所有标签',
     key: '*',
   },
 ]
@@ -48,7 +48,7 @@ const expenditures: Tags[] = [
   },
 ]
 
-const App: React.FC = () => {
+const FilterByTag: React.FC = () => {
   const [open, setOpen] = useState(false)
   const [checkedList, setCheckedList] = useState<string[]>(['*'])
   const showDrawer = () => {
@@ -93,7 +93,7 @@ const App: React.FC = () => {
             type="primary"
             icon={<AppstoreOutlined className="text-xl text-[#fff] w-[32px]" />}
           >
-            全部类型
+            所有标签
           </Button>
         </div>
       </Space>
@@ -122,4 +122,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default FilterByTag

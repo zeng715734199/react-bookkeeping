@@ -2,7 +2,7 @@ import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { Button, Divider, Drawer, Space, Tag } from 'antd'
 
-export default function MonthFilterDrawer() {
+export default function FilterByMonth() {
   const [timeFrame, setTimeFrame] = useState<string>('')
   const [yearList, setYearList] = useState<
     { year: number; months: number[] }[]
@@ -30,19 +30,21 @@ export default function MonthFilterDrawer() {
     const currentYear = d.getFullYear()
     const currentMonth = d.getMonth() + 1
     const currentTime = `${currentYear}年${currentMonth < 10 ? '0' + currentMonth : currentMonth}月`
-    const getMonthList = (num: number) =>
-      Array.from({ length: num }, (_, index) => index + 1).reverse()
+    const getMonthByYear = (year: number) => {
+      if (year > currentYear) return []
+      const monthNum = year === currentYear ? currentMonth : 12
+      return Array.from({ length: monthNum }, (_, index) => index + 1).reverse()
+    }
+    const getFewYearList = (num: number) => {
+      const arr = [] as { year: number; months: number[] }[]
+      for (let i = 0; i < num; i++) {
+        const year = currentYear - i
+        arr.push({ year, months: getMonthByYear(year) })
+      }
+      return arr
+    }
     //获取最近两年数据
-    setYearList([
-      {
-        year: currentYear,
-        months: getMonthList(currentMonth),
-      },
-      {
-        year: currentYear - 1,
-        months: getMonthList(12),
-      },
-    ])
+    setYearList(getFewYearList(2))
     setCheckedYearMonth([currentTime])
     setTimeFrame(currentTime)
   }, [])

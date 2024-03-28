@@ -2,31 +2,22 @@ import React, { CSSProperties, MouseEvent, useEffect, useState } from 'react'
 import { Button, message } from 'antd'
 
 function NumPadButton({
+  className,
   children,
-  styles,
 }: {
-  styles?: CSSProperties
+  className?: string
   children: string
 }) {
   return (
     <Button
       type="default"
-      className="rounded-[4px] text-xl flex justify-center items-center"
-      style={{
-        width: '100%',
-        minHeight: '64px',
-        ...styles,
-      }}
+      className={`w-full min-h-[64px] rounded-[4px] text-xl flex justify-center items-center ${className}`}
     >
       {children}
     </Button>
   )
 }
-const leftNumberList = [
-  ...Array.from({ length: 9 }, (_, index) => (index + 1).toString()),
-  '0',
-  '.',
-]
+const leftNumberList = Array.from('1234567890.').map(String)
 export default function NumberPad({
   onPress,
   onOk,
@@ -83,10 +74,8 @@ export default function NumberPad({
       <div className="w-[75%] flex flex-wrap">
         {leftNumberList.map((item) => (
           <NumPadButton
-            styles={{
-              width: item === '0' ? '66.6%' : '33.3%',
-            }}
             key={item}
+            className={item === '0' ? '!w-[66.6%]' : '!w-[33.3%]'}
           >
             {item}
           </NumPadButton>
@@ -95,13 +84,7 @@ export default function NumberPad({
       <div className="w-[25%]">
         <NumPadButton>AC</NumPadButton>
         <NumPadButton>DEL</NumPadButton>
-        <NumPadButton
-          styles={{
-            minHeight: '128px',
-            backgroundColor: '#80caa5',
-            color: '#fff',
-          }}
-        >
+        <NumPadButton className="!min-h-[128px] bg-[#80caa5] text-[#fff]">
           OK
         </NumPadButton>
       </div>

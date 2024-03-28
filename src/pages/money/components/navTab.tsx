@@ -2,9 +2,9 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import store from '@/store'
 import { UI_STATE } from '@/store/reducers/users'
 import { setCurrentTab } from '@/store/actions'
-import FilterTypeDrawer from '@/pages/money/components/filterTypeDrawer'
+import FilterByTag from '@/pages/money/components/filterByTag'
 import { Space, Divider } from 'antd'
-import MonthFilterDrawer from '@/pages/money/components/monthFilterDrawer'
+import FilterByMonth from '@/pages/money/components/filterByMonth'
 
 function NavTab() {
   const { uiController } = store.getState() as { uiController: UI_STATE }
@@ -17,7 +17,7 @@ function NavTab() {
   return (
     <section className="w-full bg-primary flex flex-col max-h-[80px]">
       <div className="mx-5">
-        <FilterTypeDrawer />
+        <FilterByTag />
       </div>
       <Space
         className="text-[#fff] text-[13px] flex justify-center my-3"
@@ -25,7 +25,7 @@ function NavTab() {
         align={'center'}
         size={[3, 3]}
       >
-        <MonthFilterDrawer></MonthFilterDrawer>
+        <FilterByMonth></FilterByMonth>
         <span>总支出：￥300.00</span>
         <span>总收入：￥300.0</span>
       </Space>

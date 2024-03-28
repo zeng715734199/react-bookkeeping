@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import NavTab from '@/pages/money/components/navTab'
 import RecordItems from '@/pages/money/components/recordItems'
-import DoAccountDrawer from '@/pages/money/components/DoAccountDrawer'
+import DoAccount from 'src/components/DoAccount'
+import { FloatButton } from 'antd'
+import { EditOutlined } from '@ant-design/icons'
 
 function Money() {
   return (
@@ -10,7 +12,13 @@ function Money() {
         <NavTab />
       </div>
       <div className="mt-[80px]">
-        <DoAccountDrawer />
+        <DoAccount>
+          <FloatButton
+            className="right-[5%] bottom-[15%] w-[50px] h-[50px] text-center"
+            icon={<EditOutlined className="text-xl text-primary" />}
+            type="default"
+          />
+        </DoAccount>
         <RecordItems />
         <RecordItems />
         <RecordItems />

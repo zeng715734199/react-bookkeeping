@@ -1,15 +1,36 @@
 import { useParams } from 'react-router-dom'
 import React, { useEffect } from 'react'
-import { Breadcrumb, Button, Card, Divider, Space } from 'antd'
-import { DeleteOutlined, FormOutlined, LeftOutlined } from '@ant-design/icons'
+import { Breadcrumb, Button, Card, Divider, Modal, Space } from 'antd'
+import {
+  DeleteOutlined,
+  FormOutlined,
+  LeftOutlined,
+  WarningFilled,
+} from '@ant-design/icons'
 import Icons from '@/pages/money/widget/icons'
 import Title from 'antd/es/typography/Title'
+import DoAccount from '@/components/DoAccount'
 
-export default function RecordDetails() {
+const RecordDetails: React.FC = () => {
   const { id } = useParams()
   useEffect(() => {
     console.log(id)
   }, [])
+
+  const showConfirm = () => {
+    Modal.confirm({
+      title: '警告',
+      icon: <WarningFilled />,
+      content: '确定删除该标签？',
+      onOk() {
+        console.log('OK')
+      },
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
+
   return (
     <div className="p-3 bg-baseBg h-full">
       <Breadcrumb
@@ -47,8 +68,10 @@ export default function RecordDetails() {
             align={'center'}
             size={50}
           >
-            <Button icon={<FormOutlined />}>修改</Button>
-            <Button danger icon={<DeleteOutlined />}>
+            <DoAccount>
+              <Button icon={<FormOutlined />}>修改</Button>
+            </DoAccount>
+            <Button danger icon={<DeleteOutlined />} onClick={showConfirm}>
               删除
             </Button>
           </Space>
@@ -57,3 +80,5 @@ export default function RecordDetails() {
     </div>
   )
 }
+
+export default RecordDetails

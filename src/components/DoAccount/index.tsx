@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { JSX, useEffect, useState } from 'react'
 import { Drawer, FloatButton } from 'antd'
-import { EditOutlined } from '@ant-design/icons'
-import Big from 'big.js'
-import NumberPad from '@/pages/money/components/DoAccountDrawer/components/numberPad'
-import Notes from '@/pages/money/components/DoAccountDrawer/components/notes'
-import TagList, {
-  IconTabMap,
-} from '@/pages/money/components/DoAccountDrawer/components/tagList'
-import MoneyPanel from '@/pages/money/components/DoAccountDrawer/components/moneyPanel'
-import TopTab from '@/pages/money/components/DoAccountDrawer/components/topTab'
+import NumberPad from '@/components/DoAccount/components/numberPad'
+import Notes from '@/components/DoAccount/components/notes'
+import TagList, { IconTabMap } from '@/components/DoAccount/components/tagList'
+import MoneyPanel from '@/components/DoAccount/components/moneyPanel'
+import TopTab from '@/components/DoAccount/components/topTab'
 
-const Index: React.FC = () => {
-  const drawerHeight = new Big(window.innerHeight).times(0.9).toNumber()
+const DoAccount: React.FC<{ children: JSX.Element }> = ({
+  children,
+}: {
+  children: JSX.Element
+}) => {
   const [open, setOpen] = useState(false)
   const [record, setRecord] = useState({
     tab: 'income',
@@ -29,18 +28,8 @@ const Index: React.FC = () => {
 
   return (
     <>
-      <FloatButton
-        className="right-[5%] bottom-[15%] w-[50px] h-[50px] text-center"
-        icon={<EditOutlined className="text-xl text-primary" />}
-        onClick={showDrawer}
-        type="default"
-      />
-      <Drawer
-        placement="bottom"
-        onClose={onClose}
-        open={open}
-        height={drawerHeight}
-      >
+      <div onClick={showDrawer}>{children}</div>
+      <Drawer placement="bottom" onClose={onClose} open={open} height={600}>
         <div className="p-1">
           {/*顶部tab*/}
           <section>
@@ -78,4 +67,4 @@ const Index: React.FC = () => {
   )
 }
 
-export default Index
+export default DoAccount
