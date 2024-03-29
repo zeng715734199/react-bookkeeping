@@ -9,6 +9,9 @@ import AllRoutes from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
 import customizeRenderEmpty from './components/Empty'
+import isLeapYear from 'dayjs/plugin/isLeapYear'
+import dayjs from 'dayjs'
+dayjs.extend(isLeapYear)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 

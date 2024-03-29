@@ -14,6 +14,13 @@ export default function PieChart({ dataSource }: { dataSource: DataItem[] }) {
       trigger: 'item',
       formatter: '{b} : ￥{c} ({d}%)',
     },
+    grid: {
+      left: '3%', //默认10%
+      top: '10%',
+      right: '3%', //默认10%
+      bottom: '5%', //默认60
+      containLabel: true,
+    },
     series: [
       {
         name: '收支构成',

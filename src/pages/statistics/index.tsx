@@ -7,6 +7,7 @@ import SegmentedNav from 'src/components/SegmentedNav'
 import { borderBottomByColor, flexBetween, xYFull } from '@/utils/shortcuts'
 import ConsumptionRatio from '@/pages/statistics/components/consumptionRatio'
 import DailyComparison from '@/pages/statistics/components/dailyComparison'
+import MonthComparison from '@/pages/statistics/components/monthComparison'
 
 function Statistics() {
   return (
@@ -26,15 +27,9 @@ function Statistics() {
           <div className={`mx-3 ${borderBottomByColor()}`}>
             <DailyComparison />
           </div>
-          {/*<div className={`mx-5 ${borderBottomByColor()}`}>*/}
-          {/*  <section className={`${flexBetween}`}>*/}
-          {/*    <span className="text-sm">月度对比</span>*/}
-          {/*    <SegmentedNav*/}
-          {/*      value={segmentedValue}*/}
-          {/*      onChange={(value) => setSegmentedValue(value)}*/}
-          {/*    ></SegmentedNav>*/}
-          {/*  </section>*/}
-          {/*</div>*/}
+          <div className={`mx-3 ${borderBottomByColor()}`}>
+            <MonthComparison />
+          </div>
         </Card>
       </section>
     </Space>
