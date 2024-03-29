@@ -1,10 +1,10 @@
 import React, { JSX, useEffect, useState } from 'react'
-import { Drawer, FloatButton } from 'antd'
+import { Drawer } from 'antd'
 import NumberPad from '@/components/DoAccount/components/numberPad'
 import Notes from '@/components/DoAccount/components/notes'
 import TagList, { IconTabMap } from '@/components/DoAccount/components/tagList'
 import MoneyPanel from '@/components/DoAccount/components/moneyPanel'
-import TopTab from '@/components/DoAccount/components/topTab'
+import SegmentedNav from 'src/components/SegmentedNav'
 
 const DoAccount: React.FC<{ children: JSX.Element }> = ({
   children,
@@ -20,8 +20,11 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
   })
 
   const setNavTab = (value: string) => {
-    setRecord((state) => ({ ...state, tag: IconTabMap[value]['0'].key }))
-    setRecord((state) => ({ ...state, tab: value }))
+    setRecord((state) => ({
+      ...state,
+      tag: IconTabMap[value]['0'].key,
+      tab: value,
+    }))
   }
   const showDrawer = () => setOpen(true)
   const onClose = () => setOpen(false)
@@ -32,8 +35,8 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
       <Drawer placement="bottom" onClose={onClose} open={open} height={600}>
         <div className="p-1">
           {/*顶部tab*/}
-          <section>
-            <TopTab value={record.tab} onChange={setNavTab} />
+          <section className="mb-5 w-full flex justify-center">
+            <SegmentedNav value={record.tab} onChange={setNavTab} />
           </section>
           {/*金额展示*/}
           <section>

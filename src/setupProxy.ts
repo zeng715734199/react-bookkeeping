@@ -1,5 +1,7 @@
+import { Application } from 'express-serve-static-core'
+
 const { createProxyMiddleware } = require('http-proxy-middleware')
-module.exports = function (app) {
+export default function (app: Application) {
   app.use(
     '/api/lbp/',
     createProxyMiddleware({

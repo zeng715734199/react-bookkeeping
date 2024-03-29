@@ -8,11 +8,14 @@ import { ConfigProvider } from 'antd'
 import AllRoutes from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
+import customizeRenderEmpty from './components/Empty'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
   <Provider store={store}>
     <ConfigProvider
+      renderEmpty={customizeRenderEmpty}
       theme={{
         token: {
           colorPrimary: '#43b47a',

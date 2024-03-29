@@ -10,6 +10,7 @@ export default {
       primary: '#30ab6d',
       baseBg: '#eaeaea',
       navBg: '#ffffff',
+      grey: '#86898f',
     },
     extend: {},
   },
