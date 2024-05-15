@@ -11,6 +11,7 @@ export default {
       baseBg: '#eaeaea',
       navBg: '#ffffff',
       grey: '#86898f',
+      danger: 'red',
     },
     extend: {},
   },

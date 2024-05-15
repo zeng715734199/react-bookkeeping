@@ -7,7 +7,7 @@ import { EditOutlined } from '@ant-design/icons'
 
 function Money() {
   return (
-    <div className="h-full overflow-auto">
+    <div className="h-full overflow-auto min-w-[360px]">
       <div className="absolute top-0 z-10 w-full">
         <NavTab />
       </div>

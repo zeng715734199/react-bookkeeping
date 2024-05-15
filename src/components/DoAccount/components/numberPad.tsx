@@ -19,54 +19,48 @@ function NumPadButton({
 }
 const leftNumberList = Array.from('1234567890.').map(String)
 export default function NumberPad({
+  value,
   onPress,
   onOk,
 }: {
+  value: string
   onPress: (money: string) => void
   onOk: () => void
 }) {
-  const [money, setMoney] = useState('0')
-
-  useEffect(() => {
-    onPress(money)
-  }, [money])
-
   const setNum = (num: string) => {
-    setMoney((state) => {
-      const hasPoint = /\./.test(state)
-      let money = parseFloat(state + num).toString()
-      if (num === '.') return hasPoint ? state : state + num
-      if (num === '0' && hasPoint) money = state + num
-      if (money.includes('.') && money.split('.')[1]?.length > 2) {
-        message.warning('小数点最多两位嗷！👎')
-        return state
-      }
-      if (+money > 10000000) {
-        message.warning('记这么多，你有这么多钱吗？👎')
-        return state
-      }
-      return money
-    })
+    const hasPoint = /\./.test(value)
+    let price = parseFloat(value + num).toString()
+    if (num === '.') return onPress(hasPoint ? value : value + num)
+    if (num === '0' && hasPoint) price = value + num
+    if (price.includes('.') && price.split('.')[1]?.length > 2) {
+      message.warning('小数点最多两位嗷！👎')
+      onPress(value)
+      return
+    }
+    if (+value > 10000000) {
+      message.warning('记这么多，你有这么多钱吗？👎')
+      onPress(value)
+      return
+    }
+    onPress(price)
   }
   const deleteNum = () => {
-    setMoney((state) =>
-      state.length === 1 ? '0' : state.slice(0, state.length - 1)
-    )
+    onPress(value.length === 1 ? '0' : value.slice(0, value.length - 1))
   }
   const clickNumPad = (e: MouseEvent) => {
-    const value = (e.target as HTMLButtonElement).textContent as string
+    const val = (e.target as HTMLButtonElement).textContent as string
     const map = {
-      AC: () => setMoney('0'),
+      AC: () => onPress('0'),
       DEL: () => deleteNum(),
       OK: () => {
-        if (parseFloat(money) === 0) {
+        if (parseFloat(value) === 0) {
           message.warning('吃饱了撑的是吧，0元记了干嘛？')
           return
         }
         onOk()
       },
     } as Record<string, () => void>
-    map[value] ? map[value]?.() : setNum(value)
+    map[val] ? map[val]?.() : setNum(val)
   }
 
   return (

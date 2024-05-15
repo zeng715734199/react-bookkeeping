@@ -1,17 +1,36 @@
 import { Button, Input, message, Space } from 'antd'
-import React, { useEffect, useRef, useState } from 'react'
+import React, {
+  forwardRef,
+  Ref,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 import { InputRef } from 'rc-input/lib/interface'
 
-export default function Notes({
-  value,
-  onSave,
-}: {
-  value: string
-  onSave: (note: string) => void
-}) {
+function Notes(
+  {
+    value,
+    onSave,
+  }: {
+    value: string
+    onSave: (note: string) => void
+  },
+  ref: Ref<{ showNote: boolean }>
+) {
   const noteInputRef = useRef<InputRef>(null)
   const [localNote, setLocalNote] = useState('')
   const [showNote, setShowNote] = useState(true)
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      showNote,
+    }),
+    [showNote]
+  )
+
   useEffect(() => {
     noteInputRef.current?.focus?.()
   }, [showNote])
@@ -51,7 +70,7 @@ export default function Notes({
         <Button
           type="primary"
           size="small"
-          className="text-xs"
+          className="text-xs !bg-danger"
           onClick={saveNote}
         >
           保存
@@ -60,3 +79,5 @@ export default function Notes({
     </Space.Compact>
   )
 }
+
+export default forwardRef(Notes)

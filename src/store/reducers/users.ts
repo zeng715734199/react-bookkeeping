@@ -1,11 +1,8 @@
-import { SegmentedLabeledOption } from 'rc-segmented'
-import { SET_CURRENTTAB, SET_USERINFO } from '@/store/actions'
+import { SET_CURRENT, SET_USERINFO } from '@/store/actions'
+import Constants from '@/store/constants'
 
-const stateData = {
-  userInfo: {} as Record<string, any> | null,
-}
 const querySelfInfo = (
-  state = stateData,
+  state = Constants.stateData,
   action: { type: string; value: object }
 ) => {
   const map = {
@@ -14,30 +11,20 @@ const querySelfInfo = (
       userInfo: action.value,
     }),
   } as Record<string, Function>
-  return map[action.type] ? map[action.type]() : stateData
-}
-
-export type UI_STATE = typeof uiState
-
-const uiState = {
-  tabs: [
-    { label: '收入', value: 'income' },
-    { label: '支出', value: 'expend' },
-  ] as SegmentedLabeledOption<string>[],
-  currentTab: 'income',
+  return map[action.type] ? map[action.type]() : Constants.stateData
 }
 
 const uiController = (
-  state = uiState,
+  state = Constants.uiState,
   action: { type: string; value: object | string | number | object[] }
 ) => {
   const map = {
-    [SET_CURRENTTAB]: () => ({
+    [SET_CURRENT]: () => ({
       ...state,
       currentTab: action.value,
     }),
   } as Record<string, Function>
-  return map[action.type] ? map[action.type]() : uiState
+  return map[action.type] ? map[action.type]() : Constants.uiState
 }
 
 export default {

@@ -1,5 +1,5 @@
 export const SET_USERINFO = 'SET_USERINFO'
-export const SET_CURRENTTAB = 'SET_CURRENTTAB'
+export const SET_CURRENT = 'SET_CURRENT'
 
 /*
  * action 创建函数
@@ -10,5 +10,5 @@ export function setUserInfo(value: object | null) {
 }
 
 export function setCurrentTab(value: string) {
-  return { type: SET_CURRENTTAB, value }
+  return { type: SET_CURRENT, value }
 }
