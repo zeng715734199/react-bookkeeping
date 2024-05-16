@@ -1,19 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import store from '@/store'
-import { UI_STATE } from '@/store/reducers/users'
-import { setCurrentTab } from '@/store/actions'
 import FilterByTag from '@/pages/money/components/filterByTag'
 import { Space, Divider, Button } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { CaretDownOutlined } from '@ant-design/icons'
 
 function NavTab() {
-  const { uiController } = store.getState() as { uiController: UI_STATE }
-  const [current, setCurrent] = useState(uiController.currentTab)
-  const setTab = (value: string) => {
-    setCurrent(value)
-    store.dispatch(setCurrentTab(value))
-  }
   const [timeFrame, setTimeFrame] = useState<string>('')
 
   return (

@@ -20,9 +20,6 @@ function Money() {
           />
         </DoAccount>
         <RecordItems />
-        <RecordItems />
-        <RecordItems />
-        <RecordItems />
       </div>
     </div>
   )

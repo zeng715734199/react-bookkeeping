@@ -1,33 +1,19 @@
-import { SET_CURRENT, SET_USERINFO } from '@/store/actions'
-import Constants from '@/store/constants'
+import { SET_USERINFO } from '@/store/actions'
+import { stateData } from '@/store/constants'
 
 const querySelfInfo = (
-  state = Constants.stateData,
-  action: { type: string; value: object }
+  state = stateData,
+  action: { type: string; payload: object }
 ) => {
   const map = {
     [SET_USERINFO]: () => ({
       ...state,
-      userInfo: action.value,
+      userInfo: action.payload,
     }),
   } as Record<string, Function>
-  return map[action.type] ? map[action.type]() : Constants.stateData
-}
-
-const uiController = (
-  state = Constants.uiState,
-  action: { type: string; value: object | string | number | object[] }
-) => {
-  const map = {
-    [SET_CURRENT]: () => ({
-      ...state,
-      currentTab: action.value,
-    }),
-  } as Record<string, Function>
-  return map[action.type] ? map[action.type]() : Constants.uiState
+  return map[action.type] ? map[action.type]() : stateData
 }
 
 export default {
   querySelfInfo,
-  uiController,
 }

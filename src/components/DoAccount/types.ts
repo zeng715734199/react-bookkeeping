@@ -1,8 +1,8 @@
-import dayjs from 'dayjs'
-
 export interface RecordObj {
+  id: string
   tab: string
-  date: dayjs.Dayjs
+  date: string
+  time: string
   money: string
   note: string
   tag: string

@@ -1,16 +1,15 @@
-import { SegmentedLabeledOption } from 'rc-segmented'
+import { RecordObj } from '@/components/DoAccount/types'
+import { RenderRecords } from '@/store/types'
 
-const stateData = {
+/**
+ * @desc users模块
+ */
+export const stateData = {
   userInfo: {} as Record<string, any> | null,
 }
-const uiState = {
-  tabs: [
-    { label: '收入', value: 'income' },
-    { label: '支出', value: 'expend' },
-  ] as SegmentedLabeledOption<string>[],
-  currentTab: 'income',
-}
-export default {
-  uiState,
-  stateData,
-}
+
+/**
+ * @desc records模块
+ */
+export const records = [] as RecordObj[]
+export const recordList = [] as RenderRecords[]

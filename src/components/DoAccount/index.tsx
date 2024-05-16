@@ -1,15 +1,20 @@
 import React, { JSX, useRef, useState } from 'react'
-import { DatePicker, DatePickerProps, Drawer, message } from 'antd'
+import { DatePicker, DatePickerProps, Drawer, message, TimePicker } from 'antd'
 import NumberPad from '@/components/DoAccount/components/numberPad'
 import Notes from '@/components/DoAccount/components/notes'
 import TagList, { IconTabMap } from '@/components/DoAccount/components/tagList'
 import MoneyPanel from '@/components/DoAccount/components/moneyPanel'
 import SegmentedNav from 'src/components/SegmentedNav'
 import dayjs from 'dayjs'
+import { RecordObj } from '@/components/DoAccount/types'
+import { createUid } from '@/utils'
+import store from '@/store'
+import { setRecords } from '@/store/actions'
 
 const initialRecord = {
   tab: 'income',
   date: dayjs(),
+  time: dayjs(),
   money: '0',
   note: '',
   tag: IconTabMap['income']['0'].key,
@@ -31,10 +36,19 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
       tab: value,
     }))
   }
-  const setDate: DatePickerProps['onChange'] = (date) => {
+
+  const setDate = (
+    date: dayjs.Dayjs,
+    dateString: string | string[],
+    type: 'date' | 'time'
+  ) => {
+    const map = {
+      date: { date },
+      time: { time: date },
+    }
     setRecord((state) => ({
       ...state,
-      date,
+      ...map[type],
     }))
   }
 
@@ -43,10 +57,13 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
       message.warning('备注还没保存哦~')
       return
     }
-    console.log({
+    const res = {
       ...record,
       date: record.date.format('YYYY-MM-DD'),
-    })
+      time: record.time.format('HH:mm:ss'),
+      id: createUid(),
+    } as RecordObj
+    store.dispatch(setRecords(res))
   }
 
   const showDrawer = () => {
@@ -79,11 +96,24 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
               format="YYYY-MM-DD"
               size="small"
               panelRender={(PanelNode) => (
-                <div className="absolute -left-[50%] -translate-x-4 top-0 !z-[1050] bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
+                <div className="absolute -left-[35%] top-0  bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
                   {PanelNode}
                 </div>
               )}
-              onChange={setDate}
+              onChange={(date, dateString) => setDate(date, dateString, 'date')}
+            />
+            <TimePicker
+              value={record.time}
+              className="!w-[90px] !text-[10px]"
+              size="small"
+              placement={'bottomLeft'}
+              needConfirm={false}
+              panelRender={(PanelNode) => (
+                <div className="absolute -left-[50%] top-0  bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
+                  {PanelNode}
+                </div>
+              )}
+              onChange={(date, dateString) => setDate(date, dateString, 'time')}
             />
           </section>
           {/*金额展示*/}
