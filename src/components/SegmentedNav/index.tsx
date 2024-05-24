@@ -1,7 +1,7 @@
 import React from 'react'
 import { Segmented } from 'antd'
 
-const tabList = [
+export const tabList = [
   { label: '收入', value: 'income' },
   { label: '支出', value: 'expend' },
 ]

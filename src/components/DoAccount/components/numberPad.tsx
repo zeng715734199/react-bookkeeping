@@ -37,7 +37,7 @@ export default function NumberPad({
       onPress(value)
       return
     }
-    if (+value > 10000000) {
+    if (+value > 100000) {
       message.warning('记这么多，你有这么多钱吗？👎')
       onPress(value)
       return

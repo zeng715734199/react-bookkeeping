@@ -10,7 +10,7 @@ export interface DateDimensionRecord {
 
 export interface RecordItem {
   id: string
-  tab: string
+  tab: 'income' | 'expend'
   time: string
   money: string
   note: string

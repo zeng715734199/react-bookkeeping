@@ -9,7 +9,7 @@ import dayjs from 'dayjs'
 import { RecordObj } from '@/components/DoAccount/types'
 import { createUid } from '@/utils'
 import store from '@/store'
-import { setRecords } from '@/store/actions'
+import { setRecords, setUserInfo } from '@/store/actions'
 
 const initialRecord = {
   tab: 'income',

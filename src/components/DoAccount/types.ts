@@ -1,6 +1,6 @@
 export interface RecordObj {
   id: string
-  tab: string
+  tab: 'income' | 'expend'
   date: string
   time: string
   money: string

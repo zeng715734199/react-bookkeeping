@@ -6,14 +6,14 @@ type Tags = {
   key: string
 }
 
-const allTypes: Tags[] = [
+export const allTypes: Tags[] = [
   {
     label: '所有标签',
     key: '*',
   },
 ]
 
-const incomes: Tags[] = [
+export const incomes: Tags[] = [
   { label: '工资', key: 'salary' },
   {
     label: '理财',
@@ -21,7 +21,7 @@ const incomes: Tags[] = [
   },
 ]
 
-const expenditures: Tags[] = [
+export const expenditures: Tags[] = [
   {
     label: '餐饮',
     key: 'food',
