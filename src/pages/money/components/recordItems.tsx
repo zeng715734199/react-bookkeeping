@@ -12,10 +12,10 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
   recordList = [],
 }) => {
   const navigate = useNavigate()
-  const goDetail = () => navigate(`/detail/${5555}`)
+  const goDetail = (id: string) => navigate(`/detail/${id}`)
   return recordList.map((record) => {
     return (
-      <div className="p-3" onClick={goDetail} key={record.monthDimension}>
+      <div className="p-3" key={record.monthDimension}>
         <div className="text-[#86898f] text-[13px] font-bold flex justify-between items-center">
           <span>{record.monthDimension}</span>
           <span>总支出：￥{record.totalExpense}</span>
@@ -48,6 +48,7 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
                       <div
                         className={`flex justify-between items-center p-2 m-3 ${borderBottomByColor()}`}
                         key={item.id}
+                        onClick={() => goDetail(item.id)}
                       >
                         <Icons
                           name={item.tag}

@@ -12,19 +12,19 @@ import { handleAccountRecords } from '@/pages/money/utils'
 
 function Money() {
   const [recordList, setRecordList] = useState<RenderRecords[]>([])
-  useEffect(() => {
-    const localList = getLocalStorage('accountRecord') || []
-    const list = handleAccountRecords(localList)
+  const initRecordList = () => {
+    const { handleRecords } = store.getState()
+    console.log('监听中..', handleRecords)
+    setLocalStorage('accountRecord', handleRecords as RecordObj[])
+    const list = handleAccountRecords(handleRecords as RecordObj[])
+    console.log(list, 'lsls')
     setRecordList(list)
+  }
+  useEffect(() => {
+    initRecordList()
     // 监听state的变化
     const unsubscribe = store.subscribe(() => {
-      const handleRecords = (
-        store.getState()?.handleRecords as RecordObj[]
-      ).concat(localList || [])
-      console.log('监听中..', handleRecords)
-      setLocalStorage('accountRecord', handleRecords)
-      const list = handleAccountRecords(handleRecords)
-      setRecordList(list)
+      initRecordList()
     })
     return () => {
       // 取消监听
