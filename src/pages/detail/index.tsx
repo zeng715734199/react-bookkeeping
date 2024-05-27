@@ -10,14 +10,15 @@ import {
 import Icons from '@/pages/money/widget/icons'
 import Title from 'antd/es/typography/Title'
 import DoAccount from '@/components/DoAccount'
-import { getLocalStorage, setLocalStorage } from '@/utils'
-import { RecordObj } from '@/components/DoAccount/types'
+import { setLocalStorage } from '@/utils'
+import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
 import { colorMap } from '@/components/DoAccount/constant'
 import { incomes } from '@/components/DoAccount/components/tagList'
 import { expenditures } from '@/pages/money/components/filterByTag'
 import dayjs from 'dayjs'
 import store from '@/store'
-import { delRecords } from '@/store/actions'
+import { delRecords, editRecords } from '@/store/actions'
+
 interface Detail extends RecordObj {
   getDateTime: string
 }
@@ -25,19 +26,34 @@ const RecordDetails: React.FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [detail, setDetail] = useState<Detail>()
-  const localList: RecordObj[] = getLocalStorage('accountRecord') || []
-  useEffect(() => {
-    const recordItem = localList.find((item) => item.id === id)
-    console.log(recordItem, 'rrr')
-    setDetail(
-      (state) =>
-        ({
-          ...state,
-          ...recordItem,
-          getDateTime: `${dayjs(recordItem?.date).format('YYYY年MM月DD日').toString()} ${recordItem?.time}`,
-        }) as Detail
-    )
-  }, [])
+  const getRecordItem = () => {
+    const { handleRecords: recordList } = store.getState()
+    return (recordList as RecordObj[]).find((item) => item.id === id)
+  }
+  const init = () => {
+    const recordItem = getRecordItem()
+    recordItem &&
+      setDetail(
+        (state) =>
+          ({
+            ...state,
+            ...recordItem,
+            getDateTime: `${dayjs(recordItem?.date).format('YYYY年MM月DD日').toString()} ${recordItem?.time}`,
+          }) as Detail
+      )
+  }
+  const submit = (record: InitialRecord) => {
+    const obj = {
+      ...record,
+      money: parseFloat(record.money).toString(),
+      date: record.date.format('YYYY-MM-DD'),
+      time: record.time.format('HH:mm:ss'),
+    } as RecordObj
+    store.dispatch(editRecords(obj))
+    message.success('修改成功~')
+    init()
+  }
+
   const showConfirm = () => {
     Modal.confirm({
       title: '警告',
@@ -45,8 +61,6 @@ const RecordDetails: React.FC = () => {
       content: '确定删除该标签？',
       onOk() {
         store.dispatch(delRecords(id as string))
-        const { handleRecords } = store.getState()
-        setLocalStorage('accountRecord', handleRecords || [])
         message.success('删除成功~')
         navigate('/money')
       },
@@ -55,6 +69,20 @@ const RecordDetails: React.FC = () => {
       },
     })
   }
+
+  useEffect(() => {
+    init()
+    // 监听state的变化
+    const unsubscribe = store.subscribe(() => {
+      const { handleRecords } = store.getState()
+      console.log('详情页监听中..', handleRecords)
+      setLocalStorage('accountRecord', handleRecords as RecordObj[])
+    })
+    return () => {
+      // 取消监听
+      unsubscribe()
+    }
+  }, [])
 
   return (
     <div className="p-3 bg-baseBg h-full">
@@ -104,7 +132,7 @@ const RecordDetails: React.FC = () => {
             align={'center'}
             size={50}
           >
-            <DoAccount>
+            <DoAccount defaultValue={getRecordItem()} onSubmit={submit}>
               <Button icon={<FormOutlined />}>修改</Button>
             </DoAccount>
             <Button danger icon={<DeleteOutlined />} onClick={showConfirm}>

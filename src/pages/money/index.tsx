@@ -5,10 +5,11 @@ import DoAccount from 'src/components/DoAccount'
 import { FloatButton, Empty } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import store from '@/store'
-import { getLocalStorage, setLocalStorage } from '@/utils'
+import { setLocalStorage } from '@/utils'
 import { RenderRecords } from '@/store/types'
-import { RecordObj } from '@/components/DoAccount/types'
+import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
 import { handleAccountRecords } from '@/pages/money/utils'
+import { setRecords } from '@/store/actions'
 
 function Money() {
   const [recordList, setRecordList] = useState<RenderRecords[]>([])
@@ -32,13 +33,24 @@ function Money() {
     }
   }, [])
 
+  const submit = (record: InitialRecord) => {
+    const obj = {
+      ...record,
+      money: parseFloat(record.money).toString(),
+      date: record.date.format('YYYY-MM-DD'),
+      time: record.time.format('HH:mm:ss'),
+    } as RecordObj
+    console.log(obj, 'ooooo')
+    store.dispatch(setRecords(obj))
+  }
+
   return (
     <div className="h-full overflow-auto min-w-[360px]">
       <div className="absolute top-0 z-10 w-full">
         <NavTab />
       </div>
       <div className="mt-[80px]">
-        <DoAccount>
+        <DoAccount onSubmit={submit}>
           <FloatButton
             className="right-[5%] bottom-[15%] w-[50px] h-[50px] text-center"
             icon={<EditOutlined className="text-xl text-primary" />}

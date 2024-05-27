@@ -18,7 +18,7 @@ export const DEL_RECORDS = 'DEL_RECORDS'
 export function setRecords(value: RecordObj) {
   return { type: SET_RECORDS, payload: value || {} }
 }
-export function editRecords(value: { id: string; value: RecordObj }) {
+export function editRecords(value: RecordObj) {
   return { type: EDIT_RECORDS, payload: value || {} }
 }
 export function delRecords(id: string) {

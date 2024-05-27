@@ -19,4 +19,5 @@ export interface InitialRecord {
   money: string
   note: string
   tag: string
+  id: string
 }

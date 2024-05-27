@@ -2,5 +2,5 @@ import { Tab } from '@/components/DoAccount/types'
 
 export const colorMap = {
   income: '#30ab6d',
-  expend: '#fcc44e',
+  expend: '#feb557',
 } as Record<Tab, string>

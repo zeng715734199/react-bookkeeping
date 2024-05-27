@@ -8,8 +8,6 @@ import SegmentedNav from 'src/components/SegmentedNav'
 import dayjs from 'dayjs'
 import { InitialRecord, RecordObj, Tab } from '@/components/DoAccount/types'
 import { createUid } from '@/utils'
-import store from '@/store'
-import { setRecords, setUserInfo } from '@/store/actions'
 
 class InitRecord implements InitialRecord {
   tab = 'income' as Tab
@@ -18,23 +16,35 @@ class InitRecord implements InitialRecord {
   money = '0'
   note = ''
   tag = IconTabMap['income']['0'].key
+  id = createUid()
+}
+const drawerHeight = window.innerHeight * 0.95
+const formatDefaultVal = (obj: RecordObj): InitRecord => {
+  const time = `${obj.date} ${obj.time}`
+  return {
+    tab: obj.tab,
+    date: dayjs(time),
+    time: dayjs(time),
+    money: obj.money,
+    note: obj.note,
+    tag: obj.tag,
+    id: obj.id,
+  }
 }
 
-const drawerHeight = window.innerHeight * 0.95
-
-const DoAccount: React.FC<{ children: JSX.Element }> = ({
-  children,
-}: {
+const DoAccount: React.FC<{
   children: JSX.Element
-}) => {
+  defaultValue?: RecordObj
+  onSubmit: (record: InitialRecord) => void
+}> = ({ defaultValue, children, onSubmit }) => {
   const notesRef = useRef<{ showNote: boolean }>(null)
   const [open, setOpen] = useState(false)
   const [record, setRecord] = useState(new InitRecord())
   const setNavTab = (value: Tab) => {
     setRecord((state) => ({
       ...state,
-      tag: IconTabMap[value]['0'].key,
       tab: value,
+      tag: IconTabMap[value]['0'].key,
     }))
   }
 
@@ -58,19 +68,14 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
       message.warning('备注还没保存哦~')
       return
     }
-    const res = {
-      ...record,
-      date: record.date.format('YYYY-MM-DD'),
-      time: record.time.format('HH:mm:ss'),
-      id: createUid(),
-    } as RecordObj
-    store.dispatch(setRecords(res))
+    onSubmit(record)
+    onClose()
   }
 
   const showDrawer = () => {
     setRecord((state) => ({
       ...state,
-      ...new InitRecord(),
+      ...(defaultValue ? formatDefaultVal(defaultValue) : new InitRecord()),
     }))
     setOpen(true)
   }

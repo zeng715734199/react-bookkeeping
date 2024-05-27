@@ -25,7 +25,7 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
           ? record.children.map((recordItem) => {
               return (
                 <Card
-                  className="card-reset"
+                  className="card-reset mb-2 mt-2"
                   key={record.monthDimension + recordItem.date}
                   title={
                     <section className="flex justify-between font-normal">
@@ -35,9 +35,9 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
                       </Space>
                       <Space className="text-[13px]">
                         <Tag>收</Tag>
-                        <span>{recordItem.dailyIncome}</span>
+                        <span>￥{recordItem.dailyIncome}</span>
                         <Tag>支</Tag>
-                        <span>{recordItem.dailyExpense}</span>
+                        <span>￥{recordItem.dailyExpense}</span>
                       </Space>
                     </section>
                   }

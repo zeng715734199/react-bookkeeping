@@ -23,8 +23,3 @@ export interface RenderRecords {
   totalExpense: string
   children: DateDimensionRecord[]
 }
-
-export interface EditRecordParams {
-  id: string
-  value: RecordObj
-}
