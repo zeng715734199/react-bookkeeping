@@ -3,11 +3,18 @@ import { RecordObj } from '@/components/DoAccount/types'
 import dayjs from 'dayjs'
 import BigJs from 'big.js'
 
+const getWeekByDate = (date: string) => {
+  const weeks = ['天', '一', '二', '三', '四', '五', '六']
+  const dayNum = dayjs(date).get('days')
+  return `星期${weeks[dayNum]}`
+}
+
 export const handleAccountRecords = (handleRecords: RecordObj[]) => {
   const yearMonthMap = new Map<string, RenderRecords>()
   handleRecords.forEach((item) => {
     const yearMonth = dayjs(item.date).format('YYYY年MM月')
     const date = dayjs(item.date).format('MM月DD日')
+    const week = getWeekByDate(item.date)
     const income = item.tab === 'income' ? item.money : '0'
     const expense = item.tab === 'expend' ? item.money : '0'
     if (yearMonthMap.has(yearMonth)) {
@@ -47,7 +54,7 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
       } else {
         obj.children.push({
           date,
-          week: '星期一',
+          week,
           dailyIncome: income,
           dailyExpense: expense,
           items: [
@@ -71,7 +78,7 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
         children: [
           {
             date,
-            week: '星期一',
+            week,
             dailyIncome: income,
             dailyExpense: expense,
             items: [
