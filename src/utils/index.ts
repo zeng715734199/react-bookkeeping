@@ -15,7 +15,10 @@ export const setLocalStorage = (
     typeof value === 'string' ? value : JSON.stringify(value)
   )
 
-export const getLocalStorage = (key: string) => localStorage.getItem(key)
+export const getLocalStorage = (key: string) =>
+  localStorage.getItem(key)
+    ? JSON.parse(localStorage.getItem(key) as string)
+    : null
 
 export const removeLocalStorage = (key: string) => localStorage.removeItem(key)
 

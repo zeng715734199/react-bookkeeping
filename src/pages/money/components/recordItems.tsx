@@ -7,6 +7,7 @@ import { RenderRecords } from '@/store/types'
 import { expenditures } from '@/pages/money/components/filterByTag'
 import { incomes } from '@/components/DoAccount/components/tagList'
 import { borderBottomByColor } from '@/utils/shortcuts'
+import { colorMap } from '@/components/DoAccount/constant'
 const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
   recordList = [],
 }) => {
@@ -48,8 +49,11 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
                         className={`flex justify-between items-center p-2 m-3 ${borderBottomByColor()}`}
                         key={item.id}
                       >
-                        <Icons name={item.tag}></Icons>
-                        <div className="flex flex-col ml-[5%] mr-[5%]">
+                        <Icons
+                          name={item.tag}
+                          background={colorMap[item.tab]}
+                        ></Icons>
+                        <div className="flex flex-col ml-[5%] mr-[5%] w-full">
                           <span className="text-[14px]">
                             {
                               (item.tab === 'income'
@@ -65,10 +69,12 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
                             size={1}
                           >
                             <span>{item.time}</span>
-                            <div className="break-words w-20">{item.note}</div>
+                            <div className="min-w-20 break-all">
+                              {item.note}
+                            </div>
                           </Space>
                         </div>
-                        <div className="text-[16px] w-[100%] text-right">
+                        <div className="text-[16px] w-[50%] text-right">
                           {`${item.tab === 'income' ? '+' : '-'}${item.money}`}
                         </div>
                       </div>

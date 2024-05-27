@@ -58,6 +58,7 @@ export default function NumberPad({
           return
         }
         onOk()
+        onPress('0')
       },
     } as Record<string, () => void>
     map[val] ? map[val]?.() : setNum(val)

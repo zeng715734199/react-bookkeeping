@@ -2,24 +2,28 @@ import React, { useEffect, useState } from 'react'
 import NavTab from '@/pages/money/components/navTab'
 import RecordItems from '@/pages/money/components/recordItems'
 import DoAccount from 'src/components/DoAccount'
-import { FloatButton } from 'antd'
+import { FloatButton, Empty } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import store from '@/store'
-import { setLocalStorage } from '@/utils'
+import { getLocalStorage, setLocalStorage } from '@/utils'
 import { RenderRecords } from '@/store/types'
 import { RecordObj } from '@/components/DoAccount/types'
-
 import { handleAccountRecords } from '@/pages/money/utils'
 
 function Money() {
   const [recordList, setRecordList] = useState<RenderRecords[]>([])
   useEffect(() => {
+    const localList = getLocalStorage('accountRecord') || []
+    const list = handleAccountRecords(localList)
+    setRecordList(list)
     // 监听state的变化
-    let unsubscribe = store.subscribe(() => {
-      const { handleRecords } = store.getState()
+    const unsubscribe = store.subscribe(() => {
+      const handleRecords = (
+        store.getState()?.handleRecords as RecordObj[]
+      ).concat(localList || [])
       console.log('监听中..', handleRecords)
-      setLocalStorage('accountRecord', handleRecords as RecordObj[])
-      const list = handleAccountRecords(handleRecords as RecordObj[])
+      setLocalStorage('accountRecord', handleRecords)
+      const list = handleAccountRecords(handleRecords)
       setRecordList(list)
     })
     return () => {
@@ -41,7 +45,11 @@ function Money() {
             type="default"
           />
         </DoAccount>
-        <RecordItems recordList={recordList} />
+        {recordList.length === 0 ? (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="pt-[24px]" />
+        ) : (
+          <RecordItems recordList={recordList} />
+        )}
       </div>
     </div>
   )

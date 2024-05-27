@@ -1,5 +1,7 @@
 import Icons from '@/pages/money/widget/icons'
 import React, { useState } from 'react'
+import { Tab } from '@/components/DoAccount/types'
+import { colorMap } from '@/components/DoAccount/constant'
 
 export type Tags = {
   label: string
@@ -43,14 +45,14 @@ export const expenditures: Tags[] = [
 export const IconTabMap = {
   income: incomes,
   expend: expenditures,
-} as Record<string, Tags[]>
+} as Record<Tab, Tags[]>
 
 export default function TagList({
   tab,
   tag,
   onChange,
 }: {
-  tab: string
+  tab: Tab
   tag: string
   onChange: (key: string) => void
 }) {
@@ -65,13 +67,13 @@ export default function TagList({
           >
             <Icons
               name={item.key}
-              background={tag === item.key ? '#30ab6d' : '#e9e9e9'}
+              background={tag === item.key ? colorMap[tab] : '#e9e9e9'}
               color={tag === item.key ? '#fff' : '#c0c0c0'}
             />
             <span
               className="my-2"
               style={{
-                color: tag === item.key ? '#30ab6d' : '#94979c',
+                color: tag === item.key ? colorMap[tab] : '#94979c',
               }}
             >
               {item.label}

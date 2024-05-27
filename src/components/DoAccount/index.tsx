@@ -6,19 +6,20 @@ import TagList, { IconTabMap } from '@/components/DoAccount/components/tagList'
 import MoneyPanel from '@/components/DoAccount/components/moneyPanel'
 import SegmentedNav from 'src/components/SegmentedNav'
 import dayjs from 'dayjs'
-import { RecordObj } from '@/components/DoAccount/types'
+import { InitialRecord, RecordObj, Tab } from '@/components/DoAccount/types'
 import { createUid } from '@/utils'
 import store from '@/store'
 import { setRecords, setUserInfo } from '@/store/actions'
 
-const initialRecord = {
-  tab: 'income',
-  date: dayjs(),
-  time: dayjs(),
-  money: '0',
-  note: '',
-  tag: IconTabMap['income']['0'].key,
+class InitRecord implements InitialRecord {
+  tab = 'income' as Tab
+  date = dayjs()
+  time = dayjs()
+  money = '0'
+  note = ''
+  tag = IconTabMap['income']['0'].key
 }
+
 const drawerHeight = window.innerHeight * 0.95
 
 const DoAccount: React.FC<{ children: JSX.Element }> = ({
@@ -28,8 +29,8 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
 }) => {
   const notesRef = useRef<{ showNote: boolean }>(null)
   const [open, setOpen] = useState(false)
-  const [record, setRecord] = useState({ ...initialRecord })
-  const setNavTab = (value: string) => {
+  const [record, setRecord] = useState(new InitRecord())
+  const setNavTab = (value: Tab) => {
     setRecord((state) => ({
       ...state,
       tag: IconTabMap[value]['0'].key,
@@ -69,7 +70,7 @@ const DoAccount: React.FC<{ children: JSX.Element }> = ({
   const showDrawer = () => {
     setRecord((state) => ({
       ...state,
-      ...initialRecord,
+      ...new InitRecord(),
     }))
     setOpen(true)
   }

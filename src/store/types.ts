@@ -1,4 +1,4 @@
-import { RecordObj } from '@/components/DoAccount/types'
+import { RecordObj, Tab } from '@/components/DoAccount/types'
 
 export interface DateDimensionRecord {
   date: string
@@ -10,7 +10,7 @@ export interface DateDimensionRecord {
 
 export interface RecordItem {
   id: string
-  tab: 'income' | 'expend'
+  tab: Tab
   time: string
   money: string
   note: string
