@@ -10,6 +10,7 @@ import { RenderRecords } from '@/store/types'
 import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
 import { handleAccountRecords } from '@/pages/money/utils'
 import { setRecords } from '@/store/actions'
+import dayjs from 'dayjs'
 
 function Money() {
   const [recordList, setRecordList] = useState<RenderRecords[]>([])
@@ -44,10 +45,23 @@ function Money() {
     store.dispatch(setRecords(obj))
   }
 
+  const doFilter = ({ time, tag }: { time: string; tag: string }) => {
+    const { handleRecords } = store.getState() as {
+      handleRecords: RecordObj[]
+    } & Record<string, any>
+    const afterFilterList = handleRecords.filter((item) => {
+      const timeEq = dayjs(item.date).format('YYYY-MM') === time
+      return tag === '*' ? timeEq : item.tag === tag && timeEq
+    })
+    const list = handleAccountRecords(afterFilterList)
+    setRecordList(list)
+    console.log('执行了过滤')
+  }
+
   return (
     <div className="h-full overflow-auto min-w-[360px]">
       <div className="absolute top-0 z-10 w-full">
-        <NavTab />
+        <NavTab onFilter={doFilter} />
       </div>
       <div className="mt-[80px]">
         <DoAccount onSubmit={submit}>

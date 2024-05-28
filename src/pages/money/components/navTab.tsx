@@ -1,17 +1,48 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import store from '@/store'
-import FilterByTag from '@/pages/money/components/filterByTag'
+import FilterByTag, {
+  allTypes,
+  expenditures,
+  incomes,
+} from '@/pages/money/components/filterByTag'
 import { Space, Divider, Button } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
-import { CaretDownOutlined } from '@ant-design/icons'
+import { AppstoreOutlined, CaretDownOutlined } from '@ant-design/icons'
+import dayjs from 'dayjs'
 
-function NavTab() {
-  const [timeFrame, setTimeFrame] = useState<string>('')
+const NavTab: React.FC<{
+  onFilter: (params: { time: string; tag: string }) => void
+}> = ({ onFilter }) => {
+  const [time, setTimeFrame] = useState<string>('')
+  const [tag, setTag] = useState<string>('*')
+  const filterTag = (value: string) => {
+    console.log(111111)
+    setTag(value)
+    onFilter({ tag: value, time })
+  }
+  const filterMonth = (value: string) => {
+    console.log('aaaa')
+    setTimeFrame(value)
+    onFilter({ tag, time: value })
+  }
 
   return (
     <section className="w-full bg-primary flex flex-col max-h-[80px]">
       <div className="mx-5">
-        <FilterByTag />
+        <FilterByTag onOk={filterTag}>
+          <Button
+            size="large"
+            className="text-[#fff]"
+            type="primary"
+            icon={<AppstoreOutlined className="text-xl text-[#fff] w-[32px]" />}
+          >
+            {
+              [...allTypes, ...incomes, ...expenditures].find(
+                (item) => item.key === tag
+              )?.label
+            }
+          </Button>
+        </FilterByTag>
       </div>
       <Space
         className="text-[#fff] text-[13px] flex justify-center my-3"
@@ -19,7 +50,7 @@ function NavTab() {
         align={'center'}
         size={[3, 3]}
       >
-        <FilterByMonth value={timeFrame} onOk={(value) => setTimeFrame(value)}>
+        <FilterByMonth value={time} onOk={filterMonth}>
           <Button
             size="small"
             type="default"
@@ -30,7 +61,7 @@ function NavTab() {
               size={0}
               align={'center'}
             >
-              <span>{`${timeFrame.slice(0, 4)}年${timeFrame.slice(4)}月`}</span>
+              <span>{`${dayjs(time).format('YYYY年MM月')}`}</span>
               <CaretDownOutlined />
             </Space>
           </Button>

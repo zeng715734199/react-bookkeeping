@@ -1,10 +1,8 @@
-import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { Button, Divider, Drawer, Space, Tag } from 'antd'
+import dayjs from 'dayjs'
 
 type MonthObj = { year: number; months: number[] }
-const getSpliceVal = (year: number, month: number) =>
-  year + `${month < 10 ? '0' + month : month}`
 
 export default function FilterByMonth({
   value,
@@ -32,10 +30,9 @@ export default function FilterByMonth({
   }
 
   useEffect(() => {
-    const d = new Date()
-    const currentYear = d.getFullYear()
-    const currentMonth = d.getMonth() + 1
-    const currentTime = getSpliceVal(currentYear, currentMonth)
+    const currentYear = dayjs().year()
+    const currentMonth = dayjs().month() + 1
+    const currentTime = dayjs().format('YYYY-MM')
     const getMonthByYear = (year: number) => {
       if (year > currentYear) return []
       const monthNum = year === currentYear ? currentMonth : 12
@@ -76,7 +73,7 @@ export default function FilterByMonth({
             >
               <div className="my-3 text-center">{item.year}</div>
               {item.months.map((month) => {
-                const value = getSpliceVal(item.year, month)
+                const value = `${item.year}-${month < 10 ? '0' + month : month}`
                 return (
                   <Tag.CheckableTag
                     className="w-[60px] h-[30px] m-1 border-[#d4d4d4]"

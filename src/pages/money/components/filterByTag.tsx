@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { JSX, useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
 import { AppstoreOutlined } from '@ant-design/icons'
 type Tags = {
@@ -48,33 +48,31 @@ export const expenditures: Tags[] = [
   },
 ]
 
-const FilterByTag: React.FC = () => {
+const FilterByTag: React.FC<{
+  onOk: (key: string) => void
+  children: JSX.Element
+}> = ({ onOk, children }) => {
   const [open, setOpen] = useState(false)
-  const [checkedList, setCheckedList] = useState<string[]>(['*'])
-  const showDrawer = () => {
-    setOpen(true)
-    setCheckedList(['*'])
+  const [checkedTag, setCheckedTag] = useState<string>('*')
+
+  const changeCheckedTag = (key: string, checked: boolean) => {
+    checked && setCheckedTag(key)
   }
 
-  const onClose = () => {
+  const saveTag = () => {
+    onOk(checkedTag)
     setOpen(false)
-    setCheckedList([])
   }
 
-  const changeCheckedList = (key: string, checked: boolean) => {
-    if (checked) {
-      setCheckedList([])
-      setCheckedList([key])
-    }
-  }
+  useEffect(() => onOk(checkedTag), [])
 
   const getTagList = (tagList: Tags[]) => {
     return tagList.map((item) => (
       <Tag.CheckableTag
         className="w-[80px] h-[40px] m-1 border-[#d4d4d4]"
         key={item.key}
-        checked={checkedList.includes(item.key)}
-        onChange={(checked) => changeCheckedList(item.key, checked)}
+        checked={checkedTag === item.key}
+        onChange={(checked) => changeCheckedTag(item.key, checked)}
       >
         <span className="flex items-center justify-center text-sm w-full h-full font-bold">
           {item.label}
@@ -86,25 +84,17 @@ const FilterByTag: React.FC = () => {
   return (
     <>
       <Space>
-        <div className="overflow-hidden" onClick={showDrawer}>
-          <Button
-            size="large"
-            className="text-[#fff]"
-            type="primary"
-            icon={<AppstoreOutlined className="text-xl text-[#fff] w-[32px]" />}
-          >
-            所有标签
-          </Button>
+        <div className="overflow-hidden" onClick={() => setOpen(true)}>
+          {children}
         </div>
       </Space>
       <Drawer
         placement="bottom"
         width={500}
-        onClose={onClose}
+        onClose={() => setOpen(false)}
         open={open}
         extra={
-          // TODO 这里方法还没写好
-          <Button type="primary" onClick={onClose}>
+          <Button type="primary" onClick={saveTag}>
             确定
           </Button>
         }
