@@ -17,21 +17,25 @@ const NavTab: React.FC<{
   }
   onFilter: (params: { time: string; tag: string }) => void
 }> = ({ onFilter, totalVal }) => {
-  const [time, setTimeFrame] = useState<string>(dayjs().format('YYYY-MM'))
-  const [tag, setTag] = useState<string>('*')
-  const filterTag = (value: string) => {
-    setTag(value)
-    onFilter({ tag: value, time })
-  }
-  const filterMonth = (value: string) => {
-    setTimeFrame(value)
-    onFilter({ tag, time: value })
-  }
+  const [condition, setCondition] = useState<{ time: string; tag: string }>({
+    time: dayjs().format('YYYY-MM'),
+    tag: '*',
+  })
+
+  useEffect(
+    () => onFilter({ time: condition.time, tag: condition.tag }),
+    [condition]
+  )
 
   return (
     <section className="w-full bg-primary flex flex-col max-h-[80px]">
       <div className="mx-5">
-        <FilterByTag onOk={filterTag}>
+        <FilterByTag
+          onOk={React.useCallback(
+            (tag) => setCondition((state) => ({ ...state, tag })),
+            [condition.tag]
+          )}
+        >
           <Button
             size="large"
             className="text-[#fff]"
@@ -40,7 +44,7 @@ const NavTab: React.FC<{
           >
             {
               [...allTypes, ...incomes, ...expenditures].find(
-                (item) => item.key === tag
+                (item) => item.key === condition.tag
               )?.label
             }
           </Button>
@@ -52,7 +56,12 @@ const NavTab: React.FC<{
         align={'center'}
         size={[3, 3]}
       >
-        <FilterByMonth value={time} onOk={filterMonth}>
+        <FilterByMonth
+          onOk={React.useCallback(
+            (time) => setCondition((state) => ({ ...state, time })),
+            [condition.time]
+          )}
+        >
           <Button
             size="small"
             type="default"
@@ -63,7 +72,7 @@ const NavTab: React.FC<{
               size={0}
               align={'center'}
             >
-              <span>{`${dayjs(time).format('YYYY年MM月')}`}</span>
+              <span>{`${dayjs(condition.time).format('YYYY年MM月')}`}</span>
               <CaretDownOutlined />
             </Space>
           </Button>
@@ -75,4 +84,4 @@ const NavTab: React.FC<{
   )
 }
 
-export default NavTab
+export default React.memo(NavTab)

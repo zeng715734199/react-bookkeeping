@@ -96,7 +96,6 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
       })
     }
   })
-  console.log(yearMonthMap.values())
   return [...yearMonthMap.values()]
 }
 

@@ -90,4 +90,4 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
   })
 }
 
-export default RecordItems
+export default React.memo(RecordItems)

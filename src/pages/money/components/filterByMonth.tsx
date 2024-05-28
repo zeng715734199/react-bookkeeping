@@ -4,12 +4,10 @@ import dayjs from 'dayjs'
 
 type MonthObj = { year: number; months: number[] }
 
-export default function FilterByMonth({
-  value,
+const FilterByMonth = function ({
   onOk,
   children,
 }: {
-  value: string
   onOk: (value: string) => void
   children: React.ReactNode
 }) {
@@ -18,11 +16,6 @@ export default function FilterByMonth({
   const [checkedYearMonth, setCheckedYearMonth] = useState<string>(
     dayjs().format('YYYY-MM')
   )
-  const showDrawer = () => setOpen(true)
-  const onClose = () => {
-    setCheckedYearMonth(value)
-    setOpen(false)
-  }
   const changeCheckedList = (month: string, checked: boolean) => {
     checked && setCheckedYearMonth(month)
   }
@@ -53,10 +46,10 @@ export default function FilterByMonth({
 
   return (
     <>
-      <div onClick={showDrawer}>{children}</div>
+      <div onClick={() => setOpen(true)}>{children}</div>
       <Drawer
         placement="bottom"
-        onClose={onClose}
+        onClose={() => setOpen(false)}
         open={open}
         extra={
           <Button type="primary" onClick={confirmTime}>
@@ -93,3 +86,5 @@ export default function FilterByMonth({
     </>
   )
 }
+
+export default React.memo(FilterByMonth)
