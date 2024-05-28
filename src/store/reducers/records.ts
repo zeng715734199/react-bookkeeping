@@ -2,7 +2,7 @@ import { DEL_RECORDS, EDIT_RECORDS, SET_RECORDS } from '@/store/actions'
 import { records } from '@/store/constants'
 import { RecordObj } from '@/components/DoAccount/types'
 import { getLocalStorage } from '@/utils'
-
+import { orderBy } from 'lodash-es'
 const localList = getLocalStorage('accountRecord') || []
 
 const handleRecords = (
@@ -27,7 +27,11 @@ const handleRecords = (
       return [...state.filter((item) => item.id !== payload.id)]
     },
   } as Record<string, Function>
-  return map[action.type] ? map[action.type]() : state
+  return orderBy(
+    map[action.type] ? map[action.type]() : state,
+    ['date', 'time'],
+    ['desc', 'asc']
+  )
 }
 
 export default {

@@ -11,8 +11,12 @@ import { AppstoreOutlined, CaretDownOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 
 const NavTab: React.FC<{
+  totalVal: {
+    totalIncome: string
+    totalExpense: string
+  }
   onFilter: (params: { time: string; tag: string }) => void
-}> = ({ onFilter }) => {
+}> = ({ onFilter, totalVal }) => {
   const [time, setTimeFrame] = useState<string>(dayjs().format('YYYY-MM'))
   const [tag, setTag] = useState<string>('*')
   const filterTag = (value: string) => {
@@ -64,8 +68,8 @@ const NavTab: React.FC<{
             </Space>
           </Button>
         </FilterByMonth>
-        <span>总支出：￥300.00</span>
-        <span>总收入：￥300.0</span>
+        <span className="min-w-30">总支出：￥{totalVal.totalExpense}</span>
+        <span className="min-w-30">总收入：￥{totalVal.totalIncome}</span>
       </Space>
     </section>
   )

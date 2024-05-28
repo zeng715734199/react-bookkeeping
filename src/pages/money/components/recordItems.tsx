@@ -15,12 +15,12 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
   const goDetail = (id: string) => navigate(`/detail/${id}`)
   return recordList.map((record) => {
     return (
-      <div className="p-3" key={record.monthDimension}>
-        <div className="text-[#86898f] text-[13px] font-bold flex justify-between items-center">
-          <span>{record.monthDimension}</span>
-          <span>总支出：￥{record.totalExpense}</span>
-          <span>总收入：￥{record.totalIncome}</span>
-        </div>
+      <div className="p-2" key={record.monthDimension}>
+        {/*<div className="text-[#86898f] text-[13px] font-bold flex justify-between items-center">*/}
+        {/*  <span>{record.monthDimension}</span>*/}
+        {/*  <span>总支出：￥{record.totalExpense}</span>*/}
+        {/*  <span>总收入：￥{record.totalIncome}</span>*/}
+        {/*</div>*/}
         {record.children?.length
           ? record.children.map((recordItem) => {
               return (

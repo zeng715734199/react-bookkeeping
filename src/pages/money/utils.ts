@@ -96,5 +96,24 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
       })
     }
   })
+  console.log(yearMonthMap.values())
   return [...yearMonthMap.values()]
+}
+
+export const computedTotal = (records: RenderRecords[]) => {
+  return records.reduce(
+    (obj, item) => {
+      obj.totalExpense = new BigJs(obj.totalExpense)
+        .add(item.totalExpense)
+        .toString()
+      obj.totalIncome = new BigJs(obj.totalIncome)
+        .add(item.totalIncome)
+        .toString()
+      return obj
+    },
+    {
+      totalIncome: '0',
+      totalExpense: '0',
+    }
+  )
 }

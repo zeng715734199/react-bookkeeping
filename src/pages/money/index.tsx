@@ -8,12 +8,19 @@ import store from '@/store'
 import { setLocalStorage } from '@/utils'
 import { RenderRecords } from '@/store/types'
 import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
-import { handleAccountRecords } from '@/pages/money/utils'
+import { computedTotal, handleAccountRecords } from '@/pages/money/utils'
 import { setRecords } from '@/store/actions'
 import dayjs from 'dayjs'
 
 function Money() {
   const [recordList, setRecordList] = useState<RenderRecords[]>([])
+  const [filter, setFilter] = useState<{
+    tag: string
+    time: string
+  }>({
+    tag: '*',
+    time: dayjs().format('YYYY-MM'),
+  })
   const initRecordList = () => {
     const { handleRecords } = store.getState()
     console.log('监听中..', handleRecords)
@@ -25,11 +32,15 @@ function Money() {
 
   useEffect(() => {
     initRecordList()
-    doFilter()
+    filterRecords()
     // 监听state的变化
     const unsubscribe = store.subscribe(() => initRecordList())
     return () => unsubscribe()
   }, [])
+
+  useEffect(() => {
+    filterRecords()
+  }, [filter])
 
   const submit = (record: InitialRecord) => {
     const obj = {
@@ -39,20 +50,16 @@ function Money() {
       time: record.time.format('HH:mm:ss'),
     } as RecordObj
     store.dispatch(setRecords(obj))
+    filterRecords()
   }
 
-  const doFilter = (
-    { time, tag }: { time: string; tag: string } = {
-      time: dayjs().format('YYYY-MM'),
-      tag: '*',
-    }
-  ) => {
+  const filterRecords = () => {
     const { handleRecords } = store.getState() as {
       handleRecords: RecordObj[]
     } & Record<string, any>
     const afterFilterList = handleRecords.filter((item) => {
-      const timeEq = dayjs(item.date).format('YYYY-MM') === time
-      return tag === '*' ? timeEq : item.tag === tag && timeEq
+      const timeEq = dayjs(item.date).format('YYYY-MM') === filter.time
+      return filter.tag === '*' ? timeEq : item.tag === filter.tag && timeEq
     })
     const list = handleAccountRecords(afterFilterList)
     setRecordList(list)
@@ -61,7 +68,10 @@ function Money() {
   return (
     <div className="h-full overflow-auto min-w-[360px]">
       <div className="absolute top-0 z-10 w-full">
-        <NavTab onFilter={doFilter} />
+        <NavTab
+          onFilter={({ time, tag }) => setFilter({ time, tag })}
+          totalVal={computedTotal(recordList)}
+        />
       </div>
       <div className="mt-[80px]">
         <DoAccount onSubmit={submit}>
