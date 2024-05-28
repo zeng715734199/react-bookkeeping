@@ -13,15 +13,13 @@ import dayjs from 'dayjs'
 const NavTab: React.FC<{
   onFilter: (params: { time: string; tag: string }) => void
 }> = ({ onFilter }) => {
-  const [time, setTimeFrame] = useState<string>('')
+  const [time, setTimeFrame] = useState<string>(dayjs().format('YYYY-MM'))
   const [tag, setTag] = useState<string>('*')
   const filterTag = (value: string) => {
-    console.log(111111)
     setTag(value)
     onFilter({ tag: value, time })
   }
   const filterMonth = (value: string) => {
-    console.log('aaaa')
     setTimeFrame(value)
     onFilter({ tag, time: value })
   }

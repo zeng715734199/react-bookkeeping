@@ -19,19 +19,16 @@ function Money() {
     console.log('监听中..', handleRecords)
     setLocalStorage('accountRecord', handleRecords as RecordObj[])
     const list = handleAccountRecords(handleRecords as RecordObj[])
-    console.log(list, 'lsls')
+    console.log(list, 'list')
     setRecordList(list)
   }
+
   useEffect(() => {
     initRecordList()
+    doFilter()
     // 监听state的变化
-    const unsubscribe = store.subscribe(() => {
-      initRecordList()
-    })
-    return () => {
-      // 取消监听
-      unsubscribe()
-    }
+    const unsubscribe = store.subscribe(() => initRecordList())
+    return () => unsubscribe()
   }, [])
 
   const submit = (record: InitialRecord) => {
@@ -41,11 +38,15 @@ function Money() {
       date: record.date.format('YYYY-MM-DD'),
       time: record.time.format('HH:mm:ss'),
     } as RecordObj
-    console.log(obj, 'ooooo')
     store.dispatch(setRecords(obj))
   }
 
-  const doFilter = ({ time, tag }: { time: string; tag: string }) => {
+  const doFilter = (
+    { time, tag }: { time: string; tag: string } = {
+      time: dayjs().format('YYYY-MM'),
+      tag: '*',
+    }
+  ) => {
     const { handleRecords } = store.getState() as {
       handleRecords: RecordObj[]
     } & Record<string, any>
@@ -55,7 +56,6 @@ function Money() {
     })
     const list = handleAccountRecords(afterFilterList)
     setRecordList(list)
-    console.log('执行了过滤')
   }
 
   return (

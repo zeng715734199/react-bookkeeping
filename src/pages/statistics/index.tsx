@@ -1,15 +1,19 @@
 import { Button, Card, Divider, Space } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { CaretDownOutlined } from '@ant-design/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TotalRecord from '@/pages/statistics/components/totalRecord'
 import SegmentedNav from 'src/components/SegmentedNav'
 import { borderBottomByColor, flexBetween, xYFull } from '@/utils/shortcuts'
 import ConsumptionRatio from '@/pages/statistics/components/consumptionRatio'
 import DailyComparison from '@/pages/statistics/components/dailyComparison'
 import MonthComparison from '@/pages/statistics/components/monthComparison'
+import store from '@/store'
 
 function Statistics() {
+  useEffect(() => {
+    console.log(store.getState(), 'sss')
+  }, [])
   return (
     <Space
       size="small"

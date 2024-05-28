@@ -1,6 +1,5 @@
 import React, { JSX, useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
-import { AppstoreOutlined } from '@ant-design/icons'
 type Tags = {
   label: string
   key: string
@@ -63,8 +62,6 @@ const FilterByTag: React.FC<{
     onOk(checkedTag)
     setOpen(false)
   }
-
-  useEffect(() => onOk(checkedTag), [])
 
   const getTagList = (tagList: Tags[]) => {
     return tagList.map((item) => (

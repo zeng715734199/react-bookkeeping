@@ -15,24 +15,25 @@ export default function FilterByMonth({
 }) {
   const [open, setOpen] = useState<boolean>(false)
   const [yearList, setYearList] = useState<MonthObj[]>([])
-  const [checkedYearMonth, setCheckedYearMonth] = useState<string[]>([])
+  const [checkedYearMonth, setCheckedYearMonth] = useState<string>(
+    dayjs().format('YYYY-MM')
+  )
   const showDrawer = () => setOpen(true)
   const onClose = () => {
-    setCheckedYearMonth([value])
+    setCheckedYearMonth(value)
     setOpen(false)
   }
   const changeCheckedList = (month: string, checked: boolean) => {
-    if (checked) setCheckedYearMonth([month])
+    checked && setCheckedYearMonth(month)
   }
   const confirmTime = () => {
-    onOk(checkedYearMonth['0'])
+    onOk(checkedYearMonth)
     setOpen(false)
   }
 
   useEffect(() => {
     const currentYear = dayjs().year()
     const currentMonth = dayjs().month() + 1
-    const currentTime = dayjs().format('YYYY-MM')
     const getMonthByYear = (year: number) => {
       if (year > currentYear) return []
       const monthNum = year === currentYear ? currentMonth : 12
@@ -48,8 +49,6 @@ export default function FilterByMonth({
     }
     //获取最近两年数据
     setYearList(getFewYearList(2))
-    setCheckedYearMonth([currentTime])
-    onOk(currentTime)
   }, [])
 
   return (
@@ -78,7 +77,7 @@ export default function FilterByMonth({
                   <Tag.CheckableTag
                     className="w-[60px] h-[30px] m-1 border-[#d4d4d4]"
                     key={month}
-                    checked={checkedYearMonth.includes(value)}
+                    checked={checkedYearMonth === value}
                     onChange={(checked) => changeCheckedList(value, checked)}
                   >
                     <span className="flex items-center justify-center text-sm w-full h-full font-bold">
