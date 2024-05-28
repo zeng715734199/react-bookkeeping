@@ -9,11 +9,23 @@ import ConsumptionRatio from '@/pages/statistics/components/consumptionRatio'
 import DailyComparison from '@/pages/statistics/components/dailyComparison'
 import MonthComparison from '@/pages/statistics/components/monthComparison'
 import store from '@/store'
+import dayjs from 'dayjs'
+import BigJs from 'big.js'
+import { RecordObj } from '@/components/DoAccount/types'
 
 function Statistics() {
+  const [yearMonth, setYearMonth] = useState<string>(dayjs().format('YYYY-MM'))
+  const [recordList, setRecordList] = useState<RecordObj[]>([])
+
   useEffect(() => {
-    console.log(store.getState(), 'sss')
-  }, [])
+    const { handleRecords } = store.getState() as {
+      handleRecords: RecordObj[]
+    }
+    const records = handleRecords.filter(
+      (item) => dayjs(item.date).format('YYYY-MM') === yearMonth
+    )
+    setRecordList(records)
+  }, [yearMonth])
   return (
     <Space
       size="small"
@@ -21,12 +33,15 @@ function Statistics() {
       className={`${xYFull} overflow-auto`}
     >
       <section>
-        <TotalRecord></TotalRecord>
+        <TotalRecord
+          recordList={recordList}
+          onChange={(value) => setYearMonth(value)}
+        ></TotalRecord>
       </section>
       <section>
         <Card className="card-reset p-3">
           <div className={`mx-3 ${borderBottomByColor()}`}>
-            <ConsumptionRatio />
+            <ConsumptionRatio recordList={recordList} />
           </div>
           <div className={`mx-3 ${borderBottomByColor()}`}>
             <DailyComparison />

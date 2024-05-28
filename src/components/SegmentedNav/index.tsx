@@ -8,13 +8,10 @@ export const tabList = [
   { label: '支出', value: 'expend' },
 ] as SegmentedLabeledOption<Tab>[]
 
-export default function SegmentedNav({
-  value = 'income',
-  onChange,
-}: {
+const SegmentedNav: React.FC<{
   value: Tab
   onChange: (value: Tab) => void
-}) {
+}> = ({ value = 'income', onChange }) => {
   return (
     <Segmented
       value={value}
@@ -25,3 +22,4 @@ export default function SegmentedNav({
     />
   )
 }
+export default React.memo(SegmentedNav)

@@ -5,17 +5,18 @@ import React, { useEffect, useState } from 'react'
 import LineChart from '@/pages/statistics/charts/lineChart'
 import { useDayjs } from '@/utils'
 import { DataItem } from '@/pages/statistics/charts/barChart'
+import { Tab } from '@/components/DoAccount/types'
 
 const dayjs = useDayjs()
 
 export default function MonthComparison() {
-  const [segmentedValue, setSegmentedValue] = useState('income')
+  const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
   const [dataSource, setDataSource] = useState<DataItem>(new DataItem())
 
   useEffect(() => {
     const month = dayjs().month() + 1
     const year = dayjs().year()
-    const arr = [] as string[]
+    // const arr = [] as string[]
     // if (month >= 6) {
     //   let monthNum = month
     //   while (monthNum > 0) {

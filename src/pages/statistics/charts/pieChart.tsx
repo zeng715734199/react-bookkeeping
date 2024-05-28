@@ -6,7 +6,10 @@ export type DataItem = {
   value: number
   name: string
 }
-export default function PieChart({ dataSource }: { dataSource: DataItem[] }) {
+
+const PieChart: React.FC<{ dataSource: DataItem[] }> = function ({
+  dataSource,
+}) {
   const [options, setOptions] = useState<EChartsOption>({})
 
   const config = {
@@ -46,7 +49,7 @@ export default function PieChart({ dataSource }: { dataSource: DataItem[] }) {
   }, [dataSource])
 
   function onChartReady(echarts: EChartsInstance) {
-    console.log('echarts is ready', echarts)
+    // console.log('echarts is ready', echarts)
   }
 
   return (
@@ -59,3 +62,4 @@ export default function PieChart({ dataSource }: { dataSource: DataItem[] }) {
     </>
   )
 }
+export default React.memo(PieChart)
