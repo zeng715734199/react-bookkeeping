@@ -2,41 +2,45 @@ import { flexBetween } from '@/utils/shortcuts'
 import SegmentedNav from '@/components/SegmentedNav'
 import Empty from '@/components/Empty'
 import React, { useEffect, useState } from 'react'
-import BarChart, { DataItem } from '@/pages/statistics/charts/barChart'
-import { useDayjs } from '@/utils'
+import BarChart, { BarDataItem } from '@/pages/statistics/charts/barChart'
+import { RecordObj, Tab } from '@/components/DoAccount/types'
+import dayjs from 'dayjs'
+import BigJs from 'big.js'
 
-const dayjs = useDayjs()
-const getNumberOfDays = (year: string, month: string) => {
-  const date = dayjs(`${+year}-${+month}`, 'YYYY-M')
-  return date.endOf('month').date()
-}
-export default function DailyComparison({
-  time = '202403',
-}: {
-  time?: string
-}) {
-  const [segmentedValue, setSegmentedValue] = useState('income')
-  const [dataSource, setDataSource] = useState<DataItem>()
+const DailyComparison: React.FC<{
+  recordList: RecordObj[]
+  yearMonth?: string
+}> = ({ recordList, yearMonth = dayjs().format('YYYY-MM') }) => {
+  const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
+  const [dataSource, setDataSource] = useState<BarDataItem>({
+    xAxis: [],
+    data: [],
+  })
 
   useEffect(() => {
-    const year = time.slice(0, 4)
-    const month = time.slice(4)
-    let days = getNumberOfDays(year, month)
-    const obj = new DataItem()
-    while (days > 0) {
-      obj.xAxis.push(`${days}号`)
-      //TODO 模拟数据
-      obj.data.push(days % 2 === 0 ? 300 : 50)
-      days--
+    const days = dayjs(yearMonth).daysInMonth()
+    const chartsData = {
+      xAxis: [],
+      data: [],
+    } as BarDataItem
+    if (recordList.length === 0) {
+      setDataSource(chartsData)
+      return
     }
-    obj.xAxis = obj.xAxis.reverse()
-    setDataSource(obj)
-  }, [time])
+    for (let d = 1; d <= days; d++) {
+      const total = recordList.reduce(
+        (amount, item) =>
+          dayjs(item.date).date() === d && item.tab === segmentedValue
+            ? new BigJs(amount).add(item.money || 0).toNumber()
+            : amount,
+        0
+      )
+      chartsData.xAxis.push(`${d}号`)
+      chartsData.data.push(total)
+    }
+    setDataSource(chartsData)
+  }, [recordList, segmentedValue])
 
-  useEffect(() => {
-    //TODO 切换刷新数据
-    console.log(dataSource)
-  }, [segmentedValue])
   return (
     <div className="mb-10">
       <section className={`${flexBetween} my-5`}>
@@ -54,3 +58,5 @@ export default function DailyComparison({
     </div>
   )
 }
+
+export default DailyComparison

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
 import { EChartsInstance } from 'echarts-for-react/src/types'
-export type DataItem = {
+export interface PieDataItem {
   value: number
   name: string
 }
-
-const PieChart: React.FC<{ dataSource: DataItem[] }> = function ({
+const PieChart: React.FC<{ dataSource: PieDataItem[] }> = function ({
   dataSource,
 }) {
   const [options, setOptions] = useState<EChartsOption>({})

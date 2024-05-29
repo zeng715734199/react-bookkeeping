@@ -1,8 +1,8 @@
 import { flexBetween } from '@/utils/shortcuts'
 import SegmentedNav from '@/components/SegmentedNav'
-import PieChart, { DataItem } from '@/pages/statistics/charts/pieChart'
+import PieChart, { PieDataItem } from '@/pages/statistics/charts/pieChart'
 import Empty from '@/components/Empty'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import BigJs from 'big.js'
 import {
@@ -11,20 +11,18 @@ import {
   incomes,
 } from '@/pages/money/components/filterByTag'
 
-export interface ChartsItem {
-  name: string
-  value: number
-}
-
 const allTags = [...allTypes, ...incomes, ...expenditures]
 const ConsumptionRatio: React.FC<{
   recordList: RecordObj[]
 }> = ({ recordList }) => {
   const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
-  const [dataSource, setDataSource] = useState<DataItem[]>([])
+  const [dataSource, setDataSource] = useState<PieDataItem[]>([])
 
   useEffect(() => {
-    console.log(111111111)
+    if (recordList.length === 0) {
+      setDataSource([])
+      return
+    }
     const map = new Map<string, number>()
     recordList.forEach((item) => {
       if (item.tab === segmentedValue) {
@@ -37,7 +35,7 @@ const ConsumptionRatio: React.FC<{
         )
       }
     })
-    const list: ChartsItem[] = []
+    const list: PieDataItem[] = []
     for (const [name, value] of map.entries()) {
       const tagItem = allTags.find((item) => item.key === name)
       list.push({ name: tagItem!.label, value })

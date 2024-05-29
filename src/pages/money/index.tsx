@@ -47,7 +47,7 @@ function Money() {
       ...record,
       money: parseFloat(record.money).toString(),
       date: record.date.format('YYYY-MM-DD'),
-      time: record.time.format('HH:mm:ss'),
+      time: record.time.format('HH:mm'),
     } as RecordObj
     store.dispatch(setRecords(obj))
     filterRecords()

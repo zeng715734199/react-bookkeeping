@@ -2,38 +2,35 @@ import { flexBetween } from '@/utils/shortcuts'
 import SegmentedNav from '@/components/SegmentedNav'
 import Empty from '@/components/Empty'
 import React, { useEffect, useState } from 'react'
-import LineChart from '@/pages/statistics/charts/lineChart'
+import LineChart, { LineDataItem } from '@/pages/statistics/charts/lineChart'
 import { useDayjs } from '@/utils'
-import { DataItem } from '@/pages/statistics/charts/barChart'
 import { Tab } from '@/components/DoAccount/types'
 
 const dayjs = useDayjs()
 
 export default function MonthComparison() {
   const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
-  const [dataSource, setDataSource] = useState<DataItem>(new DataItem())
+  const [dataSource, setDataSource] = useState<LineDataItem>({
+    xAxis: [],
+    data: [],
+  })
 
   useEffect(() => {
     const month = dayjs().month() + 1
     const year = dayjs().year()
-    // const arr = [] as string[]
-    // if (month >= 6) {
-    //   let monthNum = month
-    //   while (monthNum > 0) {
-    //     arr.push(`${monthNum}月`)
-    //     monthNum--
-    //   }
-    // } else {
-    //   let monthNum = month
-    //   Array.from({ length: monthNum }, (_, index) => index + 1).reverse()
-    //
-    //   while (monthNum > 0) {
-    //     arr.push(`${monthNum}月`)
-    //     monthNum--
-    //   }
-    // }
-    console.log(year, month)
-    console.log(dataSource, '5555')
+    const arr = [] as string[]
+    let monthNum = 12
+    Array.from({ length: monthNum }, (_, index) => index + 1).reverse()
+    while (monthNum > 0) {
+      arr.push(`${monthNum}月`)
+      monthNum--
+    }
+    // console.log(arr, 'aaaa')
+
+    setDataSource((state) => ({
+      xAxis: arr.reverse(),
+      data: arr.map((item) => Math.floor(Math.random() * 1000)),
+    }))
   }, [])
   useEffect(() => {
     //TODO 切换刷新数据

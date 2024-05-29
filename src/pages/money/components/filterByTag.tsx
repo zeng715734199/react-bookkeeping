@@ -110,4 +110,4 @@ const FilterByTag: React.FC<{
   )
 }
 
-export default React.memo(FilterByTag)
+export default FilterByTag

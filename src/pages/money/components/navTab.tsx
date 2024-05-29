@@ -31,10 +31,7 @@ const NavTab: React.FC<{
     <section className="w-full bg-primary flex flex-col max-h-[80px]">
       <div className="mx-5">
         <FilterByTag
-          onOk={React.useCallback(
-            (tag) => setCondition((state) => ({ ...state, tag })),
-            [condition.tag]
-          )}
+          onOk={(tag) => setCondition((state) => ({ ...state, tag }))}
         >
           <Button
             size="large"
@@ -57,10 +54,7 @@ const NavTab: React.FC<{
         size={[3, 3]}
       >
         <FilterByMonth
-          onOk={React.useCallback(
-            (time) => setCondition((state) => ({ ...state, time })),
-            [condition.time]
-          )}
+          onOk={(time) => setCondition((state) => ({ ...state, time }))}
         >
           <Button
             size="small"

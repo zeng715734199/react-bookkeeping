@@ -1,7 +1,7 @@
 import { Button, Card, Divider, Space } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { CaretDownOutlined } from '@ant-design/icons'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import TotalRecord from '@/pages/statistics/components/totalRecord'
 import SegmentedNav from 'src/components/SegmentedNav'
 import { borderBottomByColor, flexBetween, xYFull } from '@/utils/shortcuts'
@@ -44,7 +44,7 @@ function Statistics() {
             <ConsumptionRatio recordList={recordList} />
           </div>
           <div className={`mx-3 ${borderBottomByColor()}`}>
-            <DailyComparison />
+            <DailyComparison recordList={recordList} yearMonth={yearMonth} />
           </div>
           <div className={`mx-3 ${borderBottomByColor()}`}>
             <MonthComparison />

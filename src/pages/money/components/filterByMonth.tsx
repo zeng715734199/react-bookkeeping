@@ -87,4 +87,4 @@ const FilterByMonth = function ({
   )
 }
 
-export default React.memo(FilterByMonth)
+export default FilterByMonth

@@ -69,7 +69,7 @@ const DoAccount: React.FC<{
       return
     }
     onSubmit(record)
-    onClose()
+    setOpen(false)
   }
 
   const showDrawer = () => {
@@ -79,14 +79,13 @@ const DoAccount: React.FC<{
     }))
     setOpen(true)
   }
-  const onClose = () => setOpen(false)
 
   return (
     <>
       <div onClick={showDrawer}>{children}</div>
       <Drawer
         placement="bottom"
-        onClose={onClose}
+        onClose={() => setOpen(false)}
         open={open}
         height={drawerHeight > 650 ? 650 : drawerHeight}
       >
@@ -110,8 +109,9 @@ const DoAccount: React.FC<{
             />
             <TimePicker
               value={record.time}
-              className="!w-[90px] !text-[10px]"
+              className="!w-[70px] !text-[10px]"
               size="small"
+              format="HH:mm"
               placement={'bottomLeft'}
               needConfirm={false}
               panelRender={(PanelNode) => (

@@ -3,7 +3,6 @@ import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { CaretDownOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import store from '@/store'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import BigJs from 'big.js'
 
@@ -13,8 +12,8 @@ interface Amount {
 }
 
 const TotalRecord: React.FC<{
-  onChange: (time: string) => void
   recordList: RecordObj[]
+  onChange: (time: string) => void
 }> = ({ recordList, onChange }) => {
   const [timeFrame, setTimeFrame] = useState<string>(dayjs().format('YYYY-MM'))
   const [totalAmount, setTotalAmount] = useState<Amount>({
@@ -37,7 +36,7 @@ const TotalRecord: React.FC<{
     //计算月度总金额
     setTotalAmount({ expense: obj.expend, income: obj.income })
     onChange(timeFrame)
-  }, [timeFrame])
+  }, [timeFrame, recordList])
   return (
     <Card className="flex justify-center text-center !rounded-0">
       <FilterByMonth onOk={(value) => setTimeFrame(value)}>

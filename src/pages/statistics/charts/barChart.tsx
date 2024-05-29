@@ -3,19 +3,15 @@ import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
 import { EChartsInstance } from 'echarts-for-react/src/types'
 import { flexCenter } from '@/utils/shortcuts'
-export class DataItem {
+export interface BarDataItem {
   xAxis: string[]
   data: Array<string | number>
-  constructor() {
-    this.xAxis = []
-    this.data = []
-  }
 }
 export default function BarChart({
   dataSource,
   type,
 }: {
-  dataSource: DataItem
+  dataSource: BarDataItem
   type: string
 }) {
   const [options, setOptions] = useState<EChartsOption>({})

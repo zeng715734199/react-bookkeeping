@@ -3,13 +3,16 @@ import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
 import { EChartsInstance } from 'echarts-for-react/src/types'
 import { flexCenter } from '@/utils/shortcuts'
-import { DataItem } from '@/pages/statistics/charts/barChart'
+export interface LineDataItem {
+  xAxis: string[]
+  data: Array<string | number>
+}
 
 export default function LineChart({
   dataSource,
   type,
 }: {
-  dataSource: DataItem
+  dataSource: LineDataItem
   type: string
 }) {
   const [options, setOptions] = useState<EChartsOption>({})
@@ -23,6 +26,7 @@ export default function LineChart({
       xAxis: {
         type: 'category',
         data: dataSource.xAxis,
+        axisTick: { alignWithLabel: true, interval: 0 },
         axisLabel: {
           //x轴文字的配置
           show: true,
@@ -38,6 +42,9 @@ export default function LineChart({
       },
       yAxis: {
         type: 'value',
+        lineStyle: {
+          type: 'dashed', //设置网格线类型 dashed：虚线   solid:实线
+        },
       },
       grid: {
         left: 0, //默认10%
