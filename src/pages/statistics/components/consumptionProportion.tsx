@@ -5,7 +5,15 @@ import React, { useEffect, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import { Flex, Progress, Typography } from 'antd'
 import BigJs from 'big.js'
-import { allTypes } from '@/pages/money/components/filterByTag'
+import {
+  expenditures,
+  incomes,
+} from '@/components/DoAccount/components/tagList'
+
+export interface ProgressItem {
+  tagName: string
+  amount: string
+}
 
 const colors = [
   '#5470c6',
@@ -19,22 +27,28 @@ const colors = [
   '#ee6666',
   '#73c0de',
 ]
-const allTags = [...allTypes]
+const allTags = [...incomes, expenditures]
 
 const ConsumptionProportion: React.FC<{
   recordList: RecordObj[]
 }> = ({ recordList }) => {
   const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
-  const [items, setItems] = useState(['aaa'])
+  const [items, setItems] = useState<ProgressItem[]>([])
 
   useEffect(() => {
-    const map = new Map<string, string>()
+    const map = new Map<string, number>()
     recordList.forEach((item) => {
       const value = map.get(item.tag)
-      if (value && item.tab === segmentedValue) {
-        map.set(item.tag, new BigJs(value).add(item.money).toString())
-      }
+      item.tab === segmentedValue &&
+        map.set(
+          item.tag,
+          value ? new BigJs(value).add(item.money).toNumber() : +item.money
+        )
     })
+    const recordTagList = [...map.entries()]
+    for (const tag in recordTagList) {
+      console.log(tag, 'ssss')
+    }
   }, [segmentedValue, recordList])
 
   return (
