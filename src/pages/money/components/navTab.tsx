@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import store from '@/store'
-import FilterByTag, {
-  allTypes,
+import FilterByTag, { allTypes } from '@/pages/money/components/filterByTag'
+import {
   expenditures,
   incomes,
-} from '@/pages/money/components/filterByTag'
+} from '@/components/DoAccount/components/tagList'
 import { Space, Divider, Button } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { AppstoreOutlined, CaretDownOutlined } from '@ant-design/icons'

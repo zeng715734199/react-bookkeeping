@@ -1,5 +1,9 @@
 import React, { JSX, useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
+import {
+  expenditures,
+  incomes,
+} from '@/components/DoAccount/components/tagList'
 type Tags = {
   label: string
   key: string
@@ -9,41 +13,6 @@ export const allTypes: Tags[] = [
   {
     label: '所有标签',
     key: '*',
-  },
-]
-
-export const incomes: Tags[] = [
-  { label: '工资', key: 'salary' },
-  {
-    label: '理财',
-    key: 'stock',
-  },
-]
-
-export const expenditures: Tags[] = [
-  {
-    label: '餐饮',
-    key: 'food',
-  },
-  {
-    label: '交通',
-    key: 'car',
-  },
-  {
-    label: '购物',
-    key: 'shopping',
-  },
-  {
-    label: '服饰',
-    key: 'clothes',
-  },
-  {
-    label: '信用卡',
-    key: 'credit',
-  },
-  {
-    label: '其他',
-    key: 'money',
   },
 ]
 

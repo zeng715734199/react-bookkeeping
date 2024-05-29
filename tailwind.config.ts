@@ -8,6 +8,7 @@ export default {
   theme: {
     colors: {
       primary: '#30ab6d',
+      warn: '#feb557',
       baseBg: '#eaeaea',
       navBg: '#ffffff',
       grey: '#86898f',

@@ -4,8 +4,10 @@ import Tag from '@/pages/money/widget/tag'
 import Icons from '@/pages/money/widget/icons'
 import { useNavigate } from 'react-router-dom'
 import { RenderRecords } from '@/store/types'
-import { expenditures } from '@/pages/money/components/filterByTag'
-import { incomes } from '@/components/DoAccount/components/tagList'
+import {
+  incomes,
+  expenditures,
+} from '@/components/DoAccount/components/tagList'
 import { borderBottomByColor } from '@/utils/shortcuts'
 import { colorMap } from '@/components/DoAccount/constant'
 const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({

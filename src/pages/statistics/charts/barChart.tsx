@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
-import { EChartsInstance } from 'echarts-for-react/src/types'
 import { flexCenter } from '@/utils/shortcuts'
+import { Tab } from '@/components/DoAccount/types'
 export interface BarDataItem {
   xAxis: string[]
   data: Array<string | number>
 }
-export default function BarChart({
-  dataSource,
-  type,
-}: {
+const BarChart: React.FC<{
   dataSource: BarDataItem
-  type: string
-}) {
+  type: Tab
+}> = ({ dataSource, type }) => {
   const [options, setOptions] = useState<EChartsOption>({})
 
   useEffect(() => {
@@ -65,12 +62,7 @@ export default function BarChart({
       ],
     } as EChartsOption
     setOptions(config)
-    console.log('Bar的dataSource变了')
   }, [dataSource, type])
-
-  function onChartReady(echarts: EChartsInstance) {
-    console.log('echarts is ready', echarts)
-  }
 
   return (
     <section className={`${flexCenter} w-full`}>
@@ -78,9 +70,10 @@ export default function BarChart({
         <ReactECharts
           option={options}
           style={{ minHeight: 250, minWidth: 600 }}
-          onChartReady={onChartReady}
         />
       </div>
     </section>
   )
 }
+
+export default React.memo(BarChart)

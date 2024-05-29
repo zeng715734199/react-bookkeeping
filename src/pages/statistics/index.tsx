@@ -7,7 +7,7 @@ import SegmentedNav from 'src/components/SegmentedNav'
 import { borderBottomByColor, flexBetween, xYFull } from '@/utils/shortcuts'
 import ConsumptionRatio from '@/pages/statistics/components/consumptionRatio'
 import DailyComparison from '@/pages/statistics/components/dailyComparison'
-import MonthComparison from '@/pages/statistics/components/monthComparison'
+import ConsumptionProportion from '@/pages/statistics/components/consumptionProportion'
 import store from '@/store'
 import dayjs from 'dayjs'
 import BigJs from 'big.js'
@@ -47,7 +47,7 @@ function Statistics() {
             <DailyComparison recordList={recordList} yearMonth={yearMonth} />
           </div>
           <div className={`mx-3 ${borderBottomByColor()}`}>
-            <MonthComparison />
+            <ConsumptionProportion recordList={recordList} />
           </div>
         </Card>
       </section>

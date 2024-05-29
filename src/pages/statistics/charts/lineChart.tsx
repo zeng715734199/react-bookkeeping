@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
-import { EChartsInstance } from 'echarts-for-react/src/types'
 import { flexCenter } from '@/utils/shortcuts'
+import { Tab } from '@/components/DoAccount/types'
 export interface LineDataItem {
   xAxis: string[]
   data: Array<string | number>
 }
 
-export default function LineChart({
-  dataSource,
-  type,
-}: {
+const LineChart: React.FC<{
   dataSource: LineDataItem
-  type: string
-}) {
+  type: Tab
+}> = ({ dataSource, type }) => {
   const [options, setOptions] = useState<EChartsOption>({})
 
   useEffect(() => {
@@ -70,12 +67,7 @@ export default function LineChart({
       ],
     } as EChartsOption
     setOptions(config)
-    console.log('Bar的dataSource变了')
   }, [dataSource, type])
-
-  function onChartReady(echarts: EChartsInstance) {
-    console.log('echarts is ready', echarts)
-  }
 
   return (
     <section className={`${flexCenter} w-full`}>
@@ -83,9 +75,10 @@ export default function LineChart({
         <ReactECharts
           option={options}
           style={{ minHeight: 250, minWidth: 600 }}
-          onChartReady={onChartReady}
         />
       </div>
     </section>
   )
 }
+
+export default React.memo(LineChart)

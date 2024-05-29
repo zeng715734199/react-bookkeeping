@@ -9,6 +9,7 @@ import BigJs from 'big.js'
 interface Amount {
   income: string
   expense: string
+  netIncome: string
 }
 
 const TotalRecord: React.FC<{
@@ -19,6 +20,7 @@ const TotalRecord: React.FC<{
   const [totalAmount, setTotalAmount] = useState<Amount>({
     income: '0',
     expense: '0',
+    netIncome: '0',
   })
   useEffect(() => {
     const totalMap = new Map<Tab, string>([
@@ -34,7 +36,11 @@ const TotalRecord: React.FC<{
     })
     const obj = Object.fromEntries<string>(totalMap)
     //计算月度总金额
-    setTotalAmount({ expense: obj.expend, income: obj.income })
+    setTotalAmount({
+      expense: obj.expend,
+      income: obj.income,
+      netIncome: new BigJs(obj.income).minus(obj.expend).toString(),
+    })
     onChange(timeFrame)
   }, [timeFrame, recordList])
   return (
@@ -52,12 +58,14 @@ const TotalRecord: React.FC<{
         </Button>
       </FilterByMonth>
       <div className="mt-2 text-primary font-bold">
-        <h1 className="text-[15px] py-2">总支出</h1>
-        <span className="text-3xl">￥{totalAmount.expense}</span>
+        <h1 className="text-[15px] py-2">净收入</h1>
+        <span className="text-3xl">￥ {totalAmount.netIncome}</span>
       </div>
       <div className="m-3 text-grey font-bold text-[14px]">
-        <span>总收入</span>
-        <span>￥{totalAmount.income}</span>
+        <span>总收入 ￥{totalAmount.income}</span>
+      </div>
+      <div className="m-3 text-warn font-bold text-[14px]">
+        <span>总支出 ￥{totalAmount.expense}</span>
       </div>
     </Card>
   )

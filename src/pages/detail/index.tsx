@@ -13,8 +13,10 @@ import DoAccount from '@/components/DoAccount'
 import { setLocalStorage } from '@/utils'
 import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
 import { colorMap } from '@/components/DoAccount/constant'
-import { incomes } from '@/components/DoAccount/components/tagList'
-import { expenditures } from '@/pages/money/components/filterByTag'
+import {
+  incomes,
+  expenditures,
+} from '@/components/DoAccount/components/tagList'
 import dayjs from 'dayjs'
 import store from '@/store'
 import { delRecords, editRecords } from '@/store/actions'

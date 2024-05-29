@@ -2,16 +2,15 @@ import { flexBetween } from '@/utils/shortcuts'
 import SegmentedNav from '@/components/SegmentedNav'
 import PieChart, { PieDataItem } from '@/pages/statistics/charts/pieChart'
 import Empty from '@/components/Empty'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import BigJs from 'big.js'
 import {
-  allTypes,
   expenditures,
   incomes,
-} from '@/pages/money/components/filterByTag'
+} from '@/components/DoAccount/components/tagList'
 
-const allTags = [...allTypes, ...incomes, ...expenditures]
+const allTags = [...incomes, ...expenditures]
 const ConsumptionRatio: React.FC<{
   recordList: RecordObj[]
 }> = ({ recordList }) => {
