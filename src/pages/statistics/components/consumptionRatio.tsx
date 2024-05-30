@@ -41,6 +41,7 @@ const ConsumptionRatio: React.FC<{
     }
     setDataSource(list)
   }, [segmentedValue, recordList])
+
   return (
     <>
       <section className={`${flexBetween} my-3`}>

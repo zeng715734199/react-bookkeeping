@@ -84,7 +84,7 @@ const ConsumptionProportion: React.FC<{
                 <Progress
                   percent={getPercent(tagItem.amount)}
                   status="active"
-                  strokeColor={colors[index]}
+                  strokeColor={colors[index % 10]}
                 />
               </div>
             )
