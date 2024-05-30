@@ -1,18 +1,19 @@
 import { flexBetween } from '@/utils/shortcuts'
 import SegmentedNav from '@/components/SegmentedNav'
 import Empty from '@/components/Empty'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import { Flex, Progress, Typography } from 'antd'
 import BigJs from 'big.js'
 import {
   expenditures,
   incomes,
+  Tags,
 } from '@/components/DoAccount/components/tagList'
 
 export interface ProgressItem {
   tagName: string
-  amount: string
+  amount: number
 }
 
 const colors = [
@@ -27,15 +28,19 @@ const colors = [
   '#ee6666',
   '#73c0de',
 ]
-const allTags = [...incomes, expenditures]
+const allTags = [...incomes, ...expenditures] as Tags[]
 
 const ConsumptionProportion: React.FC<{
   recordList: RecordObj[]
 }> = ({ recordList }) => {
   const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
   const [items, setItems] = useState<ProgressItem[]>([])
+  const totalAmount = useRef(0)
+  const getPercent = (amount: number) =>
+    +new BigJs(amount).div(totalAmount.current).times(100).toFixed(0)
 
   useEffect(() => {
+    totalAmount.current = 0
     const map = new Map<string, number>()
     recordList.forEach((item) => {
       const value = map.get(item.tag)
@@ -46,9 +51,17 @@ const ConsumptionProportion: React.FC<{
         )
     })
     const recordTagList = [...map.entries()]
-    for (const tag in recordTagList) {
-      console.log(tag, 'ssss')
+    const list = [] as ProgressItem[]
+    for (const [tag, amount] of recordTagList) {
+      const obj = {} as ProgressItem
+      obj.tagName = allTags.find((item) => item.key === tag)!.label
+      obj.amount = amount
+      list.push(obj)
+      totalAmount.current = new BigJs(totalAmount.current)
+        .add(amount)
+        .toNumber()
     }
+    setItems(list)
   }, [segmentedValue, recordList])
 
   return (
@@ -62,13 +75,17 @@ const ConsumptionProportion: React.FC<{
       </section>
       {items.length ? (
         <Flex gap="small" vertical>
-          {colors.map((color) => {
+          {items.map((tagItem, index) => {
             return (
-              <div key={color}>
+              <div key={index}>
                 <Typography.Paragraph className="!m-0">
-                  Custom count{color}:
+                  {tagItem.tagName}: ￥{tagItem.amount}
                 </Typography.Paragraph>
-                <Progress percent={50} status="active" strokeColor={color} />
+                <Progress
+                  percent={getPercent(tagItem.amount)}
+                  status="active"
+                  strokeColor={colors[index]}
+                />
               </div>
             )
           })}
