@@ -2,17 +2,17 @@ import { flexBetween } from '@/utils/shortcuts'
 import SegmentedNav from '@/components/SegmentedNav'
 import Empty from '@/components/Empty'
 import React, { useEffect, useState } from 'react'
-import BarChart, { BarDataItem } from '@/pages/statistics/charts/barChart'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import dayjs from 'dayjs'
 import BigJs from 'big.js'
+import LineChart, { LineDataItem } from '@/pages/statistics/charts/lineChart'
 
 const DailyComparison: React.FC<{
   recordList: RecordObj[]
   yearMonth?: string
 }> = ({ recordList, yearMonth = dayjs().format('YYYY-MM') }) => {
   const [segmentedValue, setSegmentedValue] = useState<Tab>('income')
-  const [dataSource, setDataSource] = useState<BarDataItem>({
+  const [dataSource, setDataSource] = useState<LineDataItem>({
     xAxis: [],
     data: [],
   })
@@ -22,7 +22,7 @@ const DailyComparison: React.FC<{
     const chartsData = {
       xAxis: [],
       data: [],
-    } as BarDataItem
+    } as LineDataItem
     if (recordList.length === 0) {
       setDataSource(chartsData)
       return
@@ -51,7 +51,7 @@ const DailyComparison: React.FC<{
         ></SegmentedNav>
       </section>
       {dataSource?.data?.length && dataSource?.xAxis?.length ? (
-        <BarChart dataSource={dataSource} type={segmentedValue} />
+        <LineChart dataSource={dataSource} type={segmentedValue} />
       ) : (
         <Empty />
       )}

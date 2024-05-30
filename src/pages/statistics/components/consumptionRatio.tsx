@@ -44,7 +44,7 @@ const ConsumptionRatio: React.FC<{
 
   return (
     <>
-      <section className={`${flexBetween} my-3`}>
+      <section className={`${flexBetween} my-5`}>
         <span className="text-[16px]">收支构成</span>
         <SegmentedNav
           value={segmentedValue}

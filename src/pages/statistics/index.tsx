@@ -1,16 +1,12 @@
 import { Button, Card, Divider, Space } from 'antd'
-import FilterByMonth from '@/pages/money/components/filterByMonth'
-import { CaretDownOutlined } from '@ant-design/icons'
 import React, { useEffect, useRef, useState } from 'react'
 import TotalRecord from '@/pages/statistics/components/totalRecord'
-import SegmentedNav from 'src/components/SegmentedNav'
 import { borderBottomByColor, flexBetween, xYFull } from '@/utils/shortcuts'
 import ConsumptionRatio from '@/pages/statistics/components/consumptionRatio'
 import DailyComparison from '@/pages/statistics/components/dailyComparison'
 import ConsumptionProportion from '@/pages/statistics/components/consumptionProportion'
 import store from '@/store'
 import dayjs from 'dayjs'
-import BigJs from 'big.js'
 import { RecordObj } from '@/components/DoAccount/types'
 
 function Statistics() {
@@ -27,31 +23,29 @@ function Statistics() {
     setRecordList(records)
   }, [yearMonth])
   return (
-    <Space
-      size="small"
-      direction="vertical"
-      className={`${xYFull} overflow-auto`}
-    >
-      <section>
-        <TotalRecord
-          recordList={recordList}
-          onChange={(value) => setYearMonth(value)}
-        ></TotalRecord>
-      </section>
-      <section>
-        <Card className="card-reset p-3">
-          <div className={`mx-3 ${borderBottomByColor()}`}>
-            <ConsumptionRatio recordList={recordList} />
-          </div>
-          <div className={`mx-3 ${borderBottomByColor()}`}>
-            <DailyComparison recordList={recordList} yearMonth={yearMonth} />
-          </div>
-          <div className={`mx-3 ${borderBottomByColor()}`}>
-            <ConsumptionProportion recordList={recordList} />
-          </div>
-        </Card>
-      </section>
-    </Space>
+    <div className={`h-full overflow-auto min-w-[360px]`}>
+      <Space size="small" direction="vertical" className='w-full'>
+        <section>
+          <TotalRecord
+            recordList={recordList}
+            onChange={(value) => setYearMonth(value)}
+          ></TotalRecord>
+        </section>
+        <section>
+          <Card className="card-reset p-3 w-full">
+            <div className={`mx-3 ${borderBottomByColor()}`}>
+              <ConsumptionRatio recordList={recordList} />
+            </div>
+            <div className={`mx-3 ${borderBottomByColor()}`}>
+              <DailyComparison recordList={recordList} yearMonth={yearMonth} />
+            </div>
+            <div className={`mx-3 ${borderBottomByColor()}`}>
+              <ConsumptionProportion recordList={recordList} />
+            </div>
+          </Card>
+        </section>
+      </Space>
+    </div>
   )
 }
 

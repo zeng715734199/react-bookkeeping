@@ -8,6 +8,7 @@ import SegmentedNav from 'src/components/SegmentedNav'
 import dayjs from 'dayjs'
 import { InitialRecord, RecordObj, Tab } from '@/components/DoAccount/types'
 import { createUid } from '@/utils'
+import { RangePickerProps } from 'antd/es/date-picker'
 
 class InitRecord implements InitialRecord {
   tab = 'income' as Tab
@@ -40,6 +41,9 @@ const DoAccount: React.FC<{
   const notesRef = useRef<{ showNote: boolean }>(null)
   const [open, setOpen] = useState(false)
   const [record, setRecord] = useState(new InitRecord())
+  const disabledDate: RangePickerProps['disabledDate'] = (current) =>
+    current && current > dayjs().endOf('day')
+
   const setNavTab = (value: Tab) => {
     setRecord((state) => ({
       ...state,
@@ -100,6 +104,8 @@ const DoAccount: React.FC<{
               value={record.date}
               format="YYYY-MM-DD"
               size="small"
+              inputReadOnly={true}
+              disabledDate={disabledDate}
               panelRender={(PanelNode) => (
                 <div className="absolute -left-[35%] top-0  bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
                   {PanelNode}
@@ -109,6 +115,7 @@ const DoAccount: React.FC<{
             />
             <TimePicker
               value={record.time}
+              inputReadOnly={true}
               className="!w-[70px] !text-[10px]"
               size="small"
               format="HH:mm"
