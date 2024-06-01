@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavTab from '@/pages/money/components/navTab'
 import RecordItems from '@/pages/money/components/recordItems'
 import DoAccount from 'src/components/DoAccount'
-import { FloatButton, Empty } from 'antd'
+import { FloatButton, Empty, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import store from '@/store'
 import { setLocalStorage } from '@/utils'
@@ -75,11 +75,12 @@ function Money() {
       </div>
       <div className="mt-[80px]">
         <DoAccount onSubmit={submit}>
-          <FloatButton
-            className="right-[5%] bottom-[15%] w-[50px] h-[50px] text-center"
+          <Button
+            className="right-[5%] bottom-[5%] w-[50px] h-[50px] text-center absolute"
             icon={<EditOutlined className="text-xl text-primary" />}
             type="default"
-          />
+            shape="round"
+          ></Button>
         </DoAccount>
         {recordList.length === 0 ? (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="pt-[24px]" />

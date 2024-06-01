@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
 import { flexCenter } from '@/utils/shortcuts'
@@ -13,7 +13,7 @@ const LineChart: React.FC<{
   type: Tab
 }> = ({ dataSource, type }) => {
   const [options, setOptions] = useState<EChartsOption>({})
-
+  const screenWidth = useRef<number>(window.innerWidth)
   useEffect(() => {
     const config = {
       tooltip: {
@@ -71,7 +71,15 @@ const LineChart: React.FC<{
 
   return (
     <section className={`${flexCenter} w-full`}>
-      <div className="overflow-auto w-[85vw]">
+      <div
+        className="overflow-auto"
+        style={{
+          width:
+            screenWidth.current > 500
+              ? '400px'
+              : screenWidth.current * 0.8 + 'px',
+        }}
+      >
         <ReactECharts
           option={options}
           style={{ minHeight: 250, minWidth: 600 }}
