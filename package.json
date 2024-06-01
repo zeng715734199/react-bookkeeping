@@ -1,7 +1,8 @@
 {
-  "name": "react-app-demo",
-  "version": "0.1.0",
+  "name": "react-bookkeeping",
+  "version": "0.0.1",
   "private": true,
+  "homepage": "https://zeng715734199.github.io/react-bookkeeping",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "rm -rf docs && node scripts/build.js",
