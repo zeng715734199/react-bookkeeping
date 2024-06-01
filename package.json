@@ -2,7 +2,7 @@
   "name": "react-bookkeeping",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://zeng715734199.github.io/react-bookkeeping",
+  "homepage": "https://zeng715734199.github.io/react-bookkeeping/",
   "scripts": {
     "start": "node scripts/start.js",
     "deploy": "gh-pages -d docs",
