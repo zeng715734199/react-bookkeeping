@@ -1,10 +1,11 @@
-import { Button, Card, Divider, Space } from 'antd'
+import { Button, Card, Divider, Space, Statistic, StatisticProps } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { CaretDownOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import BigJs from 'big.js'
+import CountUp from 'react-countup'
 
 interface Amount {
   income: string
@@ -16,6 +17,9 @@ const TotalRecord: React.FC<{
   recordList: RecordObj[]
   onChange: (time: string) => void
 }> = ({ recordList, onChange }) => {
+  const formatter: StatisticProps['formatter'] = (value) => (
+    <CountUp end={value as number} duration={1} />
+  )
   const [timeFrame, setTimeFrame] = useState<string>(dayjs().format('YYYY-MM'))
   const [totalAmount, setTotalAmount] = useState<Amount>({
     income: '0',
@@ -58,14 +62,39 @@ const TotalRecord: React.FC<{
         </Button>
       </FilterByMonth>
       <div className="mt-2 text-primary font-bold">
-        <h1 className="text-[15px] py-2">净收入</h1>
-        <span className="text-3xl">￥ {totalAmount.netIncome}</span>
+        <h1 className="text-[15px] py-2 font-bold">净收入</h1>
+        <Statistic
+          prefix="￥"
+          valueStyle={{
+            fontSize: '30px',
+            lineHeight: '36px',
+            color: '#30ab6d',
+          }}
+          value={totalAmount.netIncome}
+          formatter={formatter}
+        />
       </div>
       <div className="m-3 text-grey font-bold text-[14px]">
-        <span>总收入 ￥{totalAmount.income}</span>
+        <Statistic
+          prefix="总收入 ￥"
+          valueStyle={{
+            fontSize: '14px',
+            color: '#86898f',
+          }}
+          value={totalAmount.income}
+          formatter={formatter}
+        />
       </div>
       <div className="m-3 text-warn font-bold text-[14px]">
-        <span>总支出 ￥{totalAmount.expense}</span>
+        <Statistic
+          prefix="总支出 ￥"
+          valueStyle={{
+            fontSize: '14px',
+            color: '#feb557',
+          }}
+          value={totalAmount.expense}
+          formatter={formatter}
+        />
       </div>
     </Card>
   )

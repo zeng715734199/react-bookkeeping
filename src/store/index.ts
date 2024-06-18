@@ -13,4 +13,11 @@ const reducersObj = reducers.keys().reduce(
 
 const reducer = combineReducers(reducersObj)
 
-export default configureStore({ reducer })
+export default configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  devTools: true,
+})
