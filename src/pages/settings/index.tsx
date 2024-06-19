@@ -2,6 +2,7 @@ import { Avatar, Button, Empty, List } from 'antd'
 import { DoubleRightOutlined } from '@ant-design/icons'
 import React from 'react'
 import { settingsList } from '@/pages/settings/list'
+import CustomAvatar from '@/pages/settings/components/customAvatar'
 
 function Settings() {
   const handleItem = (key: string) => {
@@ -22,12 +23,7 @@ function Settings() {
   return (
     <>
       <div className="h-[calc(50vh-56px)] flex justify-center items-center flex-col bg-warn">
-        <Avatar
-          className="w-[80px] h-[80px] bg-navBg"
-          src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${0}`}
-          size="large"
-          shape="circle"
-        />
+        <CustomAvatar />
         <p className="m-2">Chasing</p>
       </div>
       <List
