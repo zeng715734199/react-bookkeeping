@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Divider, Space } from 'antd'
 import Tag from '@/pages/money/widget/tag'
-import Icons from '@/pages/money/widget/icons'
+import Icons from '@/components/Icons/icons'
 import { useNavigate } from 'react-router-dom'
 import { RenderRecords } from '@/store/types'
 import {

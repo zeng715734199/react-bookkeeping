@@ -7,7 +7,7 @@ import {
   LeftOutlined,
   WarningFilled,
 } from '@ant-design/icons'
-import Icons from '@/pages/money/widget/icons'
+import Icons from '@/components/Icons/icons'
 import Title from 'antd/es/typography/Title'
 import DoAccount from '@/components/DoAccount'
 import { setLocalStorage } from '@/utils'

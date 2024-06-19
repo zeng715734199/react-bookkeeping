@@ -1,4 +1,4 @@
-import Icons from '@/pages/money/widget/icons'
+import Icons from '@/components/Icons/icons'
 import React, { useState } from 'react'
 import { Tab } from '@/components/DoAccount/types'
 import { colorMap } from '@/components/DoAccount/constant'

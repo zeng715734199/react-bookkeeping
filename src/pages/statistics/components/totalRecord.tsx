@@ -18,7 +18,7 @@ const TotalRecord: React.FC<{
   onChange: (time: string) => void
 }> = ({ recordList, onChange }) => {
   const formatter: StatisticProps['formatter'] = (value) => (
-    <CountUp end={value as number} duration={1} />
+    <CountUp end={value as number} duration={1} separator="," decimals={2} />
   )
   const [timeFrame, setTimeFrame] = useState<string>(dayjs().format('YYYY-MM'))
   const [totalAmount, setTotalAmount] = useState<Amount>({

@@ -76,7 +76,7 @@ function Money() {
       <div className="mt-[80px]">
         <DoAccount onSubmit={submit}>
           <Button
-            className="right-[5%] bottom-[5%] w-[50px] h-[50px] text-center absolute"
+            className="right-[5%] bottom-[5%] w-[50px] h-[50px] text-center absolute z-[50]"
             icon={<EditOutlined className="text-xl text-primary" />}
             type="default"
             shape="round"

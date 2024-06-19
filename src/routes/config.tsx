@@ -1,12 +1,12 @@
 import {
   DatabaseOutlined,
   MoneyCollectOutlined,
-  TagOutlined,
+  SettingOutlined,
 } from '@ant-design/icons'
 import React from 'react'
 import Money from '@/pages/money/index'
 import Statistics from '@/pages/statistics/index'
-import Labels from '@/pages/labels/index'
+import Settings from '@/pages/settings/index'
 import NotFound from '@/notFound'
 import Login from '@/pages/login'
 import type { RouteObject } from 'react-router-dom'
@@ -35,9 +35,9 @@ export const tabBar = [
     title: '统计',
   },
   {
-    path: '/labels',
-    icon: TagOutlined,
-    title: '标签',
+    path: '/settings',
+    icon: SettingOutlined,
+    title: '设置',
   },
 ]
 const routerList: RouteObject[] = [
@@ -61,8 +61,8 @@ const routerList: RouteObject[] = [
         element: <Statistics />,
       },
       {
-        path: '/labels',
-        element: <Labels />,
+        path: '/settings',
+        element: <Settings />,
       },
     ],
   },
