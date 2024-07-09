@@ -50,6 +50,7 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
           money: item.money,
           note: item.note,
           tag: item.tag,
+          tagName: item.tagName,
         })
       } else {
         obj.children.push({
@@ -65,6 +66,7 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
               money: item.money,
               note: item.note,
               tag: item.tag,
+              tagName: item.tagName,
             },
           ],
         })
@@ -89,6 +91,7 @@ export const handleAccountRecords = (handleRecords: RecordObj[]) => {
                 money: item.money,
                 note: item.note,
                 tag: item.tag,
+                tagName: item.tagName,
               },
             ],
           },

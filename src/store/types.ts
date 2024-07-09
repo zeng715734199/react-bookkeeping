@@ -15,6 +15,7 @@ export interface RecordItem {
   money: string
   note: string
   tag: string
+  tagName: string
 }
 
 export interface RenderRecords {

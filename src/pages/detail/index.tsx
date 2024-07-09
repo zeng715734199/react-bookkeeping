@@ -104,14 +104,7 @@ const RecordDetails: React.FC = () => {
               size={25}
               background={detail?.tab ? colorMap[detail.tab] : undefined}
             ></Icons>
-            <span>
-              {
-                (detail?.tab === 'income'
-                  ? incomes.find((i) => i.key === detail?.tag)
-                  : expenditures.find((i) => i.key === detail?.tag)
-                )?.label
-              }
-            </span>
+            <span>{detail?.tagName}</span>
           </Space>
           <Title level={2} className="my-4">
             {`${detail?.tab === 'income' ? '+' : '-'}${detail?.money}`}

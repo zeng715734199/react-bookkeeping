@@ -49,31 +49,32 @@ export const IconTabMap = {
 
 export default function TagList({
   tab,
-  tag,
+  uniKey,
   onChange,
 }: {
   tab: Tab
-  tag: string
-  onChange: (key: string) => void
+  uniKey: string
+  onChange: (item: Tags) => void
 }) {
   return (
     <>
       {IconTabMap[tab].map((item) => {
+        const keyName = `${item.key}-${item.label}`
         return (
           <div
             className="flex flex-col justify-center items-center mt-5 mx-1"
             key={item.key}
-            onClick={() => onChange(item.key)}
+            onClick={() => onChange(item)}
           >
             <Icons
               name={item.key}
-              background={tag === item.key ? colorMap[tab] : '#e9e9e9'}
-              color={tag === item.key ? '#fff' : '#c0c0c0'}
+              background={uniKey === keyName ? colorMap[tab] : '#e9e9e9'}
+              color={uniKey === keyName ? '#fff' : '#c0c0c0'}
             />
             <span
               className="my-2"
               style={{
-                color: tag === item.key ? colorMap[tab] : '#94979c',
+                color: uniKey === keyName ? colorMap[tab] : '#94979c',
               }}
             >
               {item.label}

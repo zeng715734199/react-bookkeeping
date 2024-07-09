@@ -10,14 +10,16 @@ export interface RecordObj {
   money: string
   note: string
   tag: string
+  tagName: string
 }
 
 export interface InitialRecord {
+  id: string
   tab: Tab
   date: dayjs.Dayjs
   time: dayjs.Dayjs
   money: string
   note: string
   tag: string
-  id: string
+  tagName: string
 }

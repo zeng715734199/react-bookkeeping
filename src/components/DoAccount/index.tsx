@@ -16,7 +16,8 @@ class InitRecord implements InitialRecord {
   time = dayjs()
   money = '0'
   note = ''
-  tag = IconTabMap['income']['0'].key
+  tag = IconTabMap[this.tab]['0'].key
+  tagName = IconTabMap[this.tab]['0'].label
   id = createUid()
 }
 const drawerHeight = window.innerHeight * 0.95
@@ -29,6 +30,7 @@ const formatDefaultVal = (obj: RecordObj): InitRecord => {
     money: obj.money,
     note: obj.note,
     tag: obj.tag,
+    tagName: obj.tagName,
     id: obj.id,
   }
 }
@@ -49,6 +51,7 @@ const DoAccount: React.FC<{
       ...state,
       tab: value,
       tag: IconTabMap[value]['0'].key,
+      tagName: IconTabMap[value]['0'].label,
     }))
   }
 
@@ -137,8 +140,14 @@ const DoAccount: React.FC<{
           <section className="flex flex-nowrap">
             <TagList
               tab={record.tab}
-              tag={record.tag}
-              onChange={(tag) => setRecord((state) => ({ ...state, tag }))}
+              uniKey={`${record.tag}-${record.tagName}`}
+              onChange={(tag) =>
+                setRecord((state) => ({
+                  ...state,
+                  tag: tag.key,
+                  tagName: tag.label,
+                }))
+              }
             />
           </section>
           {/*备注*/}

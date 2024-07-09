@@ -57,14 +57,7 @@ const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
                           background={colorMap[item.tab]}
                         ></Icons>
                         <div className="flex flex-col ml-[5%] mr-[5%] w-full">
-                          <span className="text-[14px]">
-                            {
-                              (item.tab === 'income'
-                                ? incomes.find((i) => i.key === item.tag)
-                                : expenditures.find((i) => i.key === item.tag)
-                              )?.label
-                            }
-                          </span>
+                          <span className="text-[14px]">{item.tagName}</span>
                           <Space
                             className="text-[12px] text-[#b8bcc5] font-bold"
                             split={<Divider type="vertical" />}
