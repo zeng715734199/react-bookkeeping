@@ -1,22 +1,18 @@
 import React, { useEffect } from 'react'
-import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
-import RouterApp from './config'
-import { historyUtils } from '@/utils'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import routes from './config'
 import store from '@/store'
 import { queryUserInfo } from '@api/Login'
 import { setUserInfo } from '@/store/actions'
 
+const router = createHashRouter(routes)
 function allRoutes() {
   useEffect(() => {
     // queryUserInfo().then(({ data }) => {
     //   store.dispatch(setUserInfo(data))
     // })
   }, [])
-  return (
-    <HistoryRouter history={historyUtils}>
-      <RouterApp />
-    </HistoryRouter>
-  )
+  return <RouterProvider router={router}></RouterProvider>
 }
 
 export default allRoutes

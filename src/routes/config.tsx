@@ -11,9 +11,9 @@ import NotFound from '@/notFound'
 import Login from '@/pages/login'
 import type { RouteObject } from 'react-router-dom'
 import type { AntdIconProps } from '@ant-design/icons/es/components/AntdIcon'
-import { useRoutes } from 'react-router-dom'
 import PageLayout from '@/components/PageLayout'
 import RecordDetails from 'src/pages/detail'
+import Labels from '@/pages/labels'
 
 export type TabItem = {
   path: string
@@ -67,18 +67,18 @@ const routerList: RouteObject[] = [
     ],
   },
   {
-    path: 'login',
+    path: '/login',
     element: <Login />,
   },
   {
     path: '/detail/:id',
     element: <RecordDetails />,
   },
-
+  { path: '/labels', element: <Labels /> },
   {
     path: '*',
     element: <NotFound />,
   },
 ]
 
-export default () => useRoutes(routerList)
+export default routerList

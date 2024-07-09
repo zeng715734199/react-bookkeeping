@@ -1,10 +1,10 @@
-import { createBrowserHistory } from 'history'
+import { createHashHistory } from 'history'
 import { History } from '@remix-run/router/history'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
 import dayjs from 'dayjs'
 import { customAlphabet } from 'nanoid'
 dayjs.extend(isLeapYear)
-export const historyUtils = createBrowserHistory() as unknown as History
+export const historyUtils = createHashHistory() as unknown as History
 
 export const setLocalStorage = (
   key: string,
