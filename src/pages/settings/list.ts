@@ -5,12 +5,12 @@ export const settingsList = [
     iconName: 'addTag',
   },
   {
-    title: '额度管理',
+    title: '额度管理（待开发）',
     key: 'limitManagement',
     iconName: 'feeLimit',
   },
   {
-    title: '消息管理',
+    title: '消息管理（待开发）',
     key: 'msgManagement',
     iconName: 'msg',
   },

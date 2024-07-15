@@ -3,11 +3,15 @@ import { DoubleRightOutlined } from '@ant-design/icons'
 import React from 'react'
 import { settingsList } from '@/pages/settings/list'
 import CustomAvatar from '@/pages/settings/components/customAvatar'
+import { useNavigate } from 'react-router-dom'
 
 function Settings() {
+  const navigate = useNavigate()
+
   const handleItem = (key: string) => {
     const map = {
       tagManagement: () => {
+        navigate('/labels')
         console.log(key, 'kkk')
       },
       limitManagement: () => {
