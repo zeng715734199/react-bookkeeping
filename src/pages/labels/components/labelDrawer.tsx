@@ -1,15 +1,12 @@
 import React, { JSX, useEffect, useRef, useState } from 'react'
-import { Button, Card, Drawer, Input, Space } from 'antd'
-import {
-  expenditures,
-  incomes,
-  Tags,
-} from '@/components/DoAccount/components/tagList'
+import { Button, Card, Drawer, Input, message, Space } from 'antd'
 import SquareIcon from '@/pages/labels/components/squareIcon'
 import { colorMap } from '@/components/DoAccount/constant'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import store from '@/store'
 import { addLabelItem, editLabelItem, updateRecords } from '@/store/actions'
+import { expenditures, incomes, Tags } from '@/store/constants'
+import { createUid } from '@/utils'
 
 const drawerHeight = window.innerHeight * 0.5
 const labelKeys = [...expenditures, ...incomes].map((item) => item.key)
@@ -22,18 +19,28 @@ const LabelDrawer: React.FC<{
   updateList: () => void
   defaultValue?: Tags | null
 }> = ({ updateList, open, setOpen, activeTab, mode, defaultValue = {} }) => {
-  const [labelObj, setLabelObj] = useState<Tags>({
+  const [labelObj, setLabelObj] = useState<Tags | null>({
     label: '',
     key: 'food',
+    uid: createUid(),
   })
   const onSave = () => {
+    if (!labelObj?.label?.trim()) {
+      message.error('标签名称不可为空')
+      return
+    }
     const { handleRecords, handleLabels } = store.getState() as {
       handleRecords: RecordObj[]
       handleLabels: Record<Tab, Tags[]>
     }
     const map = {
       ADD: () => {
-        store.dispatch(addLabelItem({ tab: activeTab, labelItem: labelObj }))
+        store.dispatch(
+          addLabelItem({
+            tab: activeTab,
+            labelItem: { ...labelObj, uid: createUid() },
+          })
+        )
       },
       EDIT: () => {
         handleRecords.forEach((item, index) => {
@@ -41,8 +48,8 @@ const LabelDrawer: React.FC<{
             item.tag === defaultValue?.key &&
             item.tagName === defaultValue?.label
           ) {
-            item.tag = labelObj.key
-            item.tagName = labelObj.label
+            item.tag = labelObj!.key
+            item.tagName = labelObj!.label
           }
         })
         const idx = handleLabels[activeTab].findIndex(
@@ -61,19 +68,25 @@ const LabelDrawer: React.FC<{
     close()
   }
   const close = () => {
-    setLabelObj(() => ({
-      label: '',
-      key: 'food',
-    }))
+    setLabelObj(
+      () =>
+        ({
+          label: '',
+          key: 'food',
+        }) as Tags
+    )
     setOpen(false)
   }
 
   useEffect(() => {
     open &&
-      setLabelObj((state) => ({
-        ...state,
-        ...(defaultValue ? defaultValue : {}),
-      }))
+      setLabelObj(
+        (state) =>
+          ({
+            ...state,
+            ...(defaultValue ? defaultValue : {}),
+          }) as Tags
+      )
   }, [open])
 
   return (
@@ -97,13 +110,16 @@ const LabelDrawer: React.FC<{
         <Space size={5} className="my-2 mx-3">
           <span>标签名称：</span>
           <Input
-            value={labelObj.label}
+            value={labelObj!.label}
             placeholder="请输入标签名称"
             onChange={({ target: { value } }) =>
-              setLabelObj((state) => ({
-                ...state,
-                label: value,
-              }))
+              setLabelObj(
+                (state) =>
+                  ({
+                    ...state,
+                    label: value,
+                  }) as Tags
+              )
             }
           />
         </Space>
@@ -115,17 +131,20 @@ const LabelDrawer: React.FC<{
                   className="ml-2 mb-2"
                   key={key}
                   onClick={() =>
-                    setLabelObj((state) => ({
-                      ...state,
-                      key,
-                    }))
+                    setLabelObj(
+                      (state) =>
+                        ({
+                          ...state,
+                          key,
+                        }) as Tags
+                    )
                   }
                 >
                   <SquareIcon
                     name={key}
                     size={35}
                     background={
-                      key === labelObj.key ? colorMap[activeTab] : '#a5a5a5'
+                      key === labelObj!.key ? colorMap[activeTab] : '#a5a5a5'
                     }
                   />
                 </div>

@@ -1,13 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import FilterByTag, { allTypes } from '@/pages/money/components/filterByTag'
-import {
-  expenditures,
-  incomes,
-} from '@/components/DoAccount/components/tagList'
 import { Space, Divider, Button } from 'antd'
 import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { AppstoreOutlined, CaretDownOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
+import store from '@/store'
+import { Tab } from '@/components/DoAccount/types'
+import { Tags } from '@/store/constants'
 
 const NavTab: React.FC<{
   totalVal: {
@@ -16,6 +15,9 @@ const NavTab: React.FC<{
   }
   onFilter: (params: { time: string; tag: string }) => void
 }> = ({ onFilter, totalVal }) => {
+  const { handleLabels } = store.getState() as {
+    handleLabels: Record<Tab, Tags[]>
+  }
   const [condition, setCondition] = useState<{ time: string; tag: string }>({
     time: dayjs().format('YYYY-MM'),
     tag: '*',
@@ -39,9 +41,11 @@ const NavTab: React.FC<{
             icon={<AppstoreOutlined className="text-xl text-[#fff] w-[32px]" />}
           >
             {
-              [...allTypes, ...incomes, ...expenditures].find(
-                (item) => item.key === condition.tag
-              )?.label
+              [
+                ...allTypes,
+                ...handleLabels.income,
+                ...handleLabels.expend,
+              ].find((item) => item.key === condition.tag)?.label
             }
           </Button>
         </FilterByTag>

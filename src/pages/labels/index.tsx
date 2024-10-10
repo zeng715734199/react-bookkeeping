@@ -14,13 +14,13 @@ import {
 } from 'react-beautiful-dnd'
 import SegmentedNav from '@/components/SegmentedNav'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
-import { Tags } from '@/components/DoAccount/components/tagList'
 import SquareIcon from './components/squareIcon'
 import { borderBottomByColor } from '@/utils/shortcuts'
 import { colorMap } from '@/components/DoAccount/constant'
 import LabelDrawer from '@/pages/labels/components/labelDrawer'
 import store from '@/store'
 import { delLabelItem } from '@/store/actions'
+import { Tags } from '@/store/constants'
 
 const colorList = [
   'blue',
@@ -56,7 +56,7 @@ const Labels = () => {
   const [labelObj, setLabelObj] = useState<Tags | null>(null)
   const [iconObj, setIconObjList] = useState({
     items: [] as Tags[],
-    dustbin: [{ key: '*', label: '*' }] as Tags[],
+    dustbin: [{ key: '*', label: '*', uid: '*' }] as Tags[],
   })
 
   initializeLocalList()
@@ -151,7 +151,7 @@ const Labels = () => {
       <Breadcrumb
         items={[
           {
-            href: '#/settings',
+            href: '/react-bookkeeping/#/settings',
             title: <LeftOutlined className="text-[#55575b]" />,
           },
         ]}
@@ -177,8 +177,8 @@ const Labels = () => {
               >
                 {iconObj.items.map((item, index) => (
                   <Draggable
-                    key={item.key}
-                    draggableId={item.key}
+                    key={item.uid}
+                    draggableId={item.uid}
                     index={index}
                   >
                     {(dragProvided, snapshot) => (
@@ -252,8 +252,8 @@ const Labels = () => {
                 </div>
                 {iconObj.dustbin.map((item, index) => (
                   <Draggable
-                    key={item['key']}
-                    draggableId={item['key']}
+                    key={item.uid}
+                    draggableId={item.uid}
                     index={index}
                   >
                     {(dragProvided, snapshot) => (

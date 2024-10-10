@@ -2,13 +2,14 @@ import React, { JSX, useRef, useState } from 'react'
 import { DatePicker, DatePickerProps, Drawer, message, TimePicker } from 'antd'
 import NumberPad from '@/components/DoAccount/components/numberPad'
 import Notes from '@/components/DoAccount/components/notes'
-import TagList, { IconTabMap } from '@/components/DoAccount/components/tagList'
+import TagList from '@/components/DoAccount/components/tagList'
 import MoneyPanel from '@/components/DoAccount/components/moneyPanel'
 import SegmentedNav from 'src/components/SegmentedNav'
 import dayjs from 'dayjs'
 import { InitialRecord, RecordObj, Tab } from '@/components/DoAccount/types'
 import { createUid } from '@/utils'
 import { RangePickerProps } from 'antd/es/date-picker'
+import { IconTabMap } from '@/store/constants'
 
 class InitRecord implements InitialRecord {
   tab = 'income' as Tab

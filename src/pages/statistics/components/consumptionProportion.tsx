@@ -5,11 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import { Flex, Progress, Typography } from 'antd'
 import BigJs from 'big.js'
-import {
-  expenditures,
-  incomes,
-  Tags,
-} from '@/components/DoAccount/components/tagList'
+import { expenditures, incomes, Tags } from '@/store/constants'
 
 export interface ProgressItem {
   tagName: string

@@ -5,10 +5,7 @@ import Empty from '@/components/Empty'
 import React, { useEffect, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import BigJs from 'big.js'
-import {
-  expenditures,
-  incomes,
-} from '@/components/DoAccount/components/tagList'
+import { expenditures, incomes } from '@/store/constants'
 
 const allTags = [...incomes, ...expenditures]
 const ConsumptionRatio: React.FC<{

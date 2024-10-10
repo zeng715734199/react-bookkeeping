@@ -1,5 +1,5 @@
 import { RecordObj, Tab } from '@/components/DoAccount/types'
-import { Tags } from '@/components/DoAccount/components/tagList'
+import { Tags } from '@/store/constants'
 
 /**
  * @desc users模块
@@ -35,7 +35,7 @@ export function delRecords(id: string) {
 export const ADD_LABELS = 'ADD_LABELS'
 export const DEL_LABELS = 'DEL_LABELS'
 export const EDIT_LABELS = 'EDIT_LABELS'
-export function addLabelItem(value: { tab: Tab; labelItem: Tags }) {
+export function addLabelItem(value: { tab: Tab; labelItem: Tags | null }) {
   return { type: ADD_LABELS, payload: value || {} }
 }
 export function delLabelItem(value: { tab: Tab; idx: number }) {
@@ -43,7 +43,7 @@ export function delLabelItem(value: { tab: Tab; idx: number }) {
 }
 export function editLabelItem(value: {
   tab: Tab
-  labelItem: Tags
+  labelItem: Tags | null
   idx: number
 }) {
   return { type: EDIT_LABELS, payload: value || {} }

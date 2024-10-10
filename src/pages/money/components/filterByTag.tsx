@@ -1,9 +1,7 @@
 import React, { JSX, useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
-import {
-  expenditures,
-  incomes,
-} from '@/components/DoAccount/components/tagList'
+import store from '@/store'
+import { RecordObj, Tab } from '@/components/DoAccount/types'
 type Tags = {
   label: string
   key: string
@@ -20,6 +18,9 @@ const FilterByTag: React.FC<{
   onOk: (key: string) => void
   children: JSX.Element
 }> = ({ onOk, children }) => {
+  const { handleLabels } = store.getState() as {
+    handleLabels: Record<Tab, Tags[]>
+  }
   const [open, setOpen] = useState(false)
   const [checkedTag, setCheckedTag] = useState<string>('*')
 
@@ -68,11 +69,11 @@ const FilterByTag: React.FC<{
         <section>{getTagList(allTypes)}</section>
         <section>
           <div className="text-[#a7a9ad] my-3 font-bold text-[15px]">收入</div>
-          {getTagList(incomes)}
+          {getTagList(handleLabels['income'])}
         </section>
         <section>
           <div className="text-[#a7a9ad] my-3 font-bold text-[15px]">支出</div>
-          {getTagList(expenditures)}
+          {getTagList(handleLabels['expend'])}
         </section>
       </Drawer>
     </>
