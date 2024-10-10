@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/react-bookkeeping/static/css/main.0abdfbbe.css",
-    "main.js": "/react-bookkeeping/static/js/main.ea108889.js",
+    "main.css": "/react-bookkeeping/static/css/main.fa98676c.css",
+    "main.js": "/react-bookkeeping/static/js/main.f9fbbfae.js",
     "static/js/206.8653630f.chunk.js": "/react-bookkeeping/static/js/206.8653630f.chunk.js",
     "index.html": "/react-bookkeeping/index.html"
   },
   "entrypoints": [
-    "static/css/main.0abdfbbe.css",
-    "static/js/main.ea108889.js"
+    "static/css/main.fa98676c.css",
+    "static/js/main.f9fbbfae.js"
   ]
 }
