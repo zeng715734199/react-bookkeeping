@@ -100,7 +100,7 @@ const DoAccount: React.FC<{
         open={open}
         height={drawerHeight > 650 ? 650 : drawerHeight}
       >
-        <div className="p-2 overflow-auto w-full">
+        <div className="p-[8px] overflow-auto w-full">
           {/*顶部tab*/}
           <section className="mb-5 w-full flex justify-center">
             <SegmentedNav value={record.tab} onChange={setNavTab} />
@@ -141,7 +141,7 @@ const DoAccount: React.FC<{
             <MoneyPanel money={record.money} />
           </section>
           {/*选择标签*/}
-          <section className="flex flex-nowrap">
+          <section>
             <TagList
               tab={record.tab}
               uniKey={record.tagId}
@@ -156,7 +156,7 @@ const DoAccount: React.FC<{
             />
           </section>
           {/*备注*/}
-          <section className="my-2 py-3">
+          <section className="py-3">
             <Notes
               ref={notesRef}
               value={record.note}
