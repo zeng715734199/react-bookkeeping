@@ -43,21 +43,17 @@ const LabelDrawer: React.FC<{
         )
       },
       EDIT: () => {
-        handleRecords.forEach((item, index) => {
-          if (
-            item.tag === defaultValue?.key &&
-            item.tagName === defaultValue?.label
-          ) {
-            item.tag = labelObj!.key
-            item.tagName = labelObj!.label
+        const list = handleRecords.map((item, index) => {
+          if (item.tagId === (defaultValue as Tags).uid) {
+            item = { ...item, tagName: labelObj!.label, tag: labelObj!.key }
           }
+          return item
         })
         const idx = handleLabels[activeTab].findIndex(
-          (item) =>
-            item.label === defaultValue?.label && item.key === defaultValue?.key
+          (item) => item.uid === (defaultValue as Tags).uid
         )
         //更新记录中的旧标签为新的标签
-        store.dispatch(updateRecords(handleRecords))
+        store.dispatch(updateRecords(list))
         store.dispatch(
           editLabelItem({ tab: activeTab, labelItem: labelObj, idx })
         )
@@ -73,6 +69,7 @@ const LabelDrawer: React.FC<{
         ({
           label: '',
           key: 'food',
+          uid: createUid(),
         }) as Tags
     )
     setOpen(false)
