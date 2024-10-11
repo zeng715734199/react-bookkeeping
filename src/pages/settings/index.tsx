@@ -14,12 +14,8 @@ function Settings() {
         navigate('/labels')
         console.log(key, 'kkk')
       },
-      limitManagement: () => {
-        console.log(key, 'kkk')
-      },
-      msgManagement: () => {
-        console.log(key, 'kkk')
-      },
+      limitManagement: () => {},
+      msgManagement: () => {},
     } as Record<string, () => any>
     map[key]?.()
   }
@@ -28,7 +24,7 @@ function Settings() {
     <>
       <div className="h-[calc(50vh-56px)] flex justify-center items-center flex-col bg-warn">
         <CustomAvatar />
-        <p className="m-2">Chasing</p>
+        <p className="m-2">Forrest</p>
       </div>
       <List
         itemLayout="horizontal"

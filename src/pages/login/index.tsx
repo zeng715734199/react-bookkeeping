@@ -34,15 +34,14 @@ const Login: React.FC = () => {
   }, [])
 
   const onFinish = (values: FieldType) => {
-    console.log('Success:', values)
     queryLogin({
       userId: values.username as string,
       password: values.password as string,
     })
       .then(({ data }) => {
-        if (data.bpmToken) {
+        if (data.token) {
           message.success('登录成功~')
-          setLocalStorage('bpmToken', data.bpmToken)
+          setLocalStorage('token', data.token)
           values.remember &&
             setLocalStorage(localKey, {
               username: values.username,

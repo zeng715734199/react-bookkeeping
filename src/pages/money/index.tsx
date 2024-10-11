@@ -26,7 +26,6 @@ function Money() {
     console.log('监听中..', handleRecords)
     setLocalStorage('accountRecord', handleRecords as RecordObj[])
     const list = handleAccountRecords(handleRecords as RecordObj[])
-    console.log(list, 'list')
     setRecordList(list)
   }
 

@@ -63,9 +63,7 @@ const RecordDetails: React.FC = () => {
         message.success('删除成功~')
         navigate('/money')
       },
-      onCancel() {
-        console.log('Cancel')
-      },
+      onCancel() {},
     })
   }
 
@@ -74,7 +72,6 @@ const RecordDetails: React.FC = () => {
     // 监听state的变化
     const unsubscribe = store.subscribe(() => {
       const { handleRecords } = store.getState()
-      console.log('详情页监听中..', handleRecords)
       setLocalStorage('accountRecord', handleRecords as RecordObj[])
     })
     return () => {

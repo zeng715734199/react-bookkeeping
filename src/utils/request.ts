@@ -9,7 +9,7 @@ import store from '@/store'
 import { setUserInfo } from '@/store/actions'
 
 const instance = axios.create({
-  baseURL: 'http://lbp-test.lifewit.cn/api/lbp/',
+  baseURL: 'http://10.0.1.107:3000',
   timeout: 30000,
   transformResponse: [
     function (data) {
@@ -25,14 +25,13 @@ let globalRequestInfo: { url: string | null } = {
 // 添加请求拦截器
 instance.interceptors.request.use(
   function (config) {
-    // 判断是否是登录接口
     if (config.url === 'v1/api/auth/login') {
       config.headers && delete config.headers.Authorizations
     } else {
-      const bpmToken = getLocalStorage('bpmToken')
-      if (bpmToken) {
+      const token = getLocalStorage('token')
+      if (token) {
         config.headers = {
-          Authorization: bpmToken as string,
+          Authorization: token as string,
           ...config.headers,
         } as AxiosRequestHeaders
       }
@@ -48,9 +47,7 @@ instance.interceptors.request.use(
 
 // 添加响应拦截器
 instance.interceptors.response.use(
-  //成功响应
   (response) => response,
-  //错误响应
   ({ response }) => {
     const data = response?.data
     if (!data) {
@@ -60,7 +57,7 @@ instance.interceptors.response.use(
     switch (response.status) {
       case 401:
         'msg' in response.data && message.error(data.msg)
-        removeLocalStorage('bpmToken')
+        removeLocalStorage('token')
         store.dispatch(setUserInfo(null))
         historyUtils.push('/login')
         break
