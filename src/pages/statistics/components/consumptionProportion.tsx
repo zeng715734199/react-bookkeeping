@@ -5,7 +5,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
 import { Flex, Progress, Typography } from 'antd'
 import BigJs from 'big.js'
-import { expenditures, incomes, Tags } from '@/store/constants'
+import { Tags } from '@/store/constants'
+import store from '@/store'
 
 export interface ProgressItem {
   tagName: string
@@ -24,7 +25,6 @@ const colors = [
   '#ee6666',
   '#73c0de',
 ]
-const allTags = [...incomes, ...expenditures] as Tags[]
 
 const ConsumptionProportion: React.FC<{
   recordList: RecordObj[]
@@ -36,21 +36,26 @@ const ConsumptionProportion: React.FC<{
     +new BigJs(amount).div(totalAmount.current).times(100).toFixed(0)
 
   useEffect(() => {
+    const { handleLabels } = store.getState() as {
+      handleLabels: Record<Tab, Tags[]>
+    }
+    const allTags = [...handleLabels.income, ...handleLabels.expend]
     totalAmount.current = 0
     const map = new Map<string, number>()
     recordList.forEach((item) => {
       const value = map.get(item.tag)
       item.tab === segmentedValue &&
         map.set(
-          item.tag,
+          item.tagId,
           value ? new BigJs(value).add(item.money).toNumber() : +item.money
         )
     })
     const recordTagList = [...map.entries()]
     const list = [] as ProgressItem[]
-    for (const [tag, amount] of recordTagList) {
+    for (const [tagId, amount] of recordTagList) {
       const obj = {} as ProgressItem
-      obj.tagName = allTags.find((item) => item.key === tag)!.label
+      const tagItem = allTags.find((item) => item.uid === tagId)
+      obj.tagName = tagItem!.label
       obj.amount = amount
       list.push(obj)
       totalAmount.current = new BigJs(totalAmount.current)
