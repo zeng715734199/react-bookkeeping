@@ -5,8 +5,9 @@
   "homepage": "/react-bookkeeping",
   "scripts": {
     "start": "node scripts/start.js",
-    "deploy": "gh-pages -d docs",
-    "build": "rm -rf docs && node scripts/build.js",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist -r https://github.com/zeng715734199/react-bookkeeping.git -b gh-pages",
+    "build": "rm -rf dist && node scripts/build.js",
     "test": "node scripts/test.js"
   },
   "dependencies": {
@@ -40,7 +41,6 @@
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
-    "gh-pages": "^6.1.1",
     "history": "5.1.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
@@ -96,7 +96,8 @@
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "node-sass": "^9.0.0",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "gh-pages": "^6.1.1"
   },
   "eslintConfig": {
     "extends": [
