@@ -15,10 +15,10 @@ import dayjs from 'dayjs'
 function Money() {
   const [recordList, setRecordList] = useState<RenderRecords[]>([])
   const [filter, setFilter] = useState<{
-    tag: string
+    tagId: string
     time: string
   }>({
-    tag: '*',
+    tagId: '*',
     time: dayjs().format('YYYY-MM'),
   })
   const initRecordList = () => {
@@ -59,7 +59,9 @@ function Money() {
     } & Record<string, any>
     const afterFilterList = handleRecords.filter((item) => {
       const timeEq = dayjs(item.date).format('YYYY-MM') === filter.time
-      return filter.tag === '*' ? timeEq : item.tagId === filter.tag && timeEq
+      return filter.tagId === '*'
+        ? timeEq
+        : item.tagId === filter.tagId && timeEq
     })
     const list = handleAccountRecords(afterFilterList)
     setRecordList(list)
@@ -69,7 +71,7 @@ function Money() {
     <div className="h-full overflow-auto min-w-[360px]">
       <div className="absolute top-0 z-10 w-full">
         <NavTab
-          onFilter={({ time, tag }) => setFilter({ time, tag })}
+          onFilter={({ time, tagId }) => setFilter({ time, tagId })}
           totalVal={computedTotal(recordList)}
         />
       </div>

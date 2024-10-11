@@ -13,18 +13,18 @@ const NavTab: React.FC<{
     totalIncome: string
     totalExpense: string
   }
-  onFilter: (params: { time: string; tag: string }) => void
+  onFilter: (params: { time: string; tagId: string }) => void
 }> = ({ onFilter, totalVal }) => {
   const { handleLabels } = store.getState() as {
     handleLabels: Record<Tab, Tags[]>
   }
-  const [condition, setCondition] = useState<{ time: string; tag: string }>({
+  const [condition, setCondition] = useState<{ time: string; tagId: string }>({
     time: dayjs().format('YYYY-MM'),
-    tag: '*',
+    tagId: '*',
   })
 
   useEffect(
-    () => onFilter({ time: condition.time, tag: condition.tag }),
+    () => onFilter({ time: condition.time, tagId: condition.tagId }),
     [condition]
   )
 
@@ -32,7 +32,7 @@ const NavTab: React.FC<{
     <section className="w-full bg-primary flex flex-col max-h-[80px]">
       <div className="mx-5">
         <FilterByTag
-          onOk={(tag) => setCondition((state) => ({ ...state, tag }))}
+          onOk={(tagId) => setCondition((state) => ({ ...state, tagId }))}
         >
           <Button
             size="large"
@@ -45,7 +45,7 @@ const NavTab: React.FC<{
                 ...allTypes,
                 ...handleLabels.income,
                 ...handleLabels.expend,
-              ].find((item) => item.uid === condition.tag)?.label
+              ].find((item) => item.uid === condition.tagId)?.label
             }
           </Button>
         </FilterByTag>
