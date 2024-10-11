@@ -1,5 +1,5 @@
 import React, { JSX, useRef, useState } from 'react'
-import { DatePicker, DatePickerProps, Drawer, message, TimePicker } from 'antd'
+import { DatePicker, Drawer, message, TimePicker } from 'antd'
 import NumberPad from '@/components/DoAccount/components/numberPad'
 import Notes from '@/components/DoAccount/components/notes'
 import TagList from '@/components/DoAccount/components/tagList'
@@ -19,6 +19,7 @@ class InitRecord implements InitialRecord {
   note = ''
   tag = IconTabMap[this.tab]['0'].key
   tagName = IconTabMap[this.tab]['0'].label
+  tagId = IconTabMap[this.tab]['0'].uid
   id = createUid()
 }
 const drawerHeight = window.innerHeight * 0.95
@@ -32,6 +33,7 @@ const formatDefaultVal = (obj: RecordObj): InitRecord => {
     note: obj.note,
     tag: obj.tag,
     tagName: obj.tagName,
+    tagId: obj.tagId,
     id: obj.id,
   }
 }
@@ -53,6 +55,7 @@ const DoAccount: React.FC<{
       tab: value,
       tag: IconTabMap[value]['0'].key,
       tagName: IconTabMap[value]['0'].label,
+      tagId: IconTabMap[value]['0'].uid,
     }))
   }
 
@@ -141,12 +144,13 @@ const DoAccount: React.FC<{
           <section className="flex flex-nowrap">
             <TagList
               tab={record.tab}
-              uniKey={`${record.tag}-${record.tagName}`}
+              uniKey={record.tagId}
               onChange={(tag) =>
                 setRecord((state) => ({
                   ...state,
                   tag: tag.key,
                   tagName: tag.label,
+                  tagId: tag.uid,
                 }))
               }
             />

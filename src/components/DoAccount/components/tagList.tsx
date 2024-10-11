@@ -23,7 +23,6 @@ export default function TagList({
       style={{ width: 'calc(100vw - (0.5rem + 8px))' }}
     >
       {handleLabels[tab].map((item) => {
-        const keyName = `${item.key}-${item.label}`
         return (
           <div
             className="flex flex-col justify-center items-center mt-3 mx-3"
@@ -32,13 +31,13 @@ export default function TagList({
           >
             <Icons
               name={item.key}
-              background={uniKey === keyName ? colorMap[tab] : '#e9e9e9'}
-              color={uniKey === keyName ? '#fff' : '#c0c0c0'}
+              background={uniKey === item.uid ? colorMap[tab] : '#e9e9e9'}
+              color={uniKey === item.uid ? '#fff' : '#c0c0c0'}
             />
             <span
               className="my-2"
               style={{
-                color: uniKey === keyName ? colorMap[tab] : '#94979c',
+                color: uniKey === item.uid ? colorMap[tab] : '#94979c',
               }}
             >
               {item.label}

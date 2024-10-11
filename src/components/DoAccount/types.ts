@@ -11,6 +11,7 @@ export interface RecordObj {
   note: string
   tag: string
   tagName: string
+  tagId: string
 }
 
 export interface InitialRecord {

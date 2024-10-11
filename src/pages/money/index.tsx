@@ -59,7 +59,7 @@ function Money() {
     } & Record<string, any>
     const afterFilterList = handleRecords.filter((item) => {
       const timeEq = dayjs(item.date).format('YYYY-MM') === filter.time
-      return filter.tag === '*' ? timeEq : item.tag === filter.tag && timeEq
+      return filter.tag === '*' ? timeEq : item.tagId === filter.tag && timeEq
     })
     const list = handleAccountRecords(afterFilterList)
     setRecordList(list)

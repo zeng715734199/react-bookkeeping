@@ -2,15 +2,13 @@ import React, { JSX, useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
 import store from '@/store'
 import { RecordObj, Tab } from '@/components/DoAccount/types'
-type Tags = {
-  label: string
-  key: string
-}
+import { Tags } from '@/store/constants'
 
 export const allTypes: Tags[] = [
   {
     label: '所有标签',
     key: '*',
+    uid: '*',
   },
 ]
 
@@ -37,9 +35,9 @@ const FilterByTag: React.FC<{
     return tagList.map((item) => (
       <Tag.CheckableTag
         className="w-[80px] h-[40px] m-1 border-[#d4d4d4]"
-        key={item.key}
-        checked={checkedTag === item.key}
-        onChange={(checked) => changeCheckedTag(item.key, checked)}
+        key={item.uid}
+        checked={checkedTag === item.uid}
+        onChange={(checked) => changeCheckedTag(item.uid, checked)}
       >
         <span className="flex items-center justify-center text-sm w-full h-full font-bold">
           {item.label}

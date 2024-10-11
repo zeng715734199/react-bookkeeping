@@ -45,7 +45,7 @@ const NavTab: React.FC<{
                 ...allTypes,
                 ...handleLabels.income,
                 ...handleLabels.expend,
-              ].find((item) => item.key === condition.tag)?.label
+              ].find((item) => item.uid === condition.tag)?.label
             }
           </Button>
         </FilterByTag>
