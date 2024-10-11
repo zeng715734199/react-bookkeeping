@@ -56,11 +56,9 @@ const LineChart: React.FC<{
           data: dataSource.data,
           type: 'line',
           itemStyle: {
-            emphasis: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: type === 'income' ? '#5b7eaf' : '#ef585c',
-            },
+            shadowBlur: 3,
+            shadowOffsetX: 0,
+            shadowColor: type === 'income' ? '#2d9869' : '#ef585c',
             color: type === 'income' ? '#84c570' : '#fcbf58',
           },
         },

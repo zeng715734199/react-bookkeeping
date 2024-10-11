@@ -31,11 +31,9 @@ const PieChart: React.FC<{ dataSource: PieDataItem[] }> = function ({
           center: ['50%', '50%'],
           data: dataSource,
           itemStyle: {
-            emphasis: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: '#000',
-            },
+            shadowBlur: 3,
+            shadowOffsetX: 0,
+            shadowColor: '#000',
           },
           label: { overflow: 'none' },
         },
