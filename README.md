@@ -12,7 +12,7 @@
 * 开发
 
 ```bash
-yarn serve
+yarn start
 ```
 
 * 打包
