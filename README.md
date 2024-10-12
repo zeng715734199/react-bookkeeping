@@ -1,20 +1,27 @@
 # 仿wx记账app
 
-## 使用代码
+* 介绍
 
-开发
+这个项目是我闲暇时参考微信记账的风格设计的一款记账app。
+
+* 技术栈
+
+`create-react-app`/`tailwindCss`/`Redux`
+
+
+* 开发
 
 ```bash
 yarn serve
 ```
 
-打包
+* 打包
 
 ```bash
 yarn build
 ```
 
-部署
+* 部署
 
 ```bash
 yarn deploy
