@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import routes from './config'
 const router = createHashRouter(routes)
