@@ -24,6 +24,10 @@ export const incomes: Tags[] = [
     label: '理财',
     key: 'stock',
   },
+  {
+    label: '其他',
+    key: 'money',
+  },
 ].map((tag) => ({ ...tag, uid: `${tag.key + tag.label}` }))
 
 export const expenditures: Tags[] = [
@@ -49,7 +53,7 @@ export const expenditures: Tags[] = [
   },
   {
     label: '其他',
-    key: 'money',
+    key: 'else',
   },
 ].map((tag) => ({ ...tag, uid: `${tag.key + tag.label}` }))
 

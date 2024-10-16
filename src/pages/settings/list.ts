@@ -5,6 +5,11 @@ export const settingsList = [
     iconName: 'addTag',
   },
   {
+    title: '导出账单（待开发）',
+    key: 'exportBills',
+    iconName: 'export',
+  },
+  {
     title: '额度管理（待开发）',
     key: 'limitManagement',
     iconName: 'feeLimit',

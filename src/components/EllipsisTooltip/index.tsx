@@ -35,6 +35,8 @@ const EllipsisTooltip = ({ text }: { text: string }) => {
           whiteSpace: 'nowrap',
           cursor: 'pointer',
         }}
+        onMouseDown={handleTouchStart}
+        onMouseUp={handleTouchEnd}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
