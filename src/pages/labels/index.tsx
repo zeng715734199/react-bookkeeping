@@ -13,10 +13,10 @@ import {
   DropResult,
 } from 'react-beautiful-dnd'
 import SegmentedNav from '@/components/SegmentedNav'
-import { RecordObj, Tab } from '@/components/DoAccount/types'
+import { RecordObj, Tab } from '@/components/AccountingPopup/types'
 import SquareIcon from './components/squareIcon'
 import { borderBottomByColor } from '@/utils/shortcuts'
-import { colorMap } from '@/components/DoAccount/constant'
+import { colorMap } from '@/components/AccountingPopup/constant'
 import LabelDrawer from '@/pages/labels/components/labelDrawer'
 import store from '@/store'
 import { delLabelItem } from '@/store/actions'

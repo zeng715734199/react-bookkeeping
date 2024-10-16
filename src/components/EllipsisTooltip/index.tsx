@@ -1,7 +1,13 @@
 import React, { useState, useRef } from 'react'
 import { Tooltip } from 'antd'
 
-const EllipsisTooltip = ({ text }: { text: string }) => {
+const EllipsisTooltip = ({
+  text,
+  limitWith = 40,
+}: {
+  text: string
+  limitWith?: number | string // 限制宽度超出多少才展示...
+}) => {
   const [showTooltip, setShowTooltip] = useState(false)
   const textRef = useRef(null)
   const released = useRef(false)
@@ -21,20 +27,21 @@ const EllipsisTooltip = ({ text }: { text: string }) => {
   return (
     <Tooltip
       title={text}
-      overlayClassName="ellipsis-tooltip"
       open={showTooltip}
       overlayStyle={{ whiteSpace: 'pre-wrap' }}
+      overlayInnerStyle={{ fontSize: '12px' }}
     >
       <span
         ref={textRef}
         style={{
           display: 'inline-block',
-          maxWidth: '40px',
+          maxWidth: `${limitWith}px`,
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           cursor: 'pointer',
         }}
+        onBlur={handleTouchEnd}
         onMouseDown={handleTouchStart}
         onMouseUp={handleTouchEnd}
         onTouchStart={handleTouchStart}

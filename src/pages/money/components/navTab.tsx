@@ -5,7 +5,7 @@ import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { AppstoreOutlined, CaretDownOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import store from '@/store'
-import { Tab } from '@/components/DoAccount/types'
+import { Tab } from '@/components/AccountingPopup/types'
 import { Tags } from '@/store/constants'
 
 const NavTab: React.FC<{

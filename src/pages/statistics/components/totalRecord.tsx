@@ -3,7 +3,7 @@ import FilterByMonth from '@/pages/money/components/filterByMonth'
 import { CaretDownOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import { RecordObj, Tab } from '@/components/DoAccount/types'
+import { RecordObj, Tab } from '@/components/AccountingPopup/types'
 import BigJs from 'big.js'
 import CountUp from 'react-countup'
 

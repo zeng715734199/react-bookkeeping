@@ -5,7 +5,7 @@ import Icons from '@/components/Icons/icons'
 import { useNavigate } from 'react-router-dom'
 import { RenderRecords } from '@/store/types'
 import { borderBottomByColor } from '@/utils/shortcuts'
-import { colorMap } from '@/components/DoAccount/constant'
+import { colorMap } from '@/components/AccountingPopup/constant'
 const RecordItems: React.FC<{ recordList: RenderRecords[] }> = ({
   recordList = [],
 }) => {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import NavTab from '@/pages/money/components/navTab'
 import RecordItems from '@/pages/money/components/recordItems'
-import DoAccount from 'src/components/DoAccount'
+import AccountingPopup from 'src/components/AccountingPopup'
 import { Empty, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import store from '@/store'
 import { setLocalStorage } from '@/utils'
 import { RenderRecords } from '@/store/types'
-import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
+import { InitialRecord, RecordObj } from '@/components/AccountingPopup/types'
 import { computedTotal, handleAccountRecords } from '@/pages/money/utils'
 import { setRecords } from '@/store/actions'
 import dayjs from 'dayjs'
@@ -75,14 +75,14 @@ function Money() {
         />
       </div>
       <div className="mt-[80px]">
-        <DoAccount onSubmit={submit}>
+        <AccountingPopup onSubmit={submit}>
           <Button
             className="right-[5%] bottom-[5%] w-[50px] h-[50px] text-center absolute z-[50]"
             icon={<EditOutlined className="text-xl text-primary" />}
             type="default"
             shape="round"
           ></Button>
-        </DoAccount>
+        </AccountingPopup>
         {recordList.length === 0 ? (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="pt-[24px]" />
         ) : (

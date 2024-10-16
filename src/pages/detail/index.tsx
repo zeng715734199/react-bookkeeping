@@ -9,10 +9,10 @@ import {
 } from '@ant-design/icons'
 import Icons from '@/components/Icons/icons'
 import Title from 'antd/es/typography/Title'
-import DoAccount from '@/components/DoAccount'
+import AccountingPopup from 'src/components/AccountingPopup'
 import { setLocalStorage } from '@/utils'
-import { InitialRecord, RecordObj } from '@/components/DoAccount/types'
-import { colorMap } from '@/components/DoAccount/constant'
+import { InitialRecord, RecordObj } from '@/components/AccountingPopup/types'
+import { colorMap } from '@/components/AccountingPopup/constant'
 
 import dayjs from 'dayjs'
 import store from '@/store'
@@ -121,9 +121,9 @@ const RecordDetails: React.FC = () => {
             align={'center'}
             size={50}
           >
-            <DoAccount defaultValue={getRecordItem()} onSubmit={submit}>
+            <AccountingPopup defaultValue={getRecordItem()} onSubmit={submit}>
               <Button icon={<FormOutlined />}>修改</Button>
-            </DoAccount>
+            </AccountingPopup>
             <Button danger icon={<DeleteOutlined />} onClick={showConfirm}>
               删除
             </Button>

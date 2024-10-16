@@ -1,5 +1,4 @@
-import { RecordObj, Tab } from '@/components/DoAccount/types'
-import { createUid } from '@/utils'
+import { RecordObj, Tab } from '@/components/AccountingPopup/types'
 
 export type Tags = {
   label: string

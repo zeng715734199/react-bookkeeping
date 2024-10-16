@@ -1,5 +1,5 @@
 import { RenderRecords } from '@/store/types'
-import { RecordObj } from '@/components/DoAccount/types'
+import { RecordObj } from '@/components/AccountingPopup/types'
 import dayjs from 'dayjs'
 import BigJs from 'big.js'
 

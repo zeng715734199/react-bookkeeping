@@ -1,7 +1,7 @@
 import React, { JSX, useEffect, useState } from 'react'
 import { Button, Drawer, Tag, Space } from 'antd'
 import store from '@/store'
-import { RecordObj, Tab } from '@/components/DoAccount/types'
+import { RecordObj, Tab } from '@/components/AccountingPopup/types'
 import { Tags } from '@/store/constants'
 
 export const allTypes: Tags[] = [

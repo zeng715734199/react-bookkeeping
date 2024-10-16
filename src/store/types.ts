@@ -1,4 +1,4 @@
-import { RecordObj, Tab } from '@/components/DoAccount/types'
+import { Tab } from '@/components/AccountingPopup/types'
 
 export interface DateDimensionRecord {
   date: string

@@ -1,6 +1,6 @@
 import { labelsGroup, Tags } from '@/store/constants'
 import { DEL_LABELS, EDIT_LABELS, ADD_LABELS } from '@/store/actions'
-import { Tab } from '@/components/DoAccount/types'
+import { Tab } from '@/components/AccountingPopup/types'
 import { getLocalStorage, setLocalStorage } from '@/utils'
 import { cloneDeep } from 'lodash-es'
 

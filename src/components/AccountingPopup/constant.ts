@@ -1,4 +1,4 @@
-import { Tab } from '@/components/DoAccount/types'
+import { Tab } from '@/components/AccountingPopup/types'
 
 export const colorMap = {
   income: '#30ab6d',

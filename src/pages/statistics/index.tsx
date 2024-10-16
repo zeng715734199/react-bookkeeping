@@ -1,13 +1,13 @@
 import { Button, Card, Divider, Space } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import TotalRecord from '@/pages/statistics/components/totalRecord'
-import { borderBottomByColor, flexBetween, xYFull } from '@/utils/shortcuts'
+import { borderBottomByColor } from '@/utils/shortcuts'
 import ConsumptionRatio from '@/pages/statistics/components/consumptionRatio'
 import DailyComparison from '@/pages/statistics/components/dailyComparison'
 import ConsumptionProportion from '@/pages/statistics/components/consumptionProportion'
 import store from '@/store'
 import dayjs from 'dayjs'
-import { RecordObj } from '@/components/DoAccount/types'
+import { RecordObj } from '@/components/AccountingPopup/types'
 
 function Statistics() {
   const [yearMonth, setYearMonth] = useState<string>(dayjs().format('YYYY-MM'))
@@ -24,7 +24,7 @@ function Statistics() {
   }, [yearMonth])
   return (
     <div className={`h-full overflow-auto min-w-[360px]`}>
-      <Space size="small" direction="vertical" className='w-full'>
+      <Space size="small" direction="vertical" className="w-full">
         <section>
           <TotalRecord
             recordList={recordList}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Segmented } from 'antd'
-import { Tab } from '@/components/DoAccount/types'
+import { Tab } from '@/components/AccountingPopup/types'
 import { SegmentedLabeledOption } from 'rc-segmented'
 
 export const tabList = [

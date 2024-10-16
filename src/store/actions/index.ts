@@ -1,4 +1,4 @@
-import { RecordObj, Tab } from '@/components/DoAccount/types'
+import { RecordObj, Tab } from '@/components/AccountingPopup/types'
 import { Tags } from '@/store/constants'
 
 /**

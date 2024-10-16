@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 import { EChartsOption } from 'echarts'
 import { flexCenter } from '@/utils/shortcuts'
-import { Tab } from '@/components/DoAccount/types'
+import { Tab } from '@/components/AccountingPopup/types'
 export interface BarDataItem {
   xAxis: string[]
   data: Array<string | number>

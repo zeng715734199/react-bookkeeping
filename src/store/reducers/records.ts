@@ -5,7 +5,7 @@ import {
   UPDATE_RECORDS,
 } from '@/store/actions'
 import { records } from '@/store/constants'
-import { RecordObj } from '@/components/DoAccount/types'
+import { RecordObj } from '@/components/AccountingPopup/types'
 import { getLocalStorage } from '@/utils'
 import { orderBy } from 'lodash-es'
 const localList = getLocalStorage('accountRecord') || []

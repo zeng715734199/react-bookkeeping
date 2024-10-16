@@ -1,13 +1,17 @@
 import React, { JSX, useRef, useState } from 'react'
 import { DatePicker, Drawer, message, Tooltip } from 'antd'
 import { InfoCircleTwoTone } from '@ant-design/icons'
-import NumberPad from '@/components/DoAccount/components/numberPad'
-import Notes from '@/components/DoAccount/components/notes'
-import TagList from '@/components/DoAccount/components/tagList'
-import MoneyPanel from '@/components/DoAccount/components/moneyPanel'
+import NumberPad from '@/components/AccountingPopup/components/numberPad'
+import Notes from '@/components/AccountingPopup/components/notes'
+import TagList from '@/components/AccountingPopup/components/tagList'
+import MoneyPanel from '@/components/AccountingPopup/components/moneyPanel'
 import SegmentedNav from 'src/components/SegmentedNav'
 import dayjs from 'dayjs'
-import { InitialRecord, RecordObj, Tab } from '@/components/DoAccount/types'
+import {
+  InitialRecord,
+  RecordObj,
+  Tab,
+} from '@/components/AccountingPopup/types'
 import { createUid } from '@/utils'
 import { RangePickerProps } from 'antd/es/date-picker'
 import { IconTabMap } from '@/store/constants'
@@ -39,7 +43,7 @@ const formatDefaultVal = (obj: RecordObj): InitRecord => {
   }
 }
 
-const DoAccount: React.FC<{
+const AccountingPopup: React.FC<{
   children: JSX.Element
   defaultValue?: RecordObj
   onSubmit: (record: InitialRecord) => void
@@ -169,4 +173,4 @@ const DoAccount: React.FC<{
   )
 }
 
-export default DoAccount
+export default AccountingPopup
