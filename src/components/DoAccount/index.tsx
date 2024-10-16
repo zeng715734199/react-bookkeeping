@@ -1,5 +1,6 @@
 import React, { JSX, useRef, useState } from 'react'
-import { DatePicker, Drawer, message, TimePicker } from 'antd'
+import { DatePicker, Drawer, message, Tooltip } from 'antd'
+import { InfoCircleTwoTone } from '@ant-design/icons'
 import NumberPad from '@/components/DoAccount/components/numberPad'
 import Notes from '@/components/DoAccount/components/notes'
 import TagList from '@/components/DoAccount/components/tagList'
@@ -45,6 +46,7 @@ const DoAccount: React.FC<{
 }> = ({ defaultValue, children, onSubmit }) => {
   const notesRef = useRef<{ showNote: boolean }>(null)
   const [open, setOpen] = useState(false)
+  const [showTooltip, setShowTooltip] = useState(false)
   const [record, setRecord] = useState(new InitRecord())
   const disabledDate: RangePickerProps['disabledDate'] = (current) =>
     current && current > dayjs().endOf('day')
@@ -56,21 +58,6 @@ const DoAccount: React.FC<{
       tag: IconTabMap[value]['0'].key,
       tagName: IconTabMap[value]['0'].label,
       tagId: IconTabMap[value]['0'].uid,
-    }))
-  }
-
-  const setDate = (
-    date: dayjs.Dayjs,
-    dateString: string | string[],
-    type: 'date' | 'time'
-  ) => {
-    const map = {
-      date: { date },
-      time: { time: date },
-    }
-    setRecord((state) => ({
-      ...state,
-      ...map[type],
     }))
   }
 
@@ -114,27 +101,30 @@ const DoAccount: React.FC<{
               inputReadOnly={true}
               disabledDate={disabledDate}
               panelRender={(PanelNode) => (
-                <div className="absolute -left-[35%] top-0  bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
+                <div className="absolute -left-[60%] top-0  bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
                   {PanelNode}
                 </div>
               )}
-              onChange={(date, dateString) => setDate(date, dateString, 'date')}
+              onChange={(date) =>
+                setRecord((state) => ({
+                  ...state,
+                  date,
+                  time: dayjs(),
+                }))
+              }
             />
-            <TimePicker
-              value={record.time}
-              inputReadOnly={true}
-              className="!w-[70px] !text-[10px]"
-              size="small"
-              format="HH:mm"
-              placement={'bottomLeft'}
-              needConfirm={false}
-              panelRender={(PanelNode) => (
-                <div className="absolute -left-[50%] top-0  bg-[#fff] border-1 border-solid border-baseBg rounded-xl">
-                  {PanelNode}
-                </div>
-              )}
-              onChange={(date, dateString) => setDate(date, dateString, 'time')}
-            />
+            <Tooltip
+              title="标签图标超出部分可滚动查看；标签文字超出部分长按【文字】可展示全部内容"
+              color="#81caaa"
+              overlayInnerStyle={{ fontSize: '12px' }}
+              open={showTooltip}
+            >
+              <InfoCircleTwoTone
+                className="ml-2"
+                onClick={() => setShowTooltip(!showTooltip)}
+                onBlur={() => setShowTooltip(false)}
+              ></InfoCircleTwoTone>
+            </Tooltip>
           </section>
           {/*金额展示*/}
           <section>
