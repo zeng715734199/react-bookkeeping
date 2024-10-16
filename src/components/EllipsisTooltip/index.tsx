@@ -4,9 +4,11 @@ import { Tooltip } from 'antd'
 const EllipsisTooltip = ({
   text,
   limitWith = 40,
+  enabled = true,
 }: {
   text: string
   limitWith?: number | string // 限制宽度超出多少才展示...
+  enabled?: boolean //是否启用tooltip
 }) => {
   const [showTooltip, setShowTooltip] = useState(false)
   const textRef = useRef(null)
@@ -27,7 +29,7 @@ const EllipsisTooltip = ({
   return (
     <Tooltip
       title={text}
-      open={showTooltip}
+      open={enabled ? showTooltip : false}
       overlayStyle={{ whiteSpace: 'pre-wrap' }}
       overlayInnerStyle={{ fontSize: '12px' }}
     >

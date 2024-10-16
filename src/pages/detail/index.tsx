@@ -46,7 +46,7 @@ const RecordDetails: React.FC = () => {
       ...record,
       money: parseFloat(record.money).toString(),
       date: record.date.format('YYYY-MM-DD'),
-      time: record.time.format('HH:mm:ss'),
+      time: record.time.format('HH:mm'),
     } as RecordObj
     store.dispatch(editRecords(obj))
     message.success('修改成功~')

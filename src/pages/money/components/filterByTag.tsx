@@ -3,6 +3,7 @@ import { Button, Drawer, Tag, Space } from 'antd'
 import store from '@/store'
 import { RecordObj, Tab } from '@/components/AccountingPopup/types'
 import { Tags } from '@/store/constants'
+import EllipsisTooltip from '@/components/EllipsisTooltip'
 
 export const allTypes: Tags[] = [
   {
@@ -40,7 +41,7 @@ const FilterByTag: React.FC<{
         onChange={(checked) => changeCheckedTag(item.uid, checked)}
       >
         <span className="flex items-center justify-center text-sm w-full h-full font-bold">
-          {item.label}
+          <EllipsisTooltip limitWith={80} text={item.label} />
         </span>
       </Tag.CheckableTag>
     ))
