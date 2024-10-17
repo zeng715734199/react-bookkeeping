@@ -9,10 +9,10 @@ import { useLocation } from 'react-router'
 function PageLayout() {
   const location = useLocation()
   const { pathname } = location
-  const Body = ({ width }: { width: number }) => (
+  const Body = ({ gap }: { gap: number }) => (
     <Content
       className={`overflow-hidden  relative bg-baseBg`}
-      style={{ height: `calc(100vh - ${width}px` }}
+      style={{ height: `calc(100vh - ${gap}px` }}
     >
       <Outlet />
     </Content>
@@ -21,11 +21,11 @@ function PageLayout() {
     <Flex gap="middle" wrap="wrap">
       <Layout>
         {pathname.includes('settings') ? (
-          <Body width={56} />
+          <Body gap={56} />
         ) : (
           <>
             <NavBar />
-            <Body width={110} />
+            <Body gap={110} />
           </>
         )}
         <FooterBar />
