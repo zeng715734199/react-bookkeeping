@@ -2,7 +2,7 @@
   "name": "react-bookkeeping",
   "version": "0.0.1",
   "private": true,
-  "homepage": "/react-bookkeeping",
+  "homepage": "./",
   "scripts": {
     "start": "node scripts/start.js",
     "predeploy": "yarn build",

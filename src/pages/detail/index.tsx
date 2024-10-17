@@ -85,7 +85,7 @@ const RecordDetails: React.FC = () => {
       <Breadcrumb
         items={[
           {
-            href: '/react-bookkeeping/#/money',
+            href: '#/money',
             title: <LeftOutlined className="text-[#55575b]" />,
           },
         ]}

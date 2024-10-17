@@ -151,7 +151,7 @@ const Labels = () => {
       <Breadcrumb
         items={[
           {
-            href: '/react-bookkeeping/#/settings',
+            href: '#/settings',
             title: <LeftOutlined className="text-[#55575b]" />,
           },
         ]}
