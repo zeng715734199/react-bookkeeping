@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --un-shadow-color: rgba(0, 0, 0, 0.25);
   --z-default: 128;
@@ -43,15 +42,15 @@ input {
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+    monospace;
 }
 html {
   font-size: 16px;
   font-family: -apple-system, Helvetica, Arial, 'Liberation Sans', 'PingFang SC',
-  'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC',
-  'Source Han Sans CN', 'Microsoft YaHei', 'Wenquanyi Micro Hei',
-  'WenQuanYi Zen Hei', 'ST Heiti', SimHei, 'WenQuanYi Zen Hei Sharp',
-  sans-serif;
+    'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC',
+    'Source Han Sans CN', 'Microsoft YaHei', 'Wenquanyi Micro Hei',
+    'WenQuanYi Zen Hei', 'ST Heiti', SimHei, 'WenQuanYi Zen Hei Sharp',
+    sans-serif;
   overflow-x: hidden;
 }
 
@@ -63,7 +62,6 @@ html {
   display: none;
 }
 
-
 .icon {
   width: 1em;
   height: 1em;
@@ -72,19 +70,17 @@ html {
   overflow: hidden;
 }
 
-
-.ant-drawer-content-wrapper{
+.ant-drawer-content-wrapper {
   max-width: 500px !important;
-  margin-left: auto !important;;
-  margin-right: auto !important;;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
-.ant-modal{
+.ant-modal {
   max-width: 400px;
-  margin-left: auto !important;;
-  margin-right: auto !important;;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
-
 
 @media (min-width: 500px) {
   body {
@@ -98,7 +94,7 @@ html {
     margin-right: auto;
     overflow: hidden;
   }
-  .ant-modal{
+  .ant-modal {
     width: auto;
   }
 }
