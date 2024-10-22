@@ -27,7 +27,7 @@ export const incomes: Tags[] = [
     label: '其他',
     key: 'money',
   },
-].map((tag) => ({ ...tag, uid: `${tag.key + tag.label}` }))
+].map((tag) => Object.assign(tag, { uid: `${tag.key + tag.label}` }))
 
 export const expenditures: Tags[] = [
   {
@@ -54,7 +54,7 @@ export const expenditures: Tags[] = [
     label: '其他',
     key: 'else',
   },
-].map((tag) => ({ ...tag, uid: `${tag.key + tag.label}` }))
+].map((tag) => Object.assign(tag, { uid: `${tag.key + tag.label}` }))
 
 export const IconTabMap = {
   income: incomes,
