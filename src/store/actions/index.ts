@@ -26,7 +26,7 @@ export function editRecords(value: RecordObj) {
   return { type: EDIT_RECORDS, payload: value || {} }
 }
 export function delRecords(id: string) {
-  return { type: DEL_RECORDS, payload: { id } || {} }
+  return { type: DEL_RECORDS, payload: { id } }
 }
 
 /**
